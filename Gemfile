@@ -33,3 +33,5 @@ gem 'selenium-webdriver'
 # "Easy installation and use of chromedriver, the Chromium project's selenium
 # webdriver adapter."
 gem 'chromedriver-helper'
+
+gem 'rake'
