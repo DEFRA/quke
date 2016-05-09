@@ -34,6 +34,10 @@ gem 'selenium-webdriver'
 # webdriver adapter."
 gem 'chromedriver-helper'
 
+# Rake gives us the ability to create our own commands or 'tasks' for working
+# with quke. We add a gemfile to the project and our custom tasks and users
+# can now for example the tests using the Chrome browser by simply typing
+# rake chrome. Check the Rakefile itself for further details.
 gem 'rake'
 
 # Capybara includes a method called save_and_open_page. Without launchy it
