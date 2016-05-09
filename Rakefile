@@ -3,17 +3,18 @@ task default: %w(poltergeist)
 
 desc 'Run using Poltergeist headless browser'
 task :poltergeist do
-  sh %( bundle exec cucumber )
+  pause = ENV['PAUSE'].to_i ||= 0
+  sh %( PAUSE=#{pause} bundle exec cucumber )
 end
 
 desc 'Run using Firefox browser (add PAUSE=1 for 1 sec pause between pages)'
 task :firefox do
   pause = ENV['PAUSE'].to_i ||= 0
-  sh %( RUN_IN_BROWSER=true BROWSER=firefox PAUSE=#{pause} bundle exec cucumber )
+  sh %( BROWSER=firefox PAUSE=#{pause} bundle exec cucumber )
 end
 
 desc 'Run using Chrome browser (add PAUSE=1 to for sec pause between pages)'
 task :chrome do
   pause = ENV['PAUSE'].to_i ||= 0
-  sh %( RUN_IN_BROWSER=true BROWSER=chrome PAUSE=#{pause} bundle exec cucumber )
+  sh %( BROWSER=chrome PAUSE=#{pause} bundle exec cucumber )
 end
