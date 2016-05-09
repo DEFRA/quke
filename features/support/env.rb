@@ -4,11 +4,11 @@ require 'capybara/poltergeist'
 
 # To run the scenarios in browser (default: Firefox), use the following
 # command line:
-# RUN_IN_BROWSER=true bundle exec cucumber
+# bundle exec cucumber
 # or (to have a pause of 1 second between each step):
-# RUN_IN_BROWSER=true PAUSE=1 bundle exec cucumber
+# PAUSE=1 bundle exec cucumber
 # To use chrome instead of Firefox
-# RUN_IN_BROWSER=true BROWSER=chrome bundle exec cucumber
+# BROWSER=chrome bundle exec cucumber
 # Else the default will use the poltergiest headless browser
 # bundle exec cucumber
 
@@ -51,22 +51,23 @@ Capybara.register_driver :chrome do |app|
   Capybara::Selenium::Driver.new(app, browser: :chrome)
 end
 
-if ENV['RUN_IN_BROWSER']
-  browser = case (ENV['BROWSER'] || 'firefox').downcase.strip
-            when 'firefox'
-              :firefox
-            when 'chrome'
-              :chrome
-            else
-              :firefox
-            end
+# The choice of which browser to use for the tests is dependent on what the
+# environment variable BROWSER is set to. If not set we default to using
+# poltergeist
+browser = case (ENV['BROWSER'] || '').downcase.strip
+          when 'firefox'
+            :firefox
+          when 'chrome'
+            :chrome
+          else
+            :poltergeist
+          end
 
-  Capybara.default_driver = browser
-  Capybara.javascript_driver = browser
-  AfterStep do
-    sleep((ENV['PAUSE'] || 0).to_i)
-  end
-else
-  Capybara.default_driver    = :poltergeist
-  Capybara.javascript_driver = :poltergeist
+Capybara.default_driver = browser
+Capybara.javascript_driver = browser
+
+# We use cucumber's AfterStep hook to insert our pause between pages if
+# one was set
+AfterStep do
+  sleep((ENV['PAUSE'] || 0).to_i)
 end
