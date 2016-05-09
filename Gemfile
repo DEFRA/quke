@@ -35,3 +35,9 @@ gem 'selenium-webdriver'
 gem 'chromedriver-helper'
 
 gem 'rake'
+
+# Capybara includes a method called save_and_open_page. Without launchy it
+# will still save to file a copy of the source html of the page in question
+# at that time. However simply adding this line into the gemfile means it
+# will instead open in the default browser instead.
+gem 'launchy'
