@@ -1,14 +1,14 @@
-Feature: Google Search
+Feature: Wikipedia Search
   In order to demonstrate testing a web site
   As a capybara, cucumber, and selenium/poltergeist user
-  I want to see the if it works on Google search page
+  I want to see the if it works with Wikipedia home page
 
-Scenario: Searching in google for testing
+Scenario: Searching in wikipedia for "capybara"
   Given I am on the home page
-  When I fill in "q" with "testing"
-  Then I should see "Software testing"
+  When I fill in "searchInput" with "capybara"
+  Then I should see "The capybara (Hydrochoerus hydrochaeris) is a large rodent"
 
-  Scenario: Searching in google for QITG
+  Scenario: Searching in wikipedia for "capybara (software)"
     Given I am on the home page
-    When I fill in "q" with "QITG"
-    Then I should see "Is QITG a Scrabble word"
+    When I fill in "searchInput" with "capybara (software)"
+    Then I should see "Capybara is a web-based test automation software"
