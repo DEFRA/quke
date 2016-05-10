@@ -1,6 +1,7 @@
 require 'rspec/expectations'
 require 'capybara/cucumber'
 require 'capybara/poltergeist'
+require 'site_prism'
 
 # To run the scenarios in browser (default: Firefox), use the following
 # command line:
