@@ -1,6 +1,12 @@
-# Cuke-Ruby
+# Quke
 
-Simply an attempt to build a repo os standalone cucumber acceptance tests, which test a separate standalone web app.
+A template repo for building [Cucumber](https://cucumber.io/) feature tests that can be run against a web site. Unlike normal setups the feature tests do not need to be included with the source code for the site to be tested. Instead this template project includes the ability to run them standalone.
+
+The intention is to give members of a team responsible for Quality Assurance of a project the flexibility to create, manage and run their tests separately.
+
+## Setup & Instructions
+
+This info will be added shortly. In the meantime please refer to comments within the source code.
 
 ## Contributing to this project
 
