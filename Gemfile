@@ -34,6 +34,14 @@ gem 'selenium-webdriver'
 # webdriver adapter."
 gem 'chromedriver-helper'
 
+# Experience has shown that keeping our tests dry helps make them more
+# maintainable over time. A critical aspect in doing this is the use of the page
+# object pattern. A page object wraps up all functionality for describing and
+# interacting with a page into a single object. This object can then be
+# referred to in the steps, rather than risk duplicating the logic in different
+# steps
+gem 'site_prism'
+
 # Rake gives us the ability to create our own commands or 'tasks' for working
 # with quke. We add a gemfile to the project and our custom tasks and users
 # can now for example the tests using the Chrome browser by simply typing
