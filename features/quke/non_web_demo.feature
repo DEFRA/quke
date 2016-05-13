@@ -1,4 +1,4 @@
-@demo
+@qukedemo
 Feature: Showcase the simplest possible Cucumber scenario
   In order to verify that cucumber is installed and configured correctly
   As an aspiring BDD fanatic
