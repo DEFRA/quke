@@ -20,7 +20,7 @@ Then(/^both are (\d+) cm long$/) do |length|
 end
 
 Given(/^I am on the home page$/) do
-  puts visit 'https://en.wikipedia.org/wiki/Main_Page'
+  visit 'https://en.wikipedia.org/wiki/Main_Page'
 end
 
 When(/^I fill in "([^"]*)" with "([^"]*)"$/) do |element, text|
