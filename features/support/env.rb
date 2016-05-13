@@ -60,14 +60,21 @@ end
 # The choice of which browser to use for the tests is dependent on what the
 # environment variable DRIVER is set to. If not set we default to using
 # poltergeist
-driver = case (ENV['DRIVER'] || '').downcase.strip
-         when 'firefox'
-           :firefox
-         when 'chrome'
-           :chrome
-         else
-           :poltergeist
-         end
+# We capture the value as a global env var so if necessary choice of browser
+# can be referenced elsewhere, for example in any debug output.
+$driver = case (ENV['DRIVER'] || '').downcase.strip
+          when 'firefox'
+            :firefox
+          when 'chrome'
+            :chrome
+          else
+            :poltergeist
+          end
 
-Capybara.default_driver = driver
-Capybara.javascript_driver = driver
+Capybara.default_driver = $driver
+Capybara.javascript_driver = $driver
+
+# We capture the value as a global env var so if necessary length of time
+# between page interactions can be referenced elsewhere, for example in any
+# debug output.
+$pause = (ENV['PAUSE'] || 0).to_i
