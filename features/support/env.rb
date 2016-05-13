@@ -9,9 +9,14 @@ require 'site_prism'
 # or (to have a pause of 1 second between each step):
 # PAUSE=1 bundle exec cucumber
 # To use chrome instead of Firefox
-# BROWSER=chrome bundle exec cucumber
+# DRIVER=chrome bundle exec cucumber
 # Else the default will use the poltergiest headless browser
 # bundle exec cucumber
+#
+# N.B. Initially the env var was named BROWSER but it was found this was
+# a key environment variable for Launchy and changing it broke Launchy.
+# Therefore have settled in DRIVER as a replacement, though its not as
+# clear to quke's intended audience.
 
 # Capybara defaults to CSS3 selectors rather than XPath.
 # If you'd prefer to use XPath, just uncomment this line and adjust any
@@ -53,19 +58,19 @@ Capybara.register_driver :chrome do |app|
 end
 
 # The choice of which browser to use for the tests is dependent on what the
-# environment variable BROWSER is set to. If not set we default to using
+# environment variable DRIVER is set to. If not set we default to using
 # poltergeist
-browser = case (ENV['BROWSER'] || '').downcase.strip
-          when 'firefox'
-            :firefox
-          when 'chrome'
-            :chrome
-          else
-            :poltergeist
-          end
+driver = case (ENV['DRIVER'] || '').downcase.strip
+         when 'firefox'
+           :firefox
+         when 'chrome'
+           :chrome
+         else
+           :poltergeist
+         end
 
-Capybara.default_driver = browser
-Capybara.javascript_driver = browser
+Capybara.default_driver = driver
+Capybara.javascript_driver = driver
 
 # We use cucumber's AfterStep hook to insert our pause between pages if
 # one was set
