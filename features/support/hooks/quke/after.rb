@@ -8,6 +8,17 @@ After('~@nonweb') do |scenario|
       return
     end
 
+    # Experience has shown that should a major element of your service go
+    # down all your tests will start failing which means you can be swamped
+    # with output from `save_and_open_page`. This keeps a global count of the
+    # number of fails, and if it hits 5 it will cause cucumber to close.
+    $fail_count ||= 0
+    $fail_count = $fail_count + 1
+    if $fail_count >= 5
+      Cucumber.wants_to_quit = true
+      return
+    end
+
     # If we're not using poltergiest and the scenario has failed, we want
     # to save a copy of the page and open it automatically using Launchy.
     # We wrap this in a begin/rescue in case of any issues in which case
