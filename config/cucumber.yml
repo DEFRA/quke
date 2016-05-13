@@ -12,5 +12,5 @@
 ---
 # Format pretty is actually the default but is specified to make it clear it is being used
 # tags with a ~ in front are to be excluded, else they are included.
-default: --format pretty --tags ~@wip --tags ~@demo
-demo: --format pretty --tags ~@wip --tags @demo
+default: --format pretty --tags ~@wip --tags ~@qukedemo
+quke: --format pretty --tags ~@wip --tags @qukedemo

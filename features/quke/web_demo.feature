@@ -1,4 +1,4 @@
-@demo
+@qukedemo
 Feature: Wikipedia Search
   In order to demonstrate testing a web site
   As a capybara, cucumber, and selenium/poltergeist user
