@@ -1,0 +1,12 @@
+AllCops:
+  # Cop names are not displayed in offense messages by default. We find it useful to include this information so we can
+  # use it to investigate what the fix may be.
+  DisplayCopNames: true
+  # Style guide URLs are not displayed in offense messages by default. Again we find it useful to go straight to the
+  # documentation for a rule when investigating what the fix may be.
+  DisplayStyleGuide: true
+
+# Disable this rubocop style because we want to make the arguments passed into quke available to anywhere when the code
+# is executed rubocop:disable Style/GlobalVars
+Style/GlobalVars:
+  Enabled: false
