@@ -53,8 +53,25 @@ So in summary when starting a new project
 
 - Fork [Quke](https://github.com/EnvironmentAgency/quke) and clone locally
 - Setup local project for [synching](https://help.github.com/articles/fork-a-repo/#step-3-configure-git-to-sync-your-fork-with-the-original-spoon-knife-repository) with **Quke**
+- Complete [Installation](#installation)
 - Write tests
 - [Sync](https://help.github.com/articles/syncing-a-fork/) periodically
+
+## Installation
+
+The project will need to have been copied to your local machine first. You can do this using the [intended workflow](#intended-workflow) or simply by cloning the project
+
+```bash
+git clone https://github.com/EnvironmentAgency/quke.git
+```
+
+This will create a folder named `quke`. Navigate to that folder `cd quke` and then run the following command.
+
+```bash
+bundle install
+```
+
+[Bundler](http://bundler.io/) will download everything needed for the project. Once complete you're good to go!
 
 ## Setup & Instructions
 
