@@ -120,6 +120,30 @@ Using the default profile...
 
 You can then run the included tests with `bundle exec cucumber -p quke` and should see successful output from each of the tests plus an updated summary (you will need access to [Wikipedia](https://en.wikipedia.org/wiki/Main_Page) else the tests will fail).
 
+## Behaviours
+
+You should be aware of some default behaviours included in **Quke**.
+
+### Displaying web pages on fail
+
+Capybara includes the ability to save the source of the current page at any point. **Quke** has been configured so that if you are not using a headless browser and a step should fail it will save the source to file and then use a tool called [Launchy](https://github.com/copiousfreetime/launchy) to open it in your default browser.
+
+### Early fail for CI
+
+When running using the default PhantomJS headless browser, as soon as there is a failure **Quke** will exit. This is because it is assumed when used in headless mode the key thing to know is *are there any failures*, to ensure fast feedback from your CI build server.
+
+### Quit on 5 failures
+
+If you are running using Chrome or Firefox after the 5th failure **Quke** will automatically close Cucumber. This is to prevent scores of tabs being opened in the browser when an error is found, which may just be the result of an error in the test code.
+
+### Change to the default Cucumber profile
+
+Cucumber has the ability to create [custom profiles](https://github.com/cucumber/cucumber/wiki/cucumber.yml). A profile is simply a way to alias a call to Cucumber, with all your arguments already set.
+
+Running `bundle exec cucumber -p quke` will run 1 such profile, which runs only those scenarios flagged with the `@quke` tag.
+
+**Quke** has also tweaked the default profile to ensure any scenarios flagged with the `@quke` tag are not run when `bundle exec cucumber` is called.
+
 ### Why `bundle exec`?
 
 Using `bundle exec` at the start of each command is to ensure we are using the version of a *thing* that was installed in the context of **Quke**, which in our case is Cucumber. While a command may work without it, doing so is unreliable and should be avoided.
