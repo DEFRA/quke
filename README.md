@@ -73,9 +73,56 @@ bundle install
 
 [Bundler](http://bundler.io/) will download everything needed for the project. Once complete you're good to go!
 
-## Setup & Instructions
+## Execution
 
-This info will be added shortly. In the meantime please refer to comments within the source code.
+**Quke** comes with some inbuilt commands which provide a shorthand for the most common use cases.
+
+- `bundle exec rake`
+  - This will run **Quke** using its default browser choice (PhantomJS)
+- ` bundle exec rake chrome`
+  - This will run **Quke** using Chrome
+- ` bundle exec rake firefox`
+  - This will run **Quke** using Firefox
+
+If you want more control and access to all the options available to cucumber (see the full list with `bundle exec cucumber --help`) run **Quke** using
+
+```bash
+bundle exec cucumber
+```
+
+### Options
+
+**Quke** recognises 2 options which are read from environment variables. The easiest way to do this is on the command line.
+
+- **DRIVER** - Tells Quke which browser to use for testing
+  - `DRIVER=chrome bundle exec cucumber`
+- **PAUSE** - Add a pause (in seconds) between steps so you can visually track how the browser is responding
+  - `PAUSE=1 bundle exec rake chrome`
+
+You can combine these options along with arguments to be passed to Cucumber
+
+```bash
+DRIVER=chrome PAUSE=1 bundle exec cucumber -t @smoke
+```
+
+This is telling **Quke** to use Chrome as its browser for testing, to pause for 1 second between steps, and to run only those features and scenarios tagged with `@smoke`.
+
+### Confirming it works
+
+Included in **Quke** are some feature tests which can be used for reference, but also to confirm you have it setup and working correctly. Having completed [installation](#installation) running `bundle exec cucumber` should return the following
+
+```bash
+Using the default profile...
+0 scenarios
+0 steps
+0m0.000s
+```
+
+You can then run the included tests with `bundle exec cucumber -p quke` and should see successful output from each of the tests plus an updated summary (you will need access to [Wikipedia](https://en.wikipedia.org/wiki/Main_Page) else the tests will fail).
+
+### Why `bundle exec`?
+
+Using `bundle exec` at the start of each command is to ensure we are using the version of a *thing* that was installed in the context of **Quke**, which in our case is Cucumber. While a command may work without it, doing so is unreliable and should be avoided.
 
 ## Contributing to this project
 
