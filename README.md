@@ -37,6 +37,25 @@ You'll need to
 - Download either the 32bit or 64bit binary from <http://phantomjs.org/download.html>
 - Extract the content and add the `bin/phantomjs` directory to your `PATH`
 
+## Intended workflow
+
+As **Quke** is intended to provide a minimum template for your test suite we recommend you start by [forking the project](https://help.github.com/articles/fork-a-repo/).
+
+This will result in a new repository against your GitHub user called **Quke** which you'll download to your local machine using
+
+```bash
+git clone https://github.com/your-username/quke.git
+```
+
+You can then add tests specific to the project you wish to test, but keep the underlying **Quke** functionality in sync with the main project. We've tried to ensure there will be no [merge](https://en.wikipedia.org/wiki/Merge_(version_control) conflicts by keeping all **Quke** specific content in separate folders or by using `Quke` in the names used.
+
+So in summary when starting a new project
+
+- Fork [Quke](https://github.com/EnvironmentAgency/quke) and clone locally
+- Setup local project for [synching](https://help.github.com/articles/fork-a-repo/#step-3-configure-git-to-sync-your-fork-with-the-original-spoon-knife-repository) with **Quke**
+- Write tests
+- [Sync](https://help.github.com/articles/syncing-a-fork/) periodically
+
 ## Setup & Instructions
 
 This info will be added shortly. In the meantime please refer to comments within the source code.
