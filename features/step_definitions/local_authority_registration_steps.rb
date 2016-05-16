@@ -3,6 +3,7 @@ Given(/^I'm a local authority$/) do
   	@check_location_page.load
   	@check_location_page.choose_radio_button_yes.click
   	@check_location_page.submit_button.click
+  	@AddExemptionPage.check_add_exemption_checkbox.select
 end
 
 When(/^I register my flood risk activity$/) do
