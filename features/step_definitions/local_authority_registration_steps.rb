@@ -45,20 +45,30 @@ Given(/^I register an exemption for a local authority$/) do
 @app.organisation_name_page.submit_button.click
 
 #Address page
+sleep(1)
 click_button 'Continue'
 
 # Correspondence contact name page
-# @app.correspondence_contact_page.fill_contact_name :text => "Joe Bloggs"
-fill_in('correspondence_contact_name_full_name', :with => 'Joe Bloggs')
-fill_in('correspondence_contact_name_position', :with => 'Project Mangler')
-click_button 'Continue'
+@app.correspondence_contact_name_page.wait_for_submit_button
+@app.correspondence_contact_name_page.fill_contact_name.set "Joe Bloggs"
+# fill_in('correspondence_contact_name_full_name', :with => 'Joe Bloggs')
+@app.correspondence_contact_name_page.fill_contact_position.set "Project Manager"
+# fill_in('correspondence_contact_name_position', :with => 'Project Mangler')
+@app.correspondence_contact_name_page.submit_button
+# click_button 'Continue'
+sleep(5)
 
 # Correspondence contact telephone page
-fill_in('correspondence_contact_telephone_telephone_number', :with => '01234567899')
-click_button 'Continue'
+
+@app.correspondence_contact_telephone_page.wait_for_submit_button
+@app.correspondence_contact_telephone_page.fill_telephone_number.set "01234567899"
+# fill_in('correspondence_contact_telephone_telephone_number', :with => '01234567899')
+@app.correspondence_contact_telephone_page.submit_button
+# click_button 'Continue'
 
 
-save_and_open_page
+
+# save_and_open_page
 end
 
 When(/^I confirm my registration$/) do

@@ -25,5 +25,13 @@ class App
   def organisation_name_page
   	OrganisationNamePage.new
   end
+
+  def correspondence_contact_name_page
+    CorrespondenceContactNamePage.new
+  end
+
+  def correspondence_contact_telephone_page
+    CorrespondenceContactTelephonePage.new
+  end
   
 end
