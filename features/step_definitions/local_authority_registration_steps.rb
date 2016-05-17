@@ -2,13 +2,16 @@ Given(/^I'm a local authority$/) do
   @app = App.new
   @app.check_location_page.load
 
+  @app.check_location_page.radio_buttons.each {|btn| puts btn.value}
   @app.check_location_page.radio_buttons.find { |btn| btn.value == 'yes' }.click
   @app.check_location_page.submit_button.click
 
+  @app.add_exemption_page.wait_for_check_boxes
   @app.add_exemption_page.check_boxes.find { |chk| chk.value == '1' }.click
   @app.add_exemption_page.check_boxes.find { |chk| chk.value == '4' }.click
 
   @app.add_exemption_page.submit_button.click
+  sleep(1)
   save_and_open_page
 end
 
