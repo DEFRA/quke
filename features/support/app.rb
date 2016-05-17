@@ -9,4 +9,21 @@ class App
   def add_exemption_page
     AddExemptionPage.new
   end
+
+  def check_exemptions_page
+  	CheckExemptionsPage.new
+  end
+
+  def grid_reference_page
+ 	GridReferencePage.new
+  end
+
+  def user_type_page
+  	UserTypePage.new
+  end
+
+  def organisation_name_page
+  	OrganisationNamePage.new
+  end
+  
 end
