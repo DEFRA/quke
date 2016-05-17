@@ -14,7 +14,7 @@ Given(/^I register an exemption for a local authority$/) do
   sleep(1)
   
 
-  # @app.check_exemptions_page.wait_for_submit_button
+  @app.check_exemptions_page.wait_for_submit_button
 
   expect(page).to have_content 'Electrical cable service crossing a main river'
   expect(page).to have_content 'Footbridge over a main river not more than 8 metres wide from bank to bank'
@@ -35,9 +35,24 @@ Given(/^I register an exemption for a local authority$/) do
 choose ('user_type_org_type_local_authority')
 click_button 'Continue'
 
-#Organisation name
+#Organisation name page
 fill_in('local_authority_name', :with => 'Testminster council')
 click_button 'Continue'
+
+#Address page
+click_button 'Continue'
+
+# Correspondence contact name page
+# @app.correspondence_contact_page.fill_contact_name :text => "Joe Bloggs"
+fill_in('correspondence_contact_name_full_name', :with => 'Joe Bloggs')
+fill_in('correspondence_contact_name_position', :with => 'Project Mangler')
+click_button 'Continue'
+
+# Correspondence contact telephone page
+fill_in('correspondence_contact_telephone_telephone_number, :with => '01234567899)
+click_button 'Continue'
+
+
 save_and_open_page
 end
 
