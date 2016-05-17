@@ -4,6 +4,6 @@ Feature: Local authority registers flood risk activity exemption
   So that I can check that my activity does not harm the environment in that area
 
 Scenario: Local authoriy registers location for flood risk activity exemption
-  Given I'm a local authority
-  When I register my flood risk activity
+  Given I register an exemption for a local authority
+  When I confirm my registration
   Then I will be informed that my application has been received
