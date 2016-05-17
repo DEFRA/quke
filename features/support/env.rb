@@ -78,3 +78,7 @@ Capybara.javascript_driver = $driver
 # between page interactions can be referenced elsewhere, for example in any
 # debug output.
 $pause = (ENV['PAUSE'] || 0).to_i
+
+SitePrism.configure do |config|
+  config.use_implicit_waits = true
+end

@@ -1,11 +1,5 @@
 # Check location page
 class AddExemptionPage < SitePrism::Page
-
-  
-  element :check_add_exemption_checkbox, "input[id='add_exemptions_exemption_ids_1']"
-  
+  elements :check_boxes, "input[name='add_exemptions[exemption_ids][]']"
   element :submit_button, "input[name='commit']"
-
-  
-
 end
