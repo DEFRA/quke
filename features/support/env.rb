@@ -23,6 +23,15 @@ require 'site_prism'
 # selectors in your step definitions to use the XPath syntax.
 # Capybara.default_selector = :xpath
 
+# Normally Capybara expects to be testing an in-process Rack application, but
+# we're using it to talk to a remote host. Users of quke can set what this will
+# be by simply setting the environment variable APP_HOST. An example would be
+# APP_HOST='https://en.wikipedia.org/wiki'. You can then use it directly using
+# Capybara `visit('/Main_Page')` or `visit('/')`. In your page_objects
+# `set_url '/Main_Page'`
+$app_host = (ENV['APP_HOST'] || '')
+Capybara.app_host = $app_host
+
 # Here we are registering the poltergeist driver with capybara. There are a
 # number of options for how to configure poltergeist, and we can even pass
 # on options to phantomjs to configure how it runs
