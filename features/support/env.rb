@@ -83,6 +83,11 @@ $driver = case (ENV['DRIVER'] || '').downcase.strip
 Capybara.default_driver = $driver
 Capybara.javascript_driver = $driver
 
+# By default Capybara will try to boot a rack application automatically. This
+# switches off Capybara's rack server as we are running against a remote
+# application.
+Capybara.run_server = false
+
 # We capture the value as a global env var so if necessary length of time
 # between page interactions can be referenced elsewhere, for example in any
 # debug output.
