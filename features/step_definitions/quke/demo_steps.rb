@@ -21,6 +21,7 @@ end
 
 Given(/^I am on the home page$/) do
   visit 'https://en.wikipedia.org/wiki/Main_Page'
+  expect(page).to have_content('Welcome to Wikipedia')
 end
 
 When(/^I fill in "([^"]*)" with "([^"]*)"$/) do |element, text|
@@ -35,6 +36,7 @@ end
 Given(/^I am on the wikipedia home page$/) do
   @quke_demo_page = QukeDemoPage.new
   @quke_demo_page.load
+  expect(page).to have_content('Welcome to Wikipedia')
 end
 
 When(/^I search for "([^"]*)"$/) do |text|
