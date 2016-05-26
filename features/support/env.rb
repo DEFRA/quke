@@ -92,3 +92,11 @@ Capybara.run_server = false
 # between page interactions can be referenced elsewhere, for example in any
 # debug output.
 $pause = (ENV['PAUSE'] || 0).to_i
+
+# By default, SitePrism element and section methods do not utilize Capybara's
+# implicit wait methodology and will return immediately if the element or
+# section requested is not found on the page. Adding the following code
+# enables Capybara's implicit wait methodology to pass through
+SitePrism.configure do |config|
+  config.use_implicit_waits = true
+end
