@@ -113,7 +113,15 @@ Using `bundle exec` at the start of each command is to ensure we are using the v
 
 ### Confirming it works
 
-Included in Quke are some feature tests which can be used for reference, but also to confirm you have it setup and working correctly. Having completed [installation](#installation) running `bundle exec cucumber` should return the following
+Included in Quke are some feature tests which can be used for reference, but also to confirm you have it setup and working correctly. They run against an internal demo web app which you'll need to start before executing the tests.
+
+```bash
+ruby quke_demo_app/app.rb
+```
+
+*You're best off running this in a separate terminal window.*
+
+Having completed [installation](#installation) and got the demo app running, calling `bundle exec cucumber` should return the following
 
 ```bash
 Using the default profile...

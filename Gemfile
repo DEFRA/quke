@@ -53,3 +53,10 @@ gem 'rake'
 # at that time. However simply adding this line into the gemfile means it
 # will instead open in the default browser instead.
 gem 'launchy'
+
+# Sinatra is a DSL for quickly creating web applications in Ruby with minimal
+# effort. We've used it for creating our embedded demo website
+gem 'sinatra'
+
+# Sinatra recommends using Thin. Thin is a "Tiny, fast & funny HTTP server"
+gem 'thin'
