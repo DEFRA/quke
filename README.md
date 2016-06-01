@@ -116,7 +116,7 @@ Using `bundle exec` at the start of each command is to ensure we are using the v
 Included in Quke are some feature tests which can be used for reference, but also to confirm you have it setup and working correctly. They run against an internal demo web app which you'll need to start before executing the tests.
 
 ```bash
-ruby quke_demo_app/app.rb
+bundle exec rake run
 ```
 
 *You're best off running this in a separate terminal window.*
