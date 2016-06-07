@@ -18,28 +18,3 @@ Then(/^both are (\d+) cm long$/) do |length|
     expect(cuke[:length]).to eq(length.to_i)
   end
 end
-
-Given(/^I am on the home page$/) do
-  visit 'https://en.wikipedia.org/wiki/Main_Page'
-  expect(page).to have_content('Welcome to Wikipedia')
-end
-
-When(/^I fill in "([^"]*)" with "([^"]*)"$/) do |element, text|
-  fill_in element, with: text
-  click_button('searchButton')
-end
-
-Then(/^I should see "(.*?)"$/) do |text|
-  expect(page).to have_content(text)
-end
-
-Given(/^I am on the wikipedia home page$/) do
-  @quke_demo_page = QukeDemoPage.new
-  @quke_demo_page.load
-  expect(page).to have_content('Welcome to Wikipedia')
-end
-
-When(/^I search for "([^"]*)"$/) do |text|
-  @quke_demo_page.search_field.set text
-  @quke_demo_page.search_button.click
-end
