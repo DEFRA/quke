@@ -60,3 +60,15 @@ gem 'sinatra'
 
 # Sinatra recommends using Thin. Thin is a "Tiny, fast & funny HTTP server"
 gem 'thin'
+
+# This groups covers gems which should be installed if you are actively working
+# on Quke itself.
+group :development do
+  # To enable reloading of the app whilst working on it you can use Rerun
+  # https://github.com/alexch/rerun
+  # http://www.sinatrarb.com/faq.html#reloading
+  # `rerun quke_demo_app/app.rb`
+  # There is also a custom rake task as part of Quke to launch the demo app
+  # which will use rerun if installed `bundle exec rake run`
+  gem 'rerun'
+end
