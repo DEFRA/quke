@@ -1,4 +1,4 @@
-@qukedemo
+@quke
 Feature: Search
   To demonstrate how you can use Quke
   As a user of Quke
@@ -15,20 +15,3 @@ Feature: Search
      When I enter "capybara" into "search_input"
      Then I should get 2 results
       And see the following text "Capybara is a web-based test automation software"
-
-
-# Given - The context
-# When - The action
-# Then - The outcome
-
-# Given - The past
-# When - The present
-# Then - The near future
-
-# There are lots of things going on behind the curtains. Actors coming on stage
-# stage hands setting things up
-# Given I am sat in my seat at the theatre with the curtain drawn
-
-# When the curtains are drawn
-
-# Then the first act begins
