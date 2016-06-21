@@ -18,3 +18,12 @@ task :chrome do
   pause = ENV['PAUSE'].to_i ||= 0
   sh %( DRIVER=chrome PAUSE=#{pause} bundle exec cucumber )
 end
+
+desc 'Run the Quke demo web app (use for reference or confirming Quke works)'
+task :run do
+  if Gem::Specification.find_all_by_name('rerun').any?
+    sh %( rerun --ignore 'features/' quke_demo_app/app.rb )
+  else
+    sh %( bundle exec ruby quke_demo_app/app.rb )
+  end
+end

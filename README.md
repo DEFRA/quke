@@ -68,10 +68,14 @@ git clone https://github.com/EnvironmentAgency/quke.git
 This will create a folder named `quke`. Navigate to that folder `cd quke` and then run the following command.
 
 ```bash
-bundle install
+bundle install --without development
 ```
 
 [Bundler](http://bundler.io/) will download everything needed for the project. Once complete you're good to go!
+
+### --without development
+
+If you are working on Quke itself there are additional bits required to aid with that. These are grouped under `development` and will be installed if you run `bundle install` instead. As they are not needed if you are just writing tests we advise you to use the `--without development` flag.
 
 ## Execution
 
@@ -113,7 +117,15 @@ Using `bundle exec` at the start of each command is to ensure we are using the v
 
 ### Confirming it works
 
-Included in Quke are some feature tests which can be used for reference, but also to confirm you have it setup and working correctly. Having completed [installation](#installation) running `bundle exec cucumber` should return the following
+Included in Quke are some feature tests which can be used for reference, but also to confirm you have it setup and working correctly. They run against an internal demo web app which you'll need to start before executing the tests.
+
+```bash
+bundle exec rake run
+```
+
+*You're best off running this in a separate terminal window.*
+
+Having completed [installation](#installation) and got the demo app running, calling `bundle exec cucumber` should return the following
 
 ```bash
 Using the default profile...
@@ -122,7 +134,7 @@ Using the default profile...
 0m0.000s
 ```
 
-You can then run the included tests with `bundle exec cucumber -p quke` and should see successful output from each of the tests plus an updated summary (you will need access to [Wikipedia](https://en.wikipedia.org/wiki/Main_Page) else the tests will fail).
+You can then run the included tests with `bundle exec cucumber -p quke` and should see successful output from each of the tests plus an updated summary.
 
 ## Behaviours
 
