@@ -12,4 +12,8 @@ class QukeApp
   def search_page
     @last_page = QukeSearchPage.new
   end
+
+  def radio_button_page
+    @last_page = QukeRadioButtonPage.new
+  end
 end

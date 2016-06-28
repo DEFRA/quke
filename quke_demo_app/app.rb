@@ -37,6 +37,8 @@ get '/search' do
 end
 
 post '/search' do
+  @title = 'Search'
+
   @query = params['search_input']
 
   # rubocop:disable Metrics/LineLength
@@ -47,4 +49,17 @@ post '/search' do
   # rubocop:enable Metrics/LineLength
 
   erb :search
+end
+
+get '/radiobutton' do
+  @title = 'Radio button'
+  erb :radio_button
+end
+
+post '/radiobutton' do
+  @title = 'Radio button'
+  @selection = params['enrollment']['organisation_attributes']['type']
+  @result = @selection.match(/OrganisationType::([^"]*)/)[1]
+
+  erb :radio_button
 end
