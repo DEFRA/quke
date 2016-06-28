@@ -1,0 +1,21 @@
+language: ruby
+rvm:
+  - 2.3.1
+
+# Travis CI clones repositories to a depth of 50 commits, which is only really
+# useful if you are performing git operations.
+# https://docs.travis-ci.com/user/customizing-the-build/#Git-Clone-Depth
+git:
+  depth: 3
+
+# enable Bundler caching
+# https://docs.travis-ci.com/user/languages/ruby#Caching-Bundler
+cache: bundler
+
+# Exclude non-essential gem dependencies
+# https://docs.travis-ci.com/user/languages/ruby#Speeding-up-your-build-by-excluding-non-essential-dependencies
+bundler_args: --without development
+
+script:
+  - bundle exec thin -c quke_demo_app/ -p 4567 -d --tag quke start
+  - bundle exec cucumber -p quke
