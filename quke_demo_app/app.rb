@@ -13,6 +13,8 @@ configure do
   # We don't want the browser caching the assets so we specify this
   set :static_cache_control, [:public, max_age: 0]
 
+  # It's not critical for this app, but best practise is to secure your session
+  # with a secret key, and this also stops Sinatra complaining!
   set :session_secret, SECRET ||= 'super secret'.freeze
 end
 

@@ -93,7 +93,7 @@ Capybara.run_server = false
 # automatically in the event of an error when using the selenium driver.
 # Not setting this leads to Capybara saving the file to the root of the project
 # which can get in the way when trying to work with Quke in your projects.
-Capybara.save_and_open_page_path = 'tmp/'
+Capybara.save_path = 'tmp/'
 
 # We capture the value as a global env var so if necessary length of time
 # between page interactions can be referenced elsewhere, for example in any
