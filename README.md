@@ -1,10 +1,10 @@
-# <img src="/quke_demo_app/public/assets/images/quke.png" alt="Git flow" width="50px" /> Quke
+<img src="/config/quke.png" alt="Git flow" />
 
 [![Build Status](https://travis-ci.org/EnvironmentAgency/quke.svg?branch=master)](https://travis-ci.org/EnvironmentAgency/quke)
 [![security](https://hakiri.io/github/EnvironmentAgency/quke/master.svg)](https://hakiri.io/github/EnvironmentAgency/quke/master)
 [![Code Climate](https://codeclimate.com/github/EnvironmentAgency/quke/badges/gpa.svg)](https://codeclimate.com/github/EnvironmentAgency/quke)
 
-A template repo for building [Cucumber](https://cucumber.io/) feature tests that can be run against a web site. Unlike normal setups the feature tests do not need to be included with the source code for the site to be tested. Instead this template project includes the ability to run them standalone.
+Quke is a template repo for building [Cucumber](https://cucumber.io/) feature tests that can be run against a web site. Unlike normal setups the feature tests do not need to be included with the source code for the site to be tested. Instead this template project includes the ability to run them standalone.
 
 The intention is to give members of a team responsible for Quality Assurance of a project the flexibility to create, manage and run their tests separately.
 
