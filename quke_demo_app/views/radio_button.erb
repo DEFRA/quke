@@ -1,6 +1,18 @@
-      <header>
+      <!-- Main jumbotron for a primary marketing message or call to action -->
+      <div class="jumbotron">
         <h1><%= @title %></h1>
-      </header>
+        <p class="lead">Tests for this page are all about working with collections of elements like radio buttons.
+          The steps behind <code>radio_button.feature</code> show getting a collection of linked elements, checking
+          you have the right number, and for something like a radio button how to select a specific one.</p>
+        <p class="lead">Though the examples are for radio buttons, the same selecting and checking logic can be
+          used with any elements e.g. <code>&lt;div&gt;</code>, <code>&lt;a&gt;</code>, <code>&lt;tr&gt;</code>.
+          It just comes down to the CSS selector you use. See the following for details</p>
+        <ul>
+          <li><code>features/quke/radio_button.feature</code></li>
+          <li><code>features/step_definitions/quke/radio_button_steps.rb</code></li>
+          <li><code>quke_demo_app/views/radio_button.erb</code></li>
+        </ul>
+      </div>
 
       <form id="radio_button_example" action="/radiobutton" accept-charset="UTF-8" method="post">
         <fieldset>
