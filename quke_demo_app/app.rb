@@ -65,3 +65,8 @@ post '/radiobutton' do
 
   erb :radio_button
 end
+
+get '/cssselector' do
+  @title = 'CSS selector'
+  erb :css_selector
+end
