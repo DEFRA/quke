@@ -16,4 +16,8 @@ class QukeApp
   def radio_button_page
     @last_page = QukeRadioButtonPage.new
   end
+
+  def css_selectors_page
+    @last_page = QukeCssSelectorsPage.new
+  end
 end
