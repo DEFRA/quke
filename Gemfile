@@ -61,6 +61,10 @@ gem 'sinatra'
 # Sinatra recommends using Thin. Thin is a "Tiny, fast & funny HTTP server"
 gem 'thin'
 
+# Gives us a simpler way to load code. Essentially using this we can require
+# everything in our lib folder with just a single line of code in app.rb
+gem 'require_all'
+
 # This groups covers gems which should be installed if you are actively working
 # on Quke itself.
 group :development do
