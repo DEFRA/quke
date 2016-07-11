@@ -2,6 +2,10 @@ require 'rspec/expectations'
 require 'capybara/cucumber'
 require 'capybara/poltergeist'
 require 'site_prism'
+require 'require_all'
+
+# load all ruby files in the directory "lib" and its subdirectories
+require_all 'lib'
 
 # To run the scenarios in browser (default: Firefox), use the following
 # command line:
@@ -23,14 +27,11 @@ require 'site_prism'
 # selectors in your step definitions to use the XPath syntax.
 # Capybara.default_selector = :xpath
 
-# Normally Capybara expects to be testing an in-process Rack application, but
-# we're using it to talk to a remote host. Users of quke can set what this will
-# be by simply setting the environment variable APP_HOST. An example would be
-# APP_HOST='https://en.wikipedia.org/wiki'. You can then use it directly using
-# Capybara `visit('/Main_Page')` or `visit('/')`. In your page_objects
-# `set_url '/Main_Page'`
-$app_host = (ENV['APP_HOST'] || '')
-Capybara.app_host = $app_host
+# Instantiate our Config object which collates the options and settings used
+# by Quke or its dependencies, from environment variables, the config.yml file
+# and any defaults Quke uses.
+$config = Quke::Config.new
+Capybara.app_host = $config.app_host
 
 # Here we are registering the poltergeist driver with capybara. There are a
 # number of options for how to configure poltergeist, and we can even pass
@@ -71,7 +72,7 @@ end
 # poltergeist
 # We capture the value as a global env var so if necessary choice of browser
 # can be referenced elsewhere, for example in any debug output.
-$driver = case (ENV['DRIVER'] || '').downcase.strip
+$driver = case $config.driver
           when 'firefox'
             :firefox
           when 'chrome'
@@ -94,11 +95,6 @@ Capybara.run_server = false
 # Not setting this leads to Capybara saving the file to the root of the project
 # which can get in the way when trying to work with Quke in your projects.
 Capybara.save_path = 'tmp/'
-
-# We capture the value as a global env var so if necessary length of time
-# between page interactions can be referenced elsewhere, for example in any
-# debug output.
-$pause = (ENV['PAUSE'] || 0).to_i
 
 # By default, SitePrism element and section methods do not utilize Capybara's
 # implicit wait methodology and will return immediately if the element or

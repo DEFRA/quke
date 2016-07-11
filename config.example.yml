@@ -1,0 +1,16 @@
+# Normally Capybara expects to be testing an in-process Rack application, but
+# we're using it to talk to a remote host. Users of Quke can set what this will
+# be by simply setting `app_host`. You can then use it directly using
+# Capybara `visit('/Main_Page')` or `visit('/')` rather than having to repeat
+# the full url each time. When using the Site_Prism page_objects use
+# `set_url '/Main_Page'`. The default is ''.
+app_host: 'https://en.wikipedia.org/wiki'
+
+# Tells Quke which browser to use for testing. Choices are firefox, chrome and
+# poltergeist, with the default being poltergeist.
+driver: chrome
+
+# Add a pause (in seconds) between steps so you can visually track how the
+# browser is responding. On useful if using a non-headless browser. The default
+# is 0.
+pause: 1

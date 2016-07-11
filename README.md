@@ -98,28 +98,33 @@ If you want more control and access to all the options available to cucumber (se
 bundle exec cucumber
 ```
 
-### Options
+## Options
 
-Quke recognises 2 options which are read from environment variables. The easiest way to do this is on the command line.
+Quke recognises 3 options
 
-- **DRIVER** - Tells Quke which browser to use for testing
-  - `DRIVER=chrome bundle exec cucumber`
-- **PAUSE** - Add a pause (in seconds) between steps so you can visually track how the browser is responding
-  - `PAUSE=1 bundle exec rake chrome`
+- **app_host** - Set the root url. You can then use it directly using Capybara with `visit('/Main_Page')` or `visit('/')` rather than having to repeat the full url each time
+- **driver** - Tell Quke which browser to use for testing. Options are *chrome*, *firefox* and *poltergeist* (*poltergeist* is the default)
+- **pause** - Add a pause (in seconds) between steps so you can visually track how the browser is responding. The default is *0*
 
-You can combine these options along with arguments to be passed to Cucumber
+You can set your options using either a [yaml](http://yaml.org/) config file named `config.yml` to the root of the project (see [config.example.yml](/config.example.yml)), or using environment variables.
 
-```bash
-DRIVER=chrome PAUSE=1 bundle exec cucumber -t @smoke
-```
+- `export APP_HOST='https://en.wikipedia.org/wiki'`
+- `export DRIVER=chrome`
+- `export PAUSE=1`
 
-This is telling Quke to use Chrome as its browser for testing, to pause for 1 second between steps, and to run only those features and scenarios tagged with `@smoke`.
+### Precedence
+
+Environment variables take precedence over the config file. This is to make it easier to define things that don't change often in the config file, combined with the flexibility of setting environment variables at runtime using the command line.
+
+So imagine we have set `app_host: 'https://en.wikipedia.org/wiki'` in our `config.yml`, we can switch between the browsers to test using this syntax
+
+- `DRIVER=chrome bundle exec cucumber`
 
 ### Why `bundle exec`?
 
 Using `bundle exec` at the start of each command is to ensure we are using the version of a *thing* that was installed in the context of Quke, which in our case is Cucumber. While a command may work without it, doing so is unreliable and should be avoided.
 
-### Confirming it works
+## Confirming it works
 
 Included in Quke are some feature tests which can be used for reference, but also to confirm you have it setup and working correctly. They run against an internal demo web app which you'll need to start before executing the tests.
 
