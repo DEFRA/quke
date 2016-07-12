@@ -37,22 +37,7 @@ Capybara.app_host = $config.app_host
 # number of options for how to configure poltergeist, and we can even pass
 # on options to phantomjs to configure how it runs
 Capybara.register_driver :poltergeist do |app|
-  options = {
-    # Javascript errors will get re-raised in our tests causing them to fail
-    js_errors: true,
-    # How long in seconds we'll wait for response when communicating with
-    # Phantomjs
-    timeout: 30,
-    # When true debug output will be logged to STDERR (a terminal thing!)
-    debug: false,
-    # Options for phantomjs: Don't load images to help speed up the tests,
-    phantomjs_options: [
-      '--load-images=no',
-      '--disk-cache=false',
-      '--ignore-ssl-errors=yes'],
-    inspector: true
-  }
-  Capybara::Poltergeist::Driver.new(app, options)
+  Capybara::Poltergeist::Driver.new(app, $config.poltergeist_options)
 end
 
 # Here we are registering the selenium driver with capybara. By default
