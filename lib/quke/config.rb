@@ -34,9 +34,12 @@ module Quke
 
     # The hash returned from this method is intended to used in a call to
     # Capybara::Poltergeist::Driver.new(app, options).
-    # There are a number of options for how to configure poltergeist, and we can
-    # even pass on options to phantomjs to configure how it runs
-    def poltergeist_options
+    # There are a number of options for how to configure poltergeist which
+    # drives PhantomJS, and we can even pass on options to phantomjs to
+    # configure how it runs. We have named this function phantomjs_options
+    # because it us used to setup the Capybara.register_driver :phantomjs in
+    # features/support/env.rb
+    def phantomjs_options
       {
         # Javascript errors will get re-raised in our tests causing them to fail
         js_errors: true,

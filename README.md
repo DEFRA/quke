@@ -111,7 +111,7 @@ The alternative to using the built in rake commands is to use configuration to d
 Quke recognises 3 options
 
 - **app_host** - Set the root url. You can then use it directly using Capybara with `visit('/Main_Page')` or `visit('/')` rather than having to repeat the full url each time
-- **driver** - Tell Quke which browser to use for testing. Options are *chrome*, *firefox* and *poltergeist* (*poltergeist* is the default)
+- **driver** - Tell Quke which browser to use for testing. Options are *chrome*, *firefox* and *phantomjs* (*phantomjs* is the default)
 - **pause** - Add a pause (in seconds) between steps so you can visually track how the browser is responding. The default is *0*
 
 For example
