@@ -1,8 +1,9 @@
-desc 'Runs the poltergeist task as default'
-task default: %w(poltergeist)
+desc 'Runs the phantomjs task as default'
+task default: %w(phantomjs)
 
-desc 'Run using Poltergeist headless browser'
-task :poltergeist do
+desc 'Run using Phantomjs headless browser /
+  (add PAUSE=1 for 1 sec pause between pages)'
+task :phantomjs do
   pause = ENV['PAUSE'].to_i ||= 0
   sh %( PAUSE=#{pause} bundle exec cucumber )
 end

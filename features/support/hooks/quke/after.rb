@@ -1,9 +1,9 @@
 After('~@nonweb') do |scenario|
   if scenario.failed?
-    # Tell Cucumber to quit after first failing scenario when poltergeist is
-    # used. The expectation is that you are using poltergeist as part of your
+    # Tell Cucumber to quit after first failing scenario when phantomjs is
+    # used. The expectation is that you are using phantomjs as part of your
     # CI and therefore a fast response is better than a detailed response
-    if $driver == :poltergeist
+    if $driver == :phantomjs
       Cucumber.wants_to_quit = true
       return
     end

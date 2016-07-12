@@ -33,11 +33,12 @@ require_all 'lib'
 $config = Quke::Config.new
 Capybara.app_host = $config.app_host
 
-# Here we are registering the poltergeist driver with capybara. There are a
-# number of options for how to configure poltergeist, and we can even pass
-# on options to phantomjs to configure how it runs
-Capybara.register_driver :poltergeist do |app|
-  Capybara::Poltergeist::Driver.new(app, $config.poltergeist_options)
+# Here we are registering the poltergeist driver with capybara. By default
+# poltergeist is setup to work with phantomjs hence we refer to it as :phantomjs
+# There are a number of options for how to configure poltergeist, and we can
+# even pass on options to phantomjs to configure how it runs
+Capybara.register_driver :phantomjs do |app|
+  Capybara::Poltergeist::Driver.new(app, $config.phantomjs_options)
 end
 
 # Here we are registering the selenium driver with capybara. By default
@@ -54,7 +55,7 @@ end
 
 # The choice of which browser to use for the tests is dependent on what the
 # environment variable DRIVER is set to. If not set we default to using
-# poltergeist
+# phantomjs (which in turn drives)
 # We capture the value as a global env var so if necessary choice of browser
 # can be referenced elsewhere, for example in any debug output.
 $driver = case $config.driver
@@ -63,7 +64,7 @@ $driver = case $config.driver
           when 'chrome'
             :chrome
           else
-            :poltergeist
+            :phantomjs
           end
 
 Capybara.default_driver = $driver

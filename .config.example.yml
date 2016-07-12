@@ -7,7 +7,7 @@
 app_host: 'https://en.wikipedia.org/wiki'
 
 # Tells Quke which browser to use for testing. Choices are firefox, chrome and
-# poltergeist, with the default being poltergeist.
+# phantomjs, with the default being phantomjs.
 driver: chrome
 
 # Add a pause (in seconds) between steps so you can visually track how the
