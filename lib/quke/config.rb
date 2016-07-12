@@ -6,9 +6,13 @@ module Quke
     class << self
       def file_location
         @file_location ||= File.expand_path(
-          '../../config.yml',
+          "../../#{file_name}",
           File.dirname(__FILE__)
         )
+      end
+
+      def file_name
+        ENV['QCONFIG'] || '.config.yml'
       end
     end
 
@@ -68,7 +72,9 @@ module Quke
 
     def load_yml_data
       if File.exist? self.class.file_location
-        YAML.load_file self.class.file_location
+        # YAML.load_file returns false if the file exists but is empty. So
+        # added the || {} to ensure we always return a hash from this method
+        YAML.load_file(self.class.file_location) || {}
       else
         {}
       end

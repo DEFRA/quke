@@ -38,5 +38,5 @@ chromedriver.log
 capybara-*.html
 output.html
 
-# Ignore your project specific config.yml config file
-config.yml
+# Ignore your project specific .config.yml config files
+*.config.yml

@@ -98,7 +98,15 @@ If you want more control and access to all the options available to cucumber (se
 bundle exec cucumber
 ```
 
-## Options
+### Why `bundle exec`?
+
+Using `bundle exec` at the start of each command is to ensure we are using the version of a *thing* that was installed as part of Quke, for example Cucumber or [Rake](https://github.com/ruby/rake). While a command may work without it, doing so is unreliable and should be avoided.
+
+## Configuration
+
+The alternative to using the built in rake commands is to use configuration to drive Quke. You can configure Quke using `.config.yml` files.
+
+### Options
 
 Quke recognises 3 options
 
@@ -106,23 +114,27 @@ Quke recognises 3 options
 - **driver** - Tell Quke which browser to use for testing. Options are *chrome*, *firefox* and *poltergeist* (*poltergeist* is the default)
 - **pause** - Add a pause (in seconds) between steps so you can visually track how the browser is responding. The default is *0*
 
-You can set your options using either a [yaml](http://yaml.org/) config file named `config.yml` to the root of the project (see [config.example.yml](/config.example.yml)), or using environment variables.
+For example
 
-- `export APP_HOST='https://en.wikipedia.org/wiki'`
-- `export DRIVER=chrome`
-- `export PAUSE=1`
+```yaml
+app_host: 'https://en.wikipedia.org/wiki'
+driver: chrome
+pause: 1
+```
 
-### Precedence
+See [.config.example.yml](/.config.example.yml) for an actual example.
 
-Environment variables take precedence over the config file. This is to make it easier to define things that don't change often in the config file, combined with the flexibility of setting environment variables at runtime using the command line.
+### Multiple configs
 
-So imagine we have set `app_host: 'https://en.wikipedia.org/wiki'` in our `config.yml`, we can switch between the browsers to test using this syntax
+When Quke runs it will default to looking for `.config.yml`. However you can override this and tell Quke which one to use. This allows you to create multiple config files.
 
-- `DRIVER=chrome bundle exec cucumber`
+You do this using an environment variable. The most flexible way is to set the variable as part of your command.
 
-### Why `bundle exec`?
+```bash
+QCONFIG='chrome.config.yml' bundle exec cucumber
+```
 
-Using `bundle exec` at the start of each command is to ensure we are using the version of a *thing* that was installed in the context of Quke, which in our case is Cucumber. While a command may work without it, doing so is unreliable and should be avoided.
+The use case is to allow you to have different configs setup ready to go, and enable you to switch between them. For example when testing with Chrome and Firefox you also want a 1 second delay between steps so you can observe the tests as they run through, but in your default you want no pauses.
 
 ## Confirming it works
 
