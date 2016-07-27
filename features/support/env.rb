@@ -1,26 +1,10 @@
 require 'rspec/expectations'
 require 'capybara/cucumber'
-require 'capybara/poltergeist'
 require 'site_prism'
 require 'require_all'
 
 # load all ruby files in the directory "lib" and its subdirectories
 require_all 'lib'
-
-# To run the scenarios in browser (default: Firefox), use the following
-# command line:
-# bundle exec cucumber
-# or (to have a pause of 1 second between each step):
-# PAUSE=1 bundle exec cucumber
-# To use chrome instead of Firefox
-# DRIVER=chrome bundle exec cucumber
-# Else the default will use the poltergiest headless browser
-# bundle exec cucumber
-#
-# N.B. Initially the env var was named BROWSER but it was found this was
-# a key environment variable for Launchy and changing it broke Launchy.
-# Therefore have settled in DRIVER as a replacement, though its not as
-# clear to quke's intended audience.
 
 # Capybara defaults to CSS3 selectors rather than XPath.
 # If you'd prefer to use XPath, just uncomment this line and adjust any
@@ -33,42 +17,22 @@ require_all 'lib'
 $config = Quke::Config.new
 Capybara.app_host = $config.app_host
 
-# Here we are registering the poltergeist driver with capybara. By default
-# poltergeist is setup to work with phantomjs hence we refer to it as :phantomjs
-# There are a number of options for how to configure poltergeist, and we can
-# even pass on options to phantomjs to configure how it runs
-Capybara.register_driver :phantomjs do |app|
-  Capybara::Poltergeist::Driver.new(app, $config.phantomjs_options)
-end
-
-# Here we are registering the selenium driver with capybara. By default
-# selinium is setup to work with firefox hence we refer to it as :firefox
-Capybara.register_driver :firefox do |app|
-  Capybara::Selenium::Driver.new(app)
-end
-
-# We're registering the selenium driver again, only this time we are
-# configuring it to work with chrome.
-Capybara.register_driver :chrome do |app|
-  Capybara::Selenium::Driver.new(app, browser: :chrome)
-end
-
 # The choice of which browser to use for the tests is dependent on what the
-# environment variable DRIVER is set to. If not set we default to using
-# phantomjs (which in turn drives)
-# We capture the value as a global env var so if necessary choice of browser
-# can be referenced elsewhere, for example in any debug output.
-$driver = case $config.driver
-          when 'firefox'
-            :firefox
-          when 'chrome'
-            :chrome
-          else
-            :phantomjs
-          end
+# config option DRIVER is set to. If not set we default to using
+# phantomjs (which in turn drives poltergiest)
+driver = case $config.driver
+         when 'firefox'
+           Quke::DriverRegistration.firefox
+         when 'chrome'
+           Quke::DriverRegistration.chrome
+         when 'browserstack'
+           Quke::DriverRegistration.browserstack($config.browserstack)
+         else
+           Quke::DriverRegistration.phantomjs($config.phantomjs_options)
+         end
 
-Capybara.default_driver = $driver
-Capybara.javascript_driver = $driver
+Capybara.default_driver = driver
+Capybara.javascript_driver = driver
 
 # By default Capybara will try to boot a rack application automatically. This
 # switches off Capybara's rack server as we are running against a remote

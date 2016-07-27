@@ -32,6 +32,10 @@ module Quke
       @data['pause']
     end
 
+    def browserstack
+      @data['browserstack']
+    end
+
     # The hash returned from this method is intended to used in a call to
     # Capybara::Poltergeist::Driver.new(app, options).
     # There are a number of options for how to configure poltergeist which
@@ -52,26 +56,50 @@ module Quke
         phantomjs_options: [
           '--load-images=no',
           '--disk-cache=false',
-          '--ignore-ssl-errors=yes'],
+          '--ignore-ssl-errors=yes'
+        ],
         inspector: true
       }
     end
 
+    # Override to_s to output the contents of Config as a readable string rather
+    # than the standard object output you get
+    def to_s
+      @data.to_s
+    end
+
     private
 
-    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize
     def load_data
-      yml_data = load_yml_data
-      yml_data.merge(
-        'app_host' => (ENV['APP_HOST'] || yml_data['app_host'] || '')
+      data = default_data!(load_yml_data)
+      data['browserstack'] = browserstack_data(data['browserstack'])
+      data
+    end
+
+    def default_data!(data)
+      data.merge(
+        'app_host' => (ENV['APP_HOST'] || data['app_host'] || '')
                       .downcase.strip,
-        'driver' =>   (ENV['DRIVER'] || yml_data['driver'] || '')
+        'driver' =>   (ENV['DRIVER'] || data['driver'] || 'phantomjs')
                       .downcase.strip,
-        'pause' =>    (ENV['PAUSE'] || yml_data['pause'] || '0')
+        'pause' =>    (ENV['PAUSE'] || data['pause'] || '0')
                       .downcase.strip.to_i
       )
     end
-    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize
+
+    def browserstack_data(data)
+      data = {} if data.nil?
+      data.merge(
+        'username' => (ENV['BROWSERSTACK_USERNAME'] ||
+                       data['username'] ||
+                       ''
+                      ),
+        'auth_key' => (ENV['BROWSERSTACK_AUTH_KEY'] ||
+                       data['auth_key'] ||
+                       ''
+                      )
+      )
+    end
 
     def load_yml_data
       if File.exist? self.class.file_location

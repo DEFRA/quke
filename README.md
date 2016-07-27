@@ -5,9 +5,11 @@
 [![Code Climate](https://codeclimate.com/github/EnvironmentAgency/quke/badges/gpa.svg)](https://codeclimate.com/github/EnvironmentAgency/quke)
 [![Dependency Status](https://dependencyci.com/github/EnvironmentAgency/quke/badge)](https://dependencyci.com/github/EnvironmentAgency/quke)
 
-Quke is a template repo for building [Cucumber](https://cucumber.io/) feature tests that can be run against a web site. Unlike normal setups the feature tests do not need to be included with the source code for the site to be tested. Instead this template project includes the ability to run them standalone.
+Quke is a template repo for building [Cucumber](https://cucumber.io/) feature tests that can be run against a web site. Unlike normal Ruby/Rails setups the feature tests do not need to be included with the source code for the site to be tested. Instead this template project provides the ability to run them standalone.
 
-The intention is to give members of a team responsible for Quality Assurance of a project the flexibility to create, manage and run their tests separately.
+The intention is to give members of a team responsible for Quality Assurance/Test the flexibility to create, manage and run their tests separately.
+
+It also includes the ability to run those tests using [Browserstack](https://www.browserstack.com). Browserstack gives you the ability to test your application with different combinations of platform, OS, and browser all in the cloud.
 
 ## Pre-requisites
 
@@ -80,7 +82,7 @@ bundle install --without development
 
 ### --without development
 
-If you are working on Quke itself there are additional bits required to aid with that. These are grouped under `development` and will be installed if you run `bundle install` instead. As they are not needed if you are just writing tests we advise you to use the `--without development` flag.
+If you are working on Quke itself there are additional bits required to aid with that. These are grouped under `development` and will be installed if you just run `bundle install`. As they are not needed if you are just writing tests we advise you to use the `--without development` flag.
 
 ## Execution
 
@@ -92,6 +94,8 @@ Quke comes with some inbuilt commands which provide a shorthand for the most com
   - This will run Quke using Chrome
 - ` bundle exec rake firefox`
   - This will run Quke using Firefox
+- ` bundle exec rake browserstack`
+  - This will run Quke using using Browserstack's [automate](https://www.browserstack.com/automate) feature (you must have provided a username and authorisation key as a minimum)
 
 If you want more control and access to all the options available to cucumber (see the full list with `bundle exec cucumber --help`) run Quke using
 
@@ -109,10 +113,10 @@ The alternative to using the built in rake commands is to use configuration to d
 
 ### Options
 
-Quke recognises 3 options
+Quke recognises 3 main options
 
 - **app_host** - Set the root url. You can then use it directly using Capybara with `visit('/Main_Page')` or `visit('/')` rather than having to repeat the full url each time
-- **driver** - Tell Quke which browser to use for testing. Options are *chrome*, *firefox* and *phantomjs* (*phantomjs* is the default)
+- **driver** - Tell Quke which browser to use for testing. Options are *chrome*, *firefox*, *browserstack*, and *phantomjs* (*phantomjs* is the default)
 - **pause** - Add a pause (in seconds) between steps so you can visually track how the browser is responding. The default is *0*
 
 For example
@@ -123,7 +127,27 @@ driver: chrome
 pause: 1
 ```
 
-See [.config.example.yml](/.config.example.yml) for an actual example.
+If using Browserstack there is an additional block of config to add. As a minimum its must contain `username:` and `auth_key:`.
+
+```yaml
+app_host: 'https://en.wikipedia.org/wiki'
+driver: chrome
+pause: 1
+browserstack:
+  username: johndoe
+  auth_key: iTsFRi4AYfRi4AYTALKi
+```
+See [.config.example.yml](/.config.example.yml) for more details and examples.
+
+#### Environment variables
+
+You can also set the main options (including Browserstack username and authorisation key) using environment variables. This might be useful should you wish to add your tests to a CI build and keep your browserstack credentials protected. Options that can be set by environment variable are
+
+- APP_HOST
+- DRIVER
+- PAUSE
+- BROWSERSTACK_USERNAME
+- BROWSERSTACK_AUTH_KEY
 
 ### Multiple configs
 
@@ -145,7 +169,7 @@ Included in Quke are some feature tests which can be used for reference, but als
 bundle exec rake run
 ```
 
-*You're best off running this in a separate terminal window.*
+*N.B. You're best off running this in a separate terminal window.*
 
 Having completed [installation](#installation) and got the demo app running, calling `bundle exec cucumber` should return the following
 
@@ -156,7 +180,9 @@ Using the default profile...
 0m0.000s
 ```
 
-You can then run the included tests with `bundle exec cucumber -p quke` and should see successful output from each of the tests plus an updated summary.
+You can then run the included tests with `bundle exec cucumber -p quke` (or use the built in command `bundle exec rake check_quke`) and should see successful output from each of the tests plus an updated summary.
+
+You can also test Browserstack integration using `bundle exec cucumber -p quke_browserstack` or (`bundle exec rake check_browserstack`), but you must set the user name and password first.
 
 ## Behaviours
 

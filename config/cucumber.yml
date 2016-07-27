@@ -10,7 +10,8 @@
 # https://github.com/cucumber/cucumber/wiki/Tags
 # https://github.com/cucumber/cucumber/wiki/cucumber.yml
 ---
-# Format pretty is actually the default but is specified to make it clear it is being used
-# tags with a ~ in front are to be excluded, else they are included.
-default: --format pretty --tags ~@wip --tags ~@quke
-quke: --format pretty --tags ~@wip --tags @quke
+# Format pretty is actually the default but is specified to make it clear it is being used.
+# Tags with a ~ in front are to be excluded, else they are included.
+default: --format pretty --tags ~@wip --tags ~@quke --tags ~@quke_browserstack
+quke: --format pretty --tags @quke --tags ~@wip --tags ~@quke_browserstack
+quke_browserstack: --format pretty --tags @quke_browserstack --tags ~@wip --tags ~@quke
