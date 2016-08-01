@@ -2,6 +2,11 @@ language: ruby
 rvm:
   - 2.3.1
 
+env:
+  global:
+    - secure: "RRnpDG8n+HFpVQBz6sPtl/zlS6SNL+8nPVg2Hm++vXSkOj6G7PGcHydbm35FjMFHBKb0DVnjzOeqLZCDXkDAFTtX3L9tKfRhp2yjlsYfFkjOBlM943efXqrv37jddq7DqBvKQHUpZW22Z7oZC0EakDlXt7C4myv860djhu8eEZQkbsF2xQyqOFG5ug48urlWef64HsRiwqNgHMcNcDBDbxsP6JQKPqdZAs0R7I8uY5L+p+AwU2h8DY/aFqUk1Odsz/NhZT8JYwLDXEgF9SAnFd1DSP3U48IHJpWMWOSb9LPEOFYvQcIoc6W89Ln/ia37cv/7UW8oUg1KLihRGvf0utmvjZjFbtaOyqwVvdkTY/6AwtmUn1pa4BK0bEttmB+nIFNCVm/VpeUo+B3kjWIkXWVdKc1STqfA4leJK71ngjFOISYqMDsZJFSH0SRtUczq9F58Fb4EgMXxXDOE7IgD5G5WBUWAv2q/G/0Oy+qExIxlcI7ifFsn5BFbioaOfa7D/k1jixuDkBYeObXXopLs+EtGELXBM9oHvmMEjhdUpEHNpnTEPjQDauGl60UgasmK3D0qepOqX0gZpGW9uUsyiALn0lP/7Sf/NyySoIfsPREXJ0xXaoY4qqFdSpCER/RYBBkQ8RXJ+qN7WXq9wBIZY0VaoJRfcqcSHAcx/9fF7w4="
+    - secure: "zDzE8vNGL15Vu2RaGIVFY7E8j0Ym6x/Pm2FI4B37kCfEhinmIZcssBsHArHdLOAivZ9RV26M978PkhAEOO2uEAJ4trbjV6o1fGF7Ln3qXR0qgnJ9EICDVQKOvscGUXp4NNTZuR+PxCQOaNeJ9x1LqK6Vw+mLbwuUxttCeMMchAJRAQk9BJITux7CI/ELrkIkxppI9TAtgjDupVApBcK9nt/aM88Z+D5UXq+uARUnf+wxg4f1uZ6dlYCh1yirVsqSURQCvIlSiUGFx1pvQH2Q51JFJo5YAtTlon3h1jX/Ihl6fz3LASjILEwi1zdGBOmaFH40XmAOgV9HDxu+6OwiJeo2v9snUt1Ok10bxSaPA2x/N5gjRfJaW/25DncZGrYBw2hl9owvmxU1DxB0TNDtxFX8wwCUdmRjEdv0bJXHIVsfKgRBz6kr+il7VgEp3tVjIafrjIjr6+iAEx7nGK3D9nbHArUkRAB2c8ascK0J5narXy0U381Zg25V1WOG2uX8rYgP29y/Ce/EqeOIaEv/bntaixG1N5UBvz5PDA3c0pmgsBR0vLeN832/OcO8WGAxPqWn+dWmefTvFigc8Joq3c5Njo+L7xsq8sCfTDy2k1yenXg1hz95KmaPst1N0QjmZKiR2gwomLTWhiOzG6MaJWzNJ7SeBZzj8LBId3CBqxc="
+
 # Travis CI clones repositories to a depth of 50 commits, which is only really
 # useful if you are performing git operations.
 # https://docs.travis-ci.com/user/customizing-the-build/#Git-Clone-Depth
@@ -17,5 +22,7 @@ cache: bundler
 bundler_args: --without development
 
 script:
+  - "echo -e 'browserstack:\n  build: Quke CI\n  project: Output from automated Quke CI' > .config.yml"
   - bundle exec thin -c quke_demo_app/ -p 4567 -d --tag quke start
-  - bundle exec cucumber -p quke
+  - bundle exec rake check_quke
+  - bundle exec rake check_browserstack
