@@ -49,7 +49,7 @@ Gem::Specification.new do |spec|
   # mean things like fill_in x, click_on y etc. Capybara makes it much easier to
   # do this, though if you're willing to go a level lower you can write your own
   # code to tell selenium how to interact with a web page
-  spec.add_dependency 'capybara', '~> 2.7'
+  spec.add_dependency 'capybara', '~> 2.9'
 
   # We bring in rspec-expectations to simplify how to actually test if a page is
   # correct. For example you can test you are on the right page in a step using
@@ -60,7 +60,7 @@ Gem::Specification.new do |spec|
   # to drive an actual browser. Poltergeist is used with a headless browser
   # called phantomjs, which is superfast and great for using on CI servers
   # as it has no other dependencies
-  spec.add_dependency 'poltergeist', '~> 1.9'
+  spec.add_dependency 'poltergeist', '~> 1.10'
 
   # selenium-webdriver is used to drive real browsers that may be installed,
   # for example Firefox, Chrome and Internet Explorer. The benefit of selenium
@@ -87,9 +87,9 @@ Gem::Specification.new do |spec|
   spec.add_dependency 'site_prism', '~> 2.9'
 
   spec.add_development_dependency 'bundler', '~> 1.12'
-  spec.add_development_dependency 'rake', '~> 10.0'
+  spec.add_development_dependency 'rake', '~> 10.5'
   spec.add_development_dependency 'rdoc', '~> 4.2'
-  spec.add_development_dependency 'rspec', '~> 3.0'
-  spec.add_development_dependency 'codeclimate-test-reporter', '~> 0.5'
-  spec.add_development_dependency 'simplecov', '~> 0.11'
+  spec.add_development_dependency 'rspec', '~> 3.5'
+  spec.add_development_dependency 'codeclimate-test-reporter', '~> 0.6'
+  spec.add_development_dependency 'simplecov', '~> 0.12'
 end
