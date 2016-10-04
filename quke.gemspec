@@ -21,7 +21,7 @@ Gem::Specification.new do |spec|
                         This leaves you to focus on just your features and
                         / steps.'
   spec.homepage      = 'https://github.com/cruikshanks/quke'
-  spec.license       = 'OGL'
+  spec.license       = 'Nonstandard'
 
   # Prevent pushing this gem to RubyGems.org. To allow pushes either set the
   # 'allowed_push_host' to allow pushing to a single host or delete this section
@@ -84,11 +84,12 @@ Gem::Specification.new do |spec|
   # different steps. Site_Prism provides a page object framework, and we build
   # it into the gem so users of Quke don't have to add and setup this dependency
   # themselves
-  spec.add_dependency 'site_prism'
+  spec.add_dependency 'site_prism', '~> 2.9'
 
   spec.add_development_dependency 'bundler', '~> 1.12'
   spec.add_development_dependency 'rake', '~> 10.0'
   spec.add_development_dependency 'rdoc', '~> 4.2'
   spec.add_development_dependency 'rspec', '~> 3.0'
+  spec.add_development_dependency 'codeclimate-test-reporter', '~> 0.5'
   spec.add_development_dependency 'simplecov', '~> 0.11'
 end

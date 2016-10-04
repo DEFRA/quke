@@ -41,6 +41,7 @@ output.html
 # When the gem is built it goes here, but we don't want to include this in
 # the source code repo
 /pkg/
+*.gem
 
 # Ignore folders related to documentation output
 /.yardoc

@@ -8,7 +8,7 @@ PATH
       poltergeist (~> 1.9)
       rspec-expectations (~> 3.4)
       selenium-webdriver (~> 2.53)
-      site_prism
+      site_prism (~> 2.9)
 
 GEM
   remote: https://rubygems.org/
@@ -30,6 +30,8 @@ GEM
       archive-zip (~> 0.7.0)
       nokogiri (~> 1.6)
     cliver (0.3.2)
+    codeclimate-test-reporter (0.5.2)
+      simplecov (>= 0.7.1, < 1.0.0)
     cucumber (2.4.0)
       builder (>= 2.1.2)
       cucumber-core (~> 1.5.0)
@@ -105,6 +107,7 @@ PLATFORMS
 
 DEPENDENCIES
   bundler (~> 1.12)
+  codeclimate-test-reporter
   quke!
   rake (~> 10.0)
   rdoc (~> 4.2)
