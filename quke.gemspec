@@ -20,7 +20,7 @@ Gem::Specification.new do |spec|
                         using Browserstack automate. /
                         This leaves you to focus on just your features and
                         / steps.'
-  spec.homepage      = 'https://github.com/cruikshanks/quke'
+  spec.homepage      = 'https://github.com/environmentagency/quke'
   spec.license       = 'Nonstandard'
 
   # Prevent pushing this gem to RubyGems.org. To allow pushes either set the
