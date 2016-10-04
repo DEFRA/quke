@@ -1,51 +1,89 @@
-require 'capybara/cucumber'
+require 'quke/configuration'
 require 'capybara/poltergeist'
 require 'selenium/webdriver'
 
-module Quke
+module Quke #:nodoc:
+
   # Helper class that contains all methods related to registering drivers with
   # Capybara.
-  # Not only does this move the code out of features/support/env.rb, making that
-  # easier to follow, it also makes it simpler to only register the driver
-  # we intend to use, rather than registering them all but selecting only one
-  # of them.
-  # N.B. Another driver for this was having included the code to initialise the
-  # the BrowserStack driver, even if it wasn't selected once registered it seems
-  # Capaybara was always trying to use it.
   class DriverRegistration
-    # Register the poltergeist driver with capybara. By default poltergeist is
-    # setup to work with phantomjs hence we refer to it as :phantomjs
-    # There are a number of options for how to configure poltergeist, and we can
-    # even pass on options to phantomjs to configure how it runs
-    def self.phantomjs(options = {})
+
+    attr_reader :config
+
+    def initialize(config)
+      @config = config
+    end
+
+    def register
+      case @config.driver
+      when 'firefox'
+        firefox
+      when 'chrome'
+        chrome
+      when 'browserstack'
+        browserstack(@config.browserstack)
+      else
+        phantomjs(@config.poltergeist_options)
+      end
+    end
+
+    private
+
+    # Register the poltergeist driver with capybara.
+    #
+    # By default poltergeist is setup to work with phantomjs hence we refer to
+    # it as :phantomjs. There are a number of options for how to configure
+    # poltergeist, and we can even pass on options to phantomjs to configure how
+    # it runs.
+    def phantomjs(options = {})
       Capybara.register_driver :phantomjs do |app|
+        # We ignore the next line (and those like it in the subsequent methods)
+        # from code coverage because we never actually execute them from Quke.
+        # Capybara.register_driver takes a name and a &block, and holds it in a
+        # hash. It executes the block from within Capybara when Cucumber is
+        # called, all we're doing here is telling it what block (code) to
+        # execute at that time.
+        # :simplecov_ignore:
         Capybara::Poltergeist::Driver.new(app, options)
+        # :simplecov_ignore:
       end
       :phantomjs
     end
 
     # Register the selenium driver with capybara. By default selinium is setup
     # to work with firefox hence we refer to it as :firefox
+    #
     # N.B. options is not currently used but maybe in the future.
-    def self.firefox(_options = {})
+    def firefox(_options = {})
       Capybara.register_driver :firefox do |app|
+        # :simplecov_ignore:
         Capybara::Selenium::Driver.new(app)
+        # :simplecov_ignore:
       end
       :firefox
     end
 
-    # Register the selenium driver again, only this time we are
-    # configuring it to work with chrome.
+    # Register the selenium driver again, only this time we are configuring it
+    # to work with chrome.
+    #
     # N.B. options is not currently used but maybe in the future.
-    def self.chrome(_options = {})
+    def chrome(_options = {})
       Capybara.register_driver :chrome do |app|
+        # :simplecov_ignore:
         Capybara::Selenium::Driver.new(app, browser: :chrome)
+        # :simplecov_ignore:
       end
       :chrome
     end
 
-    def self.browserstack(options = {})
+    # Register a browserstack driver. Essentially this the selenium driver but
+    # configured to run remotely using the Browserstack automate service.
+    # As a minimum the options must contain a username and key in order to
+    # authenticate with Browserstack.
+    # rubocop:disable Metrics/MethodLength
+    def browserstack(options = {})
       Capybara.register_driver :browserstack do |app|
+        # :simplecov_ignore:
         username = options['username']
         key = options['auth_key']
         url = "http://#{username}:#{key}@hub.browserstack.com/wd/hub"
@@ -56,11 +94,13 @@ module Quke
           url: url,
           desired_capabilities: browserstack_capabilities(options)
         )
+        # :simplecov_ignore:
       end
       :browserstack
     end
 
-    private_class_method def self.browserstack_capabilities(options = {})
+    # rubocop:disable Metrics/AbcSize
+    def browserstack_capabilities(options = {})
       capabilities = Selenium::WebDriver::Remote::Capabilities.new
 
       capabilities['build'] = options['build']
@@ -86,9 +126,13 @@ module Quke
       capabilities['browserstack.video'] = options['video']
 
       # At this point Quke does not support local testing so we specifically
-      # tell Browserstack this
+      # tell Browserstack we're not doing this
       capabilities['browserstack.local'] = 'false'
       capabilities
     end
+    # rubocop:enable Metrics/AbcSize
+    # rubocop:enable Metrics/MethodLength
+
   end
+
 end

@@ -1,0 +1,30 @@
+features: 'spec'
+driver: browserstack
+
+browserstack:
+  # To run your tests with browserstack you must provide a username and auth_key
+  # as a minimum
+  username: jdoe
+  auth_key: 123456789ABCDE
+
+  build: 'Version 1'
+  project: 'Adding browserstack support'
+
+  name: 'Testing google search'
+
+  # MOBILE testing
+  platform: MAC
+  browserName: iPhone
+  version: '49'
+  device: 'iPhone 5'
+
+  # DESKTOP testing
+  os: WINDOWS
+  os_version: '8.1'
+  browser: chrome
+  browser_version: '49'
+  resolution: '1024x768'
+
+  acceptSslCerts: true
+  debug: true
+  video: true

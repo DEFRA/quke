@@ -1,0 +1,3 @@
+# In the test we're checking that is the pause value is specified as a string
+# Freakin::Configuration can still handle it
+pause: '1'

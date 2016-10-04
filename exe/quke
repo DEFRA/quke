@@ -1,0 +1,7 @@
+#!/usr/bin/env ruby
+
+require 'quke'
+require 'quke/configuration'
+
+Quke::Quke.config = Quke::Configuration.new
+Quke::Quke.execute(ARGV)

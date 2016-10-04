@@ -1,0 +1,13 @@
+# Cucumber errors if the path we provide does not exist
+# (No such file or directory - no_path.). Hence we specify a path we know will
+# exist
+features: 'spec'
+app_host: 'http://localhost:4567'
+driver: chrome
+pause: 1
+
+browserstack:
+  username: jdoe
+  auth_key: 123456789ABCDE
+  build: 'Version 1'
+  project: 'Adding browserstack support'

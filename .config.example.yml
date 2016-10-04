@@ -1,32 +1,37 @@
+# The standard place to add your features and step_definitions is in a folder
+# named 'features' at the root of the project. However if you'd like to name
+# this folder something else, you can tell Quke what the new name is here.
+# The default is features
+features_folder: 'cukes'
+
 # Normally Capybara expects to be testing an in-process Rack application, but
-# we're using it to talk to a remote host. Users of Quke can set what this will
-# be by simply setting `app_host`. You can then use it directly using
+# we're using it to talk to a remote host. Users of Quke can set what this
+# will be by simply setting `app_host`. You can then use it directly using
 # Capybara `visit('/Main_Page')` or `visit('/')` rather than having to repeat
-# the full url each time. When using the Site_Prism page_objects use
-# `set_url '/Main_Page'`. The default is ''.
+# the full url each time
 app_host: 'https://en.wikipedia.org/wiki'
 
 # Tells Quke which browser to use for testing. Choices are firefox, chrome
-# browserstack and phantomjs, with the default being phantomjs.
+# browserstack and phantomjs, with the default being phantomjs
 driver: chrome
 
 # Add a pause (in seconds) between steps so you can visually track how the
-# browser is responding. On useful if using a non-headless browser. The default
-# is 0.
+# browser is responding. Only useful if using a non-headless browser. The
+# default is 0
 pause: 1
 
 # If you select the browserstack driver, there are a number of options you
 # can pass through to setup your browserstack tests, username and auth_key
-# being the critical ones. Please see https://www.browserstack.com/automate/capabilities
-# for more details.
+# being the critical ones.
+# Please see https://www.browserstack.com/automate/capabilities for more details
 browserstack:
   # To run your tests with browserstack you must provide a username and auth_key
   # as a minimum
   username: jdoe
   auth_key: 123456789ABCDE
 
-  # Keep track of all your automated tests using the build and project capabilities.
-  # Group your tests into builds, and builds further into projects.
+  # Keep track of all your automated tests using the build and project
+  # capabilities. Group your tests into builds, and builds further into projects
   build: 'Version 1'
   project: 'Adding browserstack support'
 
@@ -54,21 +59,22 @@ browserstack:
 
   # DESKTOP testing
   # -----
-  # OS you want to test. Accepted values are WINDOWS, OS X. If both OS and platform
-  # are set, OS will take precedence
+  # OS you want to test. Accepted values are WINDOWS, OS X. If both OS and
+  # platform are set, OS will take precedence
   os: WINDOWS
   # OS version you want to test. Accepted values are
   # Windows: XP, 7, 8, 8.1 and 10
   # OS X: Snow Leopard, Lion, Mountain Lion, Mavericks, Yosemite, El Capitan
   os_version: '8.1'
-  # Browser you want to test. Accepted values are Firefox, Safari, IE, Chrome, Opera
+  # Browser you want to test. Accepted values are Firefox, Safari, IE, Chrome,
+  # Opera
   browser: chrome
-  # Browser version you want to test. See the docs for the full list of available
-  # versions.
+  # Browser version you want to test. See the docs for the full list of
+  # available versions
   browser_version: '49'
   # Set the resolution of VM before beginning of your test.
-  # See docs https://www.browserstack.com/automate/capabilities for full list
-  # of accepted values, as it is also OS dependent
+  # See docs https://www.browserstack.com/automate/capabilities for full list of
+  # accepted values, as it is also OS dependent
   resolution: '1024x768'
 
   # To avoid invalid certificate errors while testing set acceptSslCerts to true
