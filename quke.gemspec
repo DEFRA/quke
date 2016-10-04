@@ -86,6 +86,12 @@ Gem::Specification.new do |spec|
   # themselves
   spec.add_dependency 'site_prism', '~> 2.9'
 
+  # Capybara includes a method called save_and_open_page. Without Launchy it
+  # will still save to file a copy of the source html of the page in question
+  # at that time. However simply adding this line into the gemfile means it
+  # will instead open in the default browser instead.
+  spec.add_dependency 'launchy', '~> 2.4'
+
   spec.add_development_dependency 'bundler', '~> 1.12'
   spec.add_development_dependency 'rake', '~> 10.5'
   spec.add_development_dependency 'rdoc', '~> 4.2'
