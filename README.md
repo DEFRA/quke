@@ -3,6 +3,7 @@
 [![Build Status](https://travis-ci.org/EnvironmentAgency/quke.svg?branch=master)](https://travis-ci.org/EnvironmentAgency/quke)
 [![security](https://hakiri.io/github/EnvironmentAgency/quke/master.svg)](https://hakiri.io/github/EnvironmentAgency/quke/master)
 [![Code Climate](https://codeclimate.com/github/EnvironmentAgency/quke/badges/gpa.svg)](https://codeclimate.com/github/EnvironmentAgency/quke)
+[![Test Coverage](https://codeclimate.com/github/EnvironmentAgency/quke/badges/coverage.svg)](https://codeclimate.com/github/EnvironmentAgency/quke/coverage)
 [![Dependency Status](https://dependencyci.com/github/EnvironmentAgency/quke/badge)](https://dependencyci.com/github/EnvironmentAgency/quke)
 
 Quke is a gem that helps you to build a suite of [Cucumber](https://cucumber.io/) acceptance tests.
@@ -62,6 +63,22 @@ Or install it yourself as
 
     $ gem install quke
 
+## Configuration
+
+You can use configuration to drive Quke. You can configure Quke using `.config.yml` files. See [.config.example.yml](.config.example.yml) for details of the options to include in your `.config.yml`.
+
+### Multiple configs
+
+When Quke runs it will default to looking for `.config.yml`. However you can override this and tell Quke which one to use. This allows you to create multiple config files.
+
+You do this using an environment variable. The most flexible way is to set the variable as part of your command.
+
+```bash
+QUKE_CONFIG='chrome.config.yml' bundle exec quke
+```
+
+The use case is to allow you to have different configs setup ready to go, and enable you to switch between them. For example when testing with Chrome and Firefox you set a 1 second delay between steps so you can observe the tests as they run through, but in your default `.config.yml` you want no pauses and use **phantomjs**.
+
 ## Usage
 
 TODO: Write usage instructions here
@@ -97,22 +114,6 @@ Whilst just developing a gem like Quke you can execute it with
 and pass in arguments as well
 
     $ ruby -Ilib ./exe/quke --tags @wip
-
-## Configuration
-
-You can use configuration to drive Quke. You can configure Quke using `.config.yml` files. See [.config.example.yml](.config.example.yml) for details of the options to include in your `.config.yml`.
-
-### Multiple configs
-
-When Quke runs it will default to looking for `.config.yml`. However you can override this and tell Quke which one to use. This allows you to create multiple config files.
-
-You do this using an environment variable. The most flexible way is to set the variable as part of your command.
-
-```bash
-QUKE_CONFIG='chrome.config.yml' bundle exec quke
-```
-
-The use case is to allow you to have different configs setup ready to go, and enable you to switch between them. For example when testing with Chrome and Firefox you set a 1 second delay between steps so you can observe the tests as they run through, but in your default `.config.yml` you want no pauses and use **phantomjs**.
 
 ## Contributing to this project
 
