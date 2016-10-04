@@ -1,11 +1,8 @@
+sudo: false
 language: ruby
 rvm:
   - 2.3.1
-
-env:
-  global:
-    - secure: "RRnpDG8n+HFpVQBz6sPtl/zlS6SNL+8nPVg2Hm++vXSkOj6G7PGcHydbm35FjMFHBKb0DVnjzOeqLZCDXkDAFTtX3L9tKfRhp2yjlsYfFkjOBlM943efXqrv37jddq7DqBvKQHUpZW22Z7oZC0EakDlXt7C4myv860djhu8eEZQkbsF2xQyqOFG5ug48urlWef64HsRiwqNgHMcNcDBDbxsP6JQKPqdZAs0R7I8uY5L+p+AwU2h8DY/aFqUk1Odsz/NhZT8JYwLDXEgF9SAnFd1DSP3U48IHJpWMWOSb9LPEOFYvQcIoc6W89Ln/ia37cv/7UW8oUg1KLihRGvf0utmvjZjFbtaOyqwVvdkTY/6AwtmUn1pa4BK0bEttmB+nIFNCVm/VpeUo+B3kjWIkXWVdKc1STqfA4leJK71ngjFOISYqMDsZJFSH0SRtUczq9F58Fb4EgMXxXDOE7IgD5G5WBUWAv2q/G/0Oy+qExIxlcI7ifFsn5BFbioaOfa7D/k1jixuDkBYeObXXopLs+EtGELXBM9oHvmMEjhdUpEHNpnTEPjQDauGl60UgasmK3D0qepOqX0gZpGW9uUsyiALn0lP/7Sf/NyySoIfsPREXJ0xXaoY4qqFdSpCER/RYBBkQ8RXJ+qN7WXq9wBIZY0VaoJRfcqcSHAcx/9fF7w4="
-    - secure: "zDzE8vNGL15Vu2RaGIVFY7E8j0Ym6x/Pm2FI4B37kCfEhinmIZcssBsHArHdLOAivZ9RV26M978PkhAEOO2uEAJ4trbjV6o1fGF7Ln3qXR0qgnJ9EICDVQKOvscGUXp4NNTZuR+PxCQOaNeJ9x1LqK6Vw+mLbwuUxttCeMMchAJRAQk9BJITux7CI/ELrkIkxppI9TAtgjDupVApBcK9nt/aM88Z+D5UXq+uARUnf+wxg4f1uZ6dlYCh1yirVsqSURQCvIlSiUGFx1pvQH2Q51JFJo5YAtTlon3h1jX/Ihl6fz3LASjILEwi1zdGBOmaFH40XmAOgV9HDxu+6OwiJeo2v9snUt1Ok10bxSaPA2x/N5gjRfJaW/25DncZGrYBw2hl9owvmxU1DxB0TNDtxFX8wwCUdmRjEdv0bJXHIVsfKgRBz6kr+il7VgEp3tVjIafrjIjr6+iAEx7nGK3D9nbHArUkRAB2c8ascK0J5narXy0U381Zg25V1WOG2uX8rYgP29y/Ce/EqeOIaEv/bntaixG1N5UBvz5PDA3c0pmgsBR0vLeN832/OcO8WGAxPqWn+dWmefTvFigc8Joq3c5Njo+L7xsq8sCfTDy2k1yenXg1hz95KmaPst1N0QjmZKiR2gwomLTWhiOzG6MaJWzNJ7SeBZzj8LBId3CBqxc="
+before_install: gem install bundler -v 1.12.5
 
 # Travis CI clones repositories to a depth of 50 commits, which is only really
 # useful if you are performing git operations.
@@ -17,12 +14,27 @@ git:
 # https://docs.travis-ci.com/user/languages/ruby#Caching-Bundler
 cache: bundler
 
-# Exclude non-essential gem dependencies
-# https://docs.travis-ci.com/user/languages/ruby#Speeding-up-your-build-by-excluding-non-essential-dependencies
-bundler_args: --without development
+# This section was added as per https://docs.travis-ci.com/user/code-climate/
+# To protect our codeclimate stats rather than adding the Codeclimate API key for ea-area_lookup
+# in the open we used this guide https://docs.travis-ci.com/user/encryption-keys/ to encryt the
+# value. Essentially install travis gem, then run `travis encrypt <my_code_climate_api_key>`
+addons:
+  code_climate:
+    repo_token:
+      secure: "Fa+J+1mLtiQpg9BSwiuZ7Oi9azCMkRaydRkgZe5zN1qt0aMEOhq3bLeNvnmcB8X1024jKWHozweMxE4BZ3lbL2o+QGksg9Sc56j88cTbNr35gdtbFvR/EFbNO0Y8ncmDuovw0lLJa0IwZKQ7E5WexyWhdsQ5ksKPUKr2e5kr/uJKm6B74nffL+W7wP
+GkTEzfFOYgTJcLzCtSeMuiZy5jnbPca9iiLM5fq0sDZ6RoUfrv8BXLtOAF5hSwKYzhtthNlDVFYGylDB3zmWnhTtqJkUR4+jjQep/SXvOktgYJPXXxK5XV2QnqRUWlpTuOVvnJQKgZAMXlZ9gdQJMWNtL81llBsp65D8ymD8+JyqDunX+WN2aZYbOkN4geKag2ZAB
+gd5GSvj5ZnEXR+YdxkmPHdeFVmeV3AhlwsX4dtXUV2g6icRmBE1cE/Q+VvS1w4t8xoeiLX12oJSpVGoSAC9Mx1fMtkcjrRmposwS4LMqtIJkEMnbDAo3eCrT2rToFBb/sVgLkuxVuO/nLmfeGoYFVRL3Rhe7rEg5euVYSDFLB/S9FrhTgrmTpGoFNzAKmF/V3+wBf
+MlNYWWRLGKnQuy8+UUMFjOXP5kWF+pkdK6fB8yz/Jn9wI5OY4bd03V1gcmOxNhaNFIxh6k2x0m4Da3rgIu4bQSXeMtJSKz/OvN8eRZs="
 
-script:
-  - "echo -e 'browserstack:\n  build: Quke CI\n  project: Output from automated Quke CI' > .config.yml"
-  - bundle exec thin -c quke_demo_app/ -p 4567 -d --tag quke start
-  - bundle exec rake check_quke
-  - bundle exec rake check_browserstack
+deploy:
+  provider: rubygems
+  api_key:
+    secure: "mrNfo3ZlO4wtr7fp751jltjKZcWeFXLCxxVDHqJVnkdAKpDcbo99Phlq9+fh5Q/o8gIJ4jKQybvr/Zu5t8mrWYJKKLlsUi3UThJG5hOg64ynJKy3jqtU45uCGOc33oBhQAqHTfDI+DZxQTGs2TepoqdyxsSzki
+s9TRj+qyeE2HSO+yz5Qyjwql6o5k9xP82uBFaQI0WKqKdTtdNFv5LZ3EZaRWtyM/jGsunaNAYscDOl3cYN1sXlq+wfCTRvjMGmcppdbsaczQNQdIkXBPZEkydO7FdnSwUFuwm30BP0OBks5myB7oHWbbe0p/YRsUbjLF0dVfn
+AlSERSwhkpMOU1BpK4/vwPBoR8yzgfZG4UZAZQ6hCMtRj+2usKWcI4buryeD+iPDrkVX9FjziOC3OFSbMzo/ojYlkLjvvXuUcTAmWZr0V/VP1x7RAiHNA+Y7EqYRJFJcEE5Av7Yn+hgi8fUtLyiSDLOb4bGJ2fe9R3YeZQ1ge
+pvnarjriXfNZul3K1tP21/oVeXwCRuOjPMxwUmEsPCCjdIu/44U5CvGRbaqJXAqYJm71u+Y96RfkjytRnLmAc13nIBiFCUqUyoab4GIsy9AZ4TzE9ROGwLTC3y05gMVlYVJk4GTtVCjJwqNB2LWRXo/PseWaDdRZYmnNTr5wI
+kB5wbWRtEYUdIOb70c="
+  gem: quke
+  on:
+    tags: true
+    repo: EnvironmentAgency/quke

@@ -2,8 +2,6 @@
 engines:
   bundler-audit:
     enabled: true
-  csslint:
-    enabled: true
   duplication:
     enabled: true
     config:
@@ -17,10 +15,7 @@ engines:
     enabled: true
 ratings:
   paths:
-  - Gemfile.lock
+  - "**.module"
   - "**.rb"
-  - "**.css"
 exclude_paths:
-- config/
-- quke_demo_app/public/assets/css/bootstrap.min.css
-- quke_demo_app/public/assets/css/ie10-viewport-bug-workaround.css
+- spec/

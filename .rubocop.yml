@@ -1,12 +1,39 @@
 AllCops:
-  # Cop names are not displayed in offense messages by default. We find it useful to include this information so we can
-  # use it to investigate what the fix may be.
+  Exclude:
+    # Bin contains standard files created when gem is initialised and therefore
+    # they should be left as is
+    - 'bin/**/*'
+    # Exe contains standard files created when gem is initialised and therefore
+    # they should be left as is
+    - 'exe/**/*'
+    # Rakefile is generated when gem is initialised and therefore should be
+    # left as is
+    - 'Rakefile'
+    # Gemfile is generated when gem is initialised and therefore should be
+    # left as is
+    - 'Gemfile'
+  # Cop names are not displayed in offense messages by default. We find it
+  # useful to include this information so we can use it to investigate what the
+  # fix may be.
   DisplayCopNames: true
-  # Style guide URLs are not displayed in offense messages by default. Again we find it useful to go straight to the
-  # documentation for a rule when investigating what the fix may be.
+  # Style guide URLs are not displayed in offense messages by default. Again we
+  # find it useful to go straight to the documentation for a rule when
+  # investigating what the fix may be.
   DisplayStyleGuide: true
 
-# Disable this rubocop style because we want to make the arguments passed into quke available to anywhere when the code
-# is executed rubocop:disable Style/GlobalVars
+# Disable this rubocop style because we want to make the arguments passed into
+# Freakin available to anywhere when the code is executed
 Style/GlobalVars:
+  Enabled: false
+
+# It is our opinion that classes are easier to read if a white space is
+# permitted between the class declaration and the first statement. Ditto the
+# last statement and the closing tag.
+Style/EmptyLinesAroundClassBody:
+  Enabled: false
+
+# It is our opinion that modules are easier to read if a white space is
+# permitted between the module declaration and the first statement. Ditto the
+# last statement and the closing tag.
+Style/EmptyLinesAroundModuleBody:
   Enabled: false
