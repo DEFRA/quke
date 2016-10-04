@@ -7,7 +7,7 @@ Gem::Specification.new do |spec|
   spec.name          = 'quke'
   spec.version       = Quke::VERSION
   spec.authors       = ['Alan Cruikshanks']
-  spec.email         = ['alan.cruikshanks@gmail.com']
+  spec.email         = ['alan.cruikshanks@environment-agency.gov.uk']
 
   spec.summary       = 'A gem to simplify creating acceptance tests using /
                         Cucumber'
@@ -21,7 +21,7 @@ Gem::Specification.new do |spec|
                         This leaves you to focus on just your features and
                         / steps.'
   spec.homepage      = 'https://github.com/cruikshanks/quke'
-  spec.license       = 'MIT'
+  spec.license       = 'OGL'
 
   # Prevent pushing this gem to RubyGems.org. To allow pushes either set the
   # 'allowed_push_host' to allow pushing to a single host or delete this section
@@ -75,6 +75,16 @@ Gem::Specification.new do |spec|
   # from it "Easy installation and use of chromedriver, the Chromium project's
   # selenium webdriver adapter."
   spec.add_dependency 'chromedriver-helper', '~> 1.0'
+
+  # Experience has shown that keeping tests dry helps make them more
+  # maintainable over time. One practice that helps is the use of the
+  # page object pattern. A page object wraps up all functionality for describing
+  # and interacting with a page into a single object. This object can then be
+  # referred to in the steps, rather than risk duplicating the logic in
+  # different steps. Site_Prism provides a page object framework, and we build
+  # it into the gem so users of Quke don't have to add and setup this dependency
+  # themselves
+  spec.add_dependency 'site_prism'
 
   spec.add_development_dependency 'bundler', '~> 1.12'
   spec.add_development_dependency 'rake', '~> 10.0'

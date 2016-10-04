@@ -1,5 +1,6 @@
 require 'rspec/expectations'
 require 'capybara/cucumber'
+require 'site_prism'
 require 'quke/driver_registration'
 require 'quke/configuration'
 
@@ -22,3 +23,11 @@ Capybara.run_server = false
 # Not setting this leads to Capybara saving the file to the root of the project
 # which can mess up your project structure.
 Capybara.save_path = 'tmp/'
+
+# By default, SitePrism element and section methods do not utilize Capybara's
+# implicit wait methodology and will return immediately if the element or
+# section requested is not found on the page. Adding the following code
+# enables Capybara's implicit wait methodology to pass through
+SitePrism.configure do |config|
+  config.use_implicit_waits = true
+end
