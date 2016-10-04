@@ -1,4 +1,4 @@
-<img src="/config/quke.png" alt="Git flow" />
+<img src="/quke.png" alt="Git flow" />
 
 [![Build Status](https://travis-ci.org/EnvironmentAgency/quke.svg?branch=master)](https://travis-ci.org/EnvironmentAgency/quke)
 [![security](https://hakiri.io/github/EnvironmentAgency/quke/master.svg)](https://hakiri.io/github/EnvironmentAgency/quke/master)
