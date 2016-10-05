@@ -1,11 +1,12 @@
 # Change Log
 
-## [Unreleased](https://github.com/EnvironmentAgency/quke/tree/HEAD)
-
-[Full Changelog](https://github.com/EnvironmentAgency/quke/compare/v0.2.1...HEAD)
+## [v0.2.2](https://github.com/EnvironmentAgency/quke/tree/v0.2.2) (2016-10-05)
+[Full Changelog](https://github.com/EnvironmentAgency/quke/compare/v0.2.1...v0.2.2)
 
 **Merged pull requests:**
 
+- Fix Cucumber not loading lib/features correctly [\#35](https://github.com/EnvironmentAgency/quke/pull/35) ([Cruikshanks](https://github.com/Cruikshanks))
+- Add Github\_changelog\_generator support [\#34](https://github.com/EnvironmentAgency/quke/pull/34) ([Cruikshanks](https://github.com/Cruikshanks))
 - Add Rubygems version badge to README [\#33](https://github.com/EnvironmentAgency/quke/pull/33) ([Cruikshanks](https://github.com/Cruikshanks))
 
 ## [v0.2.1](https://github.com/EnvironmentAgency/quke/tree/v0.2.1) (2016-10-05)
