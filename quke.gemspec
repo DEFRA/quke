@@ -9,17 +9,8 @@ Gem::Specification.new do |spec|
   spec.authors       = ['Alan Cruikshanks']
   spec.email         = ['alan.cruikshanks@environment-agency.gov.uk']
 
-  spec.summary       = 'A gem to simplify creating acceptance tests using /
-                        Cucumber'
-  spec.description   = 'Quke tries to simplify the process of writing and /
-                        running acceptance tests by setting up Cucumber for /
-                        you. /
-                        It handles the config to allow you to run your tests /
-                        in Firefox and Chrome, or the headless browser /
-                        PhantomJS. It also has out of the box setup for /
-                        using Browserstack automate. /
-                        This leaves you to focus on just your features and
-                        / steps.'
+  spec.summary       = 'A gem to simplify creating acceptance tests using Cucumber'
+  spec.description   = 'Quke tries to simplify the process of writing and running acceptance tests by setting up Cucumber for you. It handles the config to allow you to run your tests in Firefox and Chrome, or the headless browser PhantomJS. It also has out of the box setup for using Browserstack automate. This leaves you to focus on just your features and steps.'
   spec.homepage      = 'https://github.com/environmentagency/quke'
   spec.license       = 'Nonstandard'
 

@@ -32,6 +32,11 @@ module Quke #:nodoc:
       @data = load_data
     end
 
+    # Returns the value set for +features_folder+.
+    #
+    # This will be passed to Cucumber by Quke when it executes the tests. It
+    # tells Cucumber where the main features folder which contains the tests is
+    # located. If not set in the +.config.yml+ file it defaults to 'features'.
     def features_folder
       @data['features_folder']
     end
