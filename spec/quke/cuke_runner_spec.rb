@@ -1,7 +1,10 @@
 require 'spec_helper'
 
 RSpec.describe Quke::CukeRunner do
-  let(:default_args) { ['spec', '-r', 'lib/features', '-r', 'spec'] }
+  let(:default_args) do
+    features_folder = __dir__.sub!('spec/quke', 'lib/features')
+    ['spec', '-r', features_folder, '-r', 'spec']
+  end
   describe '#initialize' do
     context 'no additional Cucumber arguments passed' do
       let(:subject) { Quke::CukeRunner.new('spec') }
