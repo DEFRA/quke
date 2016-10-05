@@ -14,10 +14,7 @@ module Quke #:nodoc:
     # Returns the expected root location of where Quke expects to find the
     # the config file.
     def self.file_location
-      @file_location ||= File.expand_path(
-        "../../#{file_name}",
-        File.dirname(__FILE__)
-      )
+      @file_location ||= "#{Dir.pwd}/#{file_name}"
     end
 
     # Return the file name for the config file, either as set by the user in
