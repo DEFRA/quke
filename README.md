@@ -5,6 +5,7 @@
 [![Code Climate](https://codeclimate.com/github/EnvironmentAgency/quke/badges/gpa.svg)](https://codeclimate.com/github/EnvironmentAgency/quke)
 [![Test Coverage](https://codeclimate.com/github/EnvironmentAgency/quke/badges/coverage.svg)](https://codeclimate.com/github/EnvironmentAgency/quke/coverage)
 [![Dependency Status](https://dependencyci.com/github/EnvironmentAgency/quke/badge)](https://dependencyci.com/github/EnvironmentAgency/quke)
+[![Gem Version](https://badge.fury.io/rb/quke.svg)](https://badge.fury.io/rb/quke)
 
 Quke is a gem that helps you to build a suite of [Cucumber](https://cucumber.io/) acceptance tests.
 
