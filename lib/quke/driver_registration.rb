@@ -31,7 +31,7 @@ module Quke #:nodoc:
       when 'browserstack'
         browserstack(@config.browserstack)
       else
-        phantomjs(@config.poltergeist_options)
+        phantomjs
       end
     end
 
@@ -43,7 +43,7 @@ module Quke #:nodoc:
     # it as :phantomjs. There are a number of options for how to configure
     # poltergeist, and we can even pass on options to phantomjs to configure how
     # it runs.
-    def phantomjs(options = {})
+    def phantomjs
       Capybara.register_driver :phantomjs do |app|
         # We ignore the next line (and those like it in the subsequent methods)
         # from code coverage because we never actually execute them from Quke.
@@ -52,7 +52,7 @@ module Quke #:nodoc:
         # called, all we're doing here is telling it what block (code) to
         # execute at that time.
         # :simplecov_ignore:
-        Capybara::Poltergeist::Driver.new(app, options)
+        Capybara::Poltergeist::Driver.new(app, poltergeist_options)
         # :simplecov_ignore:
       end
       :phantomjs
@@ -60,12 +60,14 @@ module Quke #:nodoc:
 
     # Register the selenium driver with capybara. By default selinium is setup
     # to work with firefox hence we refer to it as :firefox
-    #
-    # N.B. options is not currently used but maybe in the future.
-    def firefox(_options = {})
+    def firefox
       Capybara.register_driver :firefox do |app|
         # :simplecov_ignore:
-        Capybara::Selenium::Driver.new(app)
+        if config.use_proxy?
+          Capybara::Selenium::Driver.new(app, profile: proxy_profile)
+        else
+          Capybara::Selenium::Driver.new(app)
+        end
         # :simplecov_ignore:
       end
       :firefox
@@ -73,12 +75,18 @@ module Quke #:nodoc:
 
     # Register the selenium driver again, only this time we are configuring it
     # to work with chrome.
-    #
-    # N.B. options is not currently used but maybe in the future.
-    def chrome(_options = {})
+    def chrome
       Capybara.register_driver :chrome do |app|
         # :simplecov_ignore:
-        Capybara::Selenium::Driver.new(app, browser: :chrome)
+        if config.use_proxy?
+          Capybara::Selenium::Driver.new(
+            app,
+            browser: :chrome,
+            switches: ["--proxy-server=#{config.proxy['host']}:#{config.proxy['port']}"]
+          )
+        else
+          Capybara::Selenium::Driver.new(app, browser: :chrome)
+        end
         # :simplecov_ignore:
       end
       :chrome
@@ -105,6 +113,51 @@ module Quke #:nodoc:
         # :simplecov_ignore:
       end
       :browserstack
+    end
+
+    # The hash returned from this method is intended to used in a call to
+    # Capybara::Poltergeist::Driver.new(app, options).
+    #
+    # There are a number of options for how to configure poltergeist which
+    # drives PhantomJS, and it includes options passed to phantomjs to
+    # configure how it runs.
+    def poltergeist_options
+      # This method only gets called when we actually register our driver, and
+      # as that only gets called when we actually run Cucumber properly it makes
+      # it difficult to test.
+      # :simplecov_ignore:
+      {
+        # Javascript errors will get re-raised in our tests causing them to fail
+        js_errors: true,
+        # How long in seconds we'll wait for response when communicating with
+        # Phantomjs
+        timeout: 30,
+        # When true debug output will be logged to STDERR (a terminal thing!)
+        debug: false,
+        # Poltergeist can pass on options for configuring phantomjs
+        phantomjs_options: phantomjs_options,
+        inspector: true
+      }
+      # :simplecov_ignore:
+    end
+
+    def phantomjs_options
+      # This method only gets called when we actually register our driver, and
+      # as that only gets called when we actually run Cucumber properly it makes
+      # it difficult to test.
+      # :simplecov_ignore:
+      # Don't load images to help speed up the tests,
+      options = [
+        '--load-images=no',
+        '--disk-cache=false',
+        '--ignore-ssl-errors=yes'
+      ]
+      if config.use_proxy?
+        options.push("--proxy=#{config.proxy['host']}:#{config.proxy['port']}")
+      end
+      puts options
+      options
+      # :simplecov_ignore:
     end
 
     # rubocop:disable Metrics/AbcSize
@@ -140,6 +193,20 @@ module Quke #:nodoc:
     end
     # rubocop:enable Metrics/AbcSize
     # rubocop:enable Metrics/MethodLength
+
+    def proxy_profile
+      # This method only gets called when we actually register our driver, and
+      # as that only gets called when we actually run Cucumber properly it makes
+      # it difficult to test.
+      # :simplecov_ignore:
+      profile = Selenium::WebDriver::Firefox::Profile.new
+      profile.proxy = Selenium::WebDriver::Proxy.new(
+        http: "#{config.proxy['host']}:#{config.proxy['port']}",
+        ssl: "#{config.proxy['host']}:#{config.proxy['port']}"
+      )
+      profile
+      # :simplecov_ignore:
+    end
 
   end
 

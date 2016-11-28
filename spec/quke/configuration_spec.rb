@@ -95,6 +95,51 @@ RSpec.describe Quke::Configuration do
     end
   end
 
+  describe '#proxy' do
+    context 'when NOT specified in the config file' do
+      it 'defaults to a blank host and port' do
+        Quke::Configuration.file_location = data_path('.no_file.yml')
+        expect(subject.proxy).to eq('host' => '', 'port' => 0)
+      end
+    end
+
+    context 'when specified in the config file' do
+      it 'matches the config file' do
+        Quke::Configuration.file_location = data_path('.simple.yml')
+        expect(subject.proxy).to eq(
+          'host' => '10.10.2.70',
+          'port' => 8080
+        )
+      end
+    end
+
+    context 'when port is specified in the config file as a string' do
+      it 'matches the config file' do
+        Quke::Configuration.file_location = data_path('.as_string.yml')
+        expect(subject.proxy).to eq(
+          'host' => '10.10.2.70',
+          'port' => 8080
+        )
+      end
+    end
+  end
+
+  describe '#use_proxy?' do
+    context 'when proxy host details are NOT specified in the config file' do
+      it 'defaults to false' do
+        Quke::Configuration.file_location = data_path('.no_file.yml')
+        expect(subject.use_proxy?).to eq(false)
+      end
+    end
+
+    context 'when proxy host details are specified in the config file' do
+      it 'return true' do
+        Quke::Configuration.file_location = data_path('.simple.yml')
+        expect(subject.use_proxy?).to eq(true)
+      end
+    end
+  end
+
   describe '#browserstack' do
     context 'when NOT specified in the config file' do
       it 'defaults to a blank username and auth_key' do
@@ -116,31 +161,12 @@ RSpec.describe Quke::Configuration do
     end
   end
 
-  describe '#poltergeist_options' do
-    context 'when NOT specified in the config file' do
-      it 'defaults to a blank username and auth_key' do
-        Quke::Configuration.file_location = data_path('.no_file.yml')
-        expect(subject.poltergeist_options).to eq(
-          js_errors: true,
-          timeout: 30,
-          debug: false,
-          phantomjs_options: [
-            '--load-images=no',
-            '--disk-cache=false',
-            '--ignore-ssl-errors=yes'
-          ],
-          inspector: true
-        )
-      end
-    end
-  end
-
   describe '#to_s' do
     it 'return the values held by the instance and not an instance ID' do
       Quke::Configuration.file_location = data_path('.no_file.yml')
       # rubocop:disable Style/StringLiterals
       expect(subject.to_s).to eq(
-        "{\"features_folder\"=>\"features\", \"app_host\"=>\"\", \"driver\"=>\"phantomjs\", \"pause\"=>0, \"stop_on_error\"=>\"false\", \"browserstack\"=>{\"username\"=>\"\", \"auth_key\"=>\"\"}}"
+        "{\"features_folder\"=>\"features\", \"app_host\"=>\"\", \"driver\"=>\"phantomjs\", \"pause\"=>0, \"stop_on_error\"=>\"false\", \"browserstack\"=>{\"username\"=>\"\", \"auth_key\"=>\"\"}, \"proxy\"=>{\"host\"=>\"\", \"port\"=>0}}"
       )
       # rubocop:enable Style/StringLiterals
     end

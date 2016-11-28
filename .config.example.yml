@@ -25,6 +25,15 @@ pause: 1
 # a detailed response.
 stop_on_error: 1
 
+# If you are running Quke behind a proxy you can configure the proxy details
+# here. You'll need either the hostname or IP of the proxy server (don't include
+# the http:// bit) and the port number (typically 8080). Currently proxy
+# settings will only be applied if you are using the PhantomJS, Chrome or
+# Firefox drivers.
+proxy:
+  host: '10.10.2.70'
+  port: 8080
+
 # If you select the browserstack driver, there are a number of options you
 # can pass through to setup your browserstack tests, username and auth_key
 # being the critical ones.
