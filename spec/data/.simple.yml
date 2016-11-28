@@ -5,6 +5,7 @@ features: 'spec'
 app_host: 'http://localhost:4567'
 driver: chrome
 pause: 1
+stop_on_error: true
 
 browserstack:
   username: jdoe

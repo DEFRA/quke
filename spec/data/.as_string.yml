@@ -1,0 +1,5 @@
+# In our tests we're checking that if a non-string value is specified as a
+# string Freakin::Configuration can still handle it
+pause: '1'
+
+stop_on_error: true
