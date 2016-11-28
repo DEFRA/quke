@@ -5,6 +5,7 @@ module Quke #:nodoc:
   # Handles executing Cucumber, including sorting the arguments we pass to it
   class CukeRunner
 
+    # # Access the arguments used by Quke when it was executed
     attr_reader :args
 
     # When an instance of CukeRunner is initialized it will take the arguments

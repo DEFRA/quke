@@ -20,6 +20,11 @@ driver: chrome
 # default is 0
 pause: 1
 
+# Specify whether Quke should stop all tests once an error occurs. Useful in
+# Continuous Integration (CI) environments where a quick Yes/No is preferable to
+# a detailed response.
+stop_on_error: 1
+
 # If you select the browserstack driver, there are a number of options you
 # can pass through to setup your browserstack tests, username and auth_key
 # being the critical ones.

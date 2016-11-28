@@ -10,6 +10,8 @@ module Quke #:nodoc:
   class Quke
 
     class << self
+      # Class level attribute which holds the instance of Quke::Configuration
+      # used for the current execution of Quke.
       attr_accessor :config
     end
 

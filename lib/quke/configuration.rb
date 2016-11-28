@@ -5,9 +5,20 @@ module Quke #:nodoc:
   # Manages all configuration for Quke.
   class Configuration
 
-    attr_reader :file_location, :data
+    # Access where the config file was loaded from for this instance of
+    # Quke::Configuration.
+    attr_reader :file_location
+
+    # Access the loaded config data object directly
+    attr_reader :data
 
     class << self
+      # Class level setter for the location of the config file.
+      #
+      # There will only be one for each execution of Quke and it does not
+      # support reading from another during execution. Hence we write this to
+      # the class level and all instances of Quke::Configuration then inherit
+      # this value.
       attr_writer :file_location
     end
 
@@ -70,6 +81,17 @@ module Quke #:nodoc:
       @data['pause']
     end
 
+    # Return the value set for +stop_on_error+.
+    #
+    # Specify whether Quke should stop all tests once an error occurs. Useful in
+    # Continuous Integration (CI) environments where a quick Yes/No is
+    # preferable to a detailed response.
+    def stop_on_error
+      # This use of Yaml.load to convert a string to a boolean comes from
+      # http://stackoverflow.com/a/21804027/6117745
+      YAML.load(@data['stop_on_error'])
+    end
+
     # Return the hash of +browserstack+ options.
     #
     # If you select the browserstack driver, there are a number of options you
@@ -130,9 +152,10 @@ module Quke #:nodoc:
     def default_data!(data)
       data.merge(
         'features_folder' => (data['features'] || 'features').downcase.strip,
-        'app_host' => (data['app_host'] || '').downcase.strip,
-        'driver' =>   (data['driver'] || 'phantomjs').downcase.strip,
-        'pause' =>    (data['pause'] || '0').to_s.downcase.strip.to_i
+        'app_host' =>        (data['app_host'] || '').downcase.strip,
+        'driver' =>          (data['driver'] || 'phantomjs').downcase.strip,
+        'pause' =>           (data['pause'] || '0').to_s.downcase.strip.to_i,
+        'stop_on_error' =>   (data['stop_on_error'] || 'false').to_s.downcase.strip
       )
     end
     # rubocop:enable Metrics/AbcSize

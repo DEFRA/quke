@@ -6,14 +6,13 @@ After('~@nonweb') do |scenario|
     $fail_count ||= 0
     $fail_count = $fail_count + 1
 
-    # Tell Cucumber to quit after first failing scenario when phantomjs is
-    # used. The expectation is that you are using phantomjs as part of your
-    # CI and therefore a fast response is better than a detailed response.
-    # Experience has shown that should a major element of your service go
+    # Tell Cucumber to quit after first failing scenario when stop_on_error is
+    # true.
+    # Also experience has shown that should a major element of your service go
     # down all your tests will start failing which means you can be swamped
     # with output from `save_and_open_page`. Using a global count of the
     # number of fails, if it hits 5 it will cause cucumber to close.
-    if Quke::Quke.config.driver == :phantomjs || $fail_count >= 5
+    if Quke::Quke.config.stop_on_error || $fail_count >= 5
       Cucumber.wants_to_quit = true
     else
       # If we're not using poltergiest and the scenario has failed, we want

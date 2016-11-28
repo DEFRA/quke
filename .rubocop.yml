@@ -26,14 +26,29 @@ AllCops:
 Style/GlobalVars:
   Enabled: false
 
-# It is our opinion that classes are easier to read if a white space is
-# permitted between the class declaration and the first statement. Ditto the
-# last statement and the closing tag.
-Style/EmptyLinesAroundClassBody:
-  Enabled: false
-
-# It is our opinion that modules are easier to read if a white space is
-# permitted between the module declaration and the first statement. Ditto the
+# It is our opinion that code is easier to read if a white space is
+# permitted between the initial declaration and the first statement. Ditto the
 # last statement and the closing tag.
 Style/EmptyLinesAroundModuleBody:
   Enabled: false
+Style/EmptyLinesAroundClassBody:
+  Enabled: false
+Style/EmptyLinesAroundBlockBody:
+    Enabled: false
+
+# It is our opinion that in the specs 80 characters is too restrictive. Do to
+# the nature of some statements that it can be both difficult, and make more
+# simple statements complex if we are forced to split them over multiple lines.
+# Therefore we have upped this limit to 120 chars in the specs only.
+Metrics/LineLength:
+  Max: 120
+  Exclude:
+    - spec/quke/*.rb
+
+# Rubocop appears to flag `describe` blocks which are longer than 25 lines.
+# However it is our opinion that this is necessary in specs, for example when
+# describing a class, the body of the describe may well exceed 25 lines.
+# Therefore we have excluded this rule in the specs only.
+Metrics/BlockLength:
+  Exclude:
+    - spec/quke/*.rb

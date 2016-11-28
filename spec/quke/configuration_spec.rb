@@ -66,8 +66,31 @@ RSpec.describe Quke::Configuration do
 
     context 'when in the config file as a string' do
       it 'matches the config file' do
-        Quke::Configuration.file_location = data_path('.pause.yml')
+        Quke::Configuration.file_location = data_path('.as_string.yml')
         expect(subject.pause).to eq(1)
+      end
+    end
+  end
+
+  describe '#stop_on_error', focus: true do
+    context 'when NOT specified in the config file' do
+      it 'defaults to false' do
+        Quke::Configuration.file_location = data_path('.no_file.yml')
+        expect(subject.stop_on_error).to eq(false)
+      end
+    end
+
+    context 'when specified in config file' do
+      it 'matches the config file' do
+        Quke::Configuration.file_location = data_path('.simple.yml')
+        expect(subject.stop_on_error).to eq(true)
+      end
+    end
+
+    context 'when in the config file as a string' do
+      it 'matches the config file' do
+        Quke::Configuration.file_location = data_path('.as_string.yml')
+        expect(subject.stop_on_error).to eq(true)
       end
     end
   end
@@ -115,9 +138,11 @@ RSpec.describe Quke::Configuration do
   describe '#to_s' do
     it 'return the values held by the instance and not an instance ID' do
       Quke::Configuration.file_location = data_path('.no_file.yml')
+      # rubocop:disable Style/StringLiterals
       expect(subject.to_s).to eq(
         "{\"features_folder\"=>\"features\", \"app_host\"=>\"\", \"driver\"=>\"phantomjs\", \"pause\"=>0, \"browserstack\"=>{\"username\"=>\"\", \"auth_key\"=>\"\"}}"
       )
+      # rubocop:enable Style/StringLiterals
     end
   end
 
