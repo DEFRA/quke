@@ -72,7 +72,7 @@ RSpec.describe Quke::Configuration do
     end
   end
 
-  describe '#stop_on_error', focus: true do
+  describe '#stop_on_error' do
     context 'when NOT specified in the config file' do
       it 'defaults to false' do
         Quke::Configuration.file_location = data_path('.no_file.yml')
@@ -140,7 +140,7 @@ RSpec.describe Quke::Configuration do
       Quke::Configuration.file_location = data_path('.no_file.yml')
       # rubocop:disable Style/StringLiterals
       expect(subject.to_s).to eq(
-        "{\"features_folder\"=>\"features\", \"app_host\"=>\"\", \"driver\"=>\"phantomjs\", \"pause\"=>0, \"browserstack\"=>{\"username\"=>\"\", \"auth_key\"=>\"\"}}"
+        "{\"features_folder\"=>\"features\", \"app_host\"=>\"\", \"driver\"=>\"phantomjs\", \"pause\"=>0, \"stop_on_error\"=>\"false\", \"browserstack\"=>{\"username\"=>\"\", \"auth_key\"=>\"\"}}"
       )
       # rubocop:enable Style/StringLiterals
     end
