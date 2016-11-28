@@ -14,6 +14,16 @@ git:
 # https://docs.travis-ci.com/user/languages/ruby#Caching-Bundler
 cache: bundler
 
+# Using the ability to customise the Travis build to check for 'focus' labels
+# i.e. labels used when working on a spec but which we don't want appearing in
+# the final commit to master
+# Reworking of http://stackoverflow.com/a/30495279/6117745
+# If grep returns 0 (match found), test 0 -eq 1 will return 1.
+# If grep returns 1 (no match found), test 1 -eq 1 will return 0.
+# If grep returns 2 (error), test 2 -eq 1 will return 1.
+before_script: >-
+  echo "Checking for use of 'focus' labels in specs" && grep -r --include="*_spec.rb" "focus: true" spec/; test $? -eq 1
+
 # This section was added as per https://docs.travis-ci.com/user/code-climate/
 # To protect our codeclimate stats rather than adding the Codeclimate API key for ea-area_lookup
 # in the open we used this guide https://docs.travis-ci.com/user/encryption-keys/ to encryt the
