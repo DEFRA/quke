@@ -138,9 +138,11 @@ RSpec.describe Quke::Configuration do
   describe '#to_s' do
     it 'return the values held by the instance and not an instance ID' do
       Quke::Configuration.file_location = data_path('.no_file.yml')
+      # rubocop:disable Style/StringLiterals
       expect(subject.to_s).to eq(
         "{\"features_folder\"=>\"features\", \"app_host\"=>\"\", \"driver\"=>\"phantomjs\", \"pause\"=>0, \"browserstack\"=>{\"username\"=>\"\", \"auth_key\"=>\"\"}}"
       )
+      # rubocop:enable Style/StringLiterals
     end
   end
 
