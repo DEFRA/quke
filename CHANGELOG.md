@@ -1,5 +1,43 @@
 # Change Log
 
+## [Unreleased](https://github.com/EnvironmentAgency/quke/tree/HEAD)
+
+[Full Changelog](https://github.com/EnvironmentAgency/quke/compare/v0.2.5...HEAD)
+
+**Closed issues:**
+
+- focus label left against rspec tests stops all tests running [\#43](https://github.com/EnvironmentAgency/quke/issues/43)
+
+## [v0.2.5](https://github.com/EnvironmentAgency/quke/tree/v0.2.5) (2016-11-28)
+[Full Changelog](https://github.com/EnvironmentAgency/quke/compare/v0.2.4...v0.2.5)
+
+**Closed issues:**
+
+- Don't use driver as an assumption of running on CI [\#41](https://github.com/EnvironmentAgency/quke/issues/41)
+
+**Merged pull requests:**
+
+- Fix rspec focus label left in tests [\#44](https://github.com/EnvironmentAgency/quke/pull/44) ([Cruikshanks](https://github.com/Cruikshanks))
+
+## [v0.2.4](https://github.com/EnvironmentAgency/quke/tree/v0.2.4) (2016-11-28)
+[Full Changelog](https://github.com/EnvironmentAgency/quke/compare/v0.2.3...v0.2.4)
+
+**Closed issues:**
+
+- Launchy showing blank pages on error [\#39](https://github.com/EnvironmentAgency/quke/issues/39)
+
+**Merged pull requests:**
+
+- Change after\_hook error to use config not assume [\#42](https://github.com/EnvironmentAgency/quke/pull/42) ([Cruikshanks](https://github.com/Cruikshanks))
+
+## [v0.2.3](https://github.com/EnvironmentAgency/quke/tree/v0.2.3) (2016-10-05)
+[Full Changelog](https://github.com/EnvironmentAgency/quke/compare/v0.2.2...v0.2.3)
+
+**Merged pull requests:**
+
+- Fix Quke not loading .config.yml correctly [\#37](https://github.com/EnvironmentAgency/quke/pull/37) ([Cruikshanks](https://github.com/Cruikshanks))
+- Update CHANGELOG.md [\#36](https://github.com/EnvironmentAgency/quke/pull/36) ([Cruikshanks](https://github.com/Cruikshanks))
+
 ## [v0.2.2](https://github.com/EnvironmentAgency/quke/tree/v0.2.2) (2016-10-05)
 [Full Changelog](https://github.com/EnvironmentAgency/quke/compare/v0.2.1...v0.2.2)
 
