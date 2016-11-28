@@ -8,12 +8,20 @@ module Quke #:nodoc:
   # Capybara.
   class DriverRegistration
 
+    # Access the instance of Quke::Configuration passed to this instance of
+    # Quke::DriverRegistration when it was initialized.
     attr_reader :config
 
+    # Instantiate an instance of Quke::DriverRegistration.
+    #
+    # It expects an instance of Quke::Configuration which will detail the driver
+    # to be used and any related options
     def initialize(config)
       @config = config
     end
 
+    # When called registers the driver specified in the instance of
+    # Quke::Configuration currently being used by Quke.
     def register
       case @config.driver
       when 'firefox'

@@ -5,9 +5,20 @@ module Quke #:nodoc:
   # Manages all configuration for Quke.
   class Configuration
 
-    attr_reader :file_location, :data
+    # Access where the config file was loaded from for this instance of
+    # Quke::Configuration.
+    attr_reader :file_location
+
+    # Access the loaded config data object directly
+    attr_reader :data
 
     class << self
+      # Class level setter for the location of the config file.
+      #
+      # There will only be one for each execution of Quke and it does not
+      # support reading from another during execution. Hence we write this to
+      # the class level and all instances of Quke::Configuration then inherit
+      # this value.
       attr_writer :file_location
     end
 
