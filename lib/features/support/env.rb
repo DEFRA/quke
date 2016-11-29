@@ -1,13 +1,17 @@
 require 'rspec/expectations'
 require 'capybara/cucumber'
 require 'site_prism'
-require 'quke/driver_registration'
 require 'quke/configuration'
+require 'quke/driver_configuration'
+require 'quke/driver_registration'
 
-Capybara.app_host =
-  Quke::Quke.config.app_host unless Quke::Quke.config.app_host.empty?
+unless Quke::Quke.config.app_host.empty?
+  Capybara.app_host = Quke::Quke.config.app_host
+end
 
-driver = Quke::DriverRegistration.new(Quke::Quke.config).register
+driver_config = Quke::DriverConfiguration.new(Quke::Quke.config)
+driver_reg = Quke::DriverRegistration.new(driver_config)
+driver = driver_reg.register(Quke::Quke.config.driver)
 
 Capybara.default_driver = driver
 Capybara.javascript_driver = driver
