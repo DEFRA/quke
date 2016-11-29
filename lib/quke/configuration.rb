@@ -113,6 +113,11 @@ module Quke #:nodoc:
       @data['proxy']
     end
 
+    # Return true if the +proxy: host+ value has been set in the +.config.yml+
+    # file, else false.
+    #
+    # It is mainly used when determining whether to apply proxy server settings
+    # to the different drivers when registering them with Capybara.
     def use_proxy?
       proxy['host'] == '' ? false : true
     end

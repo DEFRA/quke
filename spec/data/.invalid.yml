@@ -1,0 +1,2 @@
+# Intentionally specifing an unrecognised value for the driver
+driver: 'jenson_button'

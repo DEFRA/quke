@@ -2,6 +2,7 @@ require 'quke/version'
 require 'quke/configuration'
 require 'quke/cuke_runner'
 require 'quke/driver_registration'
+require 'quke/driver_configuration'
 
 module Quke #:nodoc:
 
