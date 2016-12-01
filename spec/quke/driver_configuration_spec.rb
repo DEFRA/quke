@@ -86,11 +86,24 @@ RSpec.describe Quke::DriverConfiguration do
       end
     end
 
-    context 'proxy details have been set in the .config.yml' do
-      it 'returns an array containing proxy settings' do
+    context 'basic proxy details have been set in the .config.yml' do
+      it 'returns an array containing basic proxy settings' do
         Quke::Configuration.file_location = data_path('.simple.yml')
         config = Quke::Configuration.new
         expect(Quke::DriverConfiguration.new(config).chrome).to eq(["--proxy-server=#{config.proxy['host']}:#{config.proxy['port']}"])
+      end
+    end
+
+    context 'proxy details including addresses not to connect via the proxy server have been set in the .config.yml' do
+      it 'returns an array containing proxy settings including no-proxy details' do
+        Quke::Configuration.file_location = data_path('.proxy.yml')
+        config = Quke::Configuration.new
+        expect(Quke::DriverConfiguration.new(config).chrome).to eq(
+          [
+            "--proxy-server=#{config.proxy['host']}:#{config.proxy['port']}",
+            '--proxy-bypass-list=127.0.0.1;192.168.0.1'
+          ]
+        )
       end
     end
 
@@ -113,8 +126,8 @@ RSpec.describe Quke::DriverConfiguration do
       end
     end
 
-    context 'proxy details have been set in the .config.yml' do
-      it 'returns a profile where the proxy details are set' do
+    context 'basic proxy details have been set in the .config.yml' do
+      it 'returns a profile where the basic proxy details are set' do
         Quke::Configuration.file_location = data_path('.simple.yml')
         config = Quke::Configuration.new
         profile = Quke::DriverConfiguration.new(config).firefox
@@ -125,6 +138,22 @@ RSpec.describe Quke::DriverConfiguration do
 
         expect(preferences).to include('user_pref("network.proxy.http", "10.10.2.70")')
         expect(preferences).to include('user_pref("network.proxy.http_port", 8080)')
+      end
+    end
+
+    context 'proxy details including addresses not to connect via the proxy server have been set in the .config.yml' do
+      it 'returns a profile where the proxy details are set including no-proxy details' do
+        Quke::Configuration.file_location = data_path('.proxy.yml')
+        config = Quke::Configuration.new
+        profile = Quke::DriverConfiguration.new(config).firefox
+
+        # See spec/helpers.rb#read_profile_preferences for details of why we
+        # need to test the profile's properties in this way
+        preferences = read_profile_preferences(profile)
+
+        expect(preferences).to include('user_pref("network.proxy.http", "10.10.2.70")')
+        expect(preferences).to include('user_pref("network.proxy.http_port", 8080)')
+        expect(preferences).to include('user_pref("network.proxy.no_proxies_on", "127.0.0.1,192.168.0.1")')
       end
     end
 

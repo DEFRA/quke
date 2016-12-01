@@ -97,18 +97,19 @@ RSpec.describe Quke::Configuration do
 
   describe '#proxy' do
     context 'when NOT specified in the config file' do
-      it 'defaults to a blank host and port' do
+      it 'defaults to a blank values' do
         Quke::Configuration.file_location = data_path('.no_file.yml')
-        expect(subject.proxy).to eq('host' => '', 'port' => 0)
+        expect(subject.proxy).to eq('host' => '', 'port' => 0, 'no_proxy' => '')
       end
     end
 
     context 'when specified in the config file' do
       it 'matches the config file' do
-        Quke::Configuration.file_location = data_path('.simple.yml')
+        Quke::Configuration.file_location = data_path('.proxy.yml')
         expect(subject.proxy).to eq(
           'host' => '10.10.2.70',
-          'port' => 8080
+          'port' => 8080,
+          'no_proxy' => '127.0.0.1,192.168.0.1'
         )
       end
     end
@@ -117,8 +118,9 @@ RSpec.describe Quke::Configuration do
       it 'matches the config file' do
         Quke::Configuration.file_location = data_path('.as_string.yml')
         expect(subject.proxy).to eq(
-          'host' => '10.10.2.70',
-          'port' => 8080
+          'host' => '',
+          'port' => 8080,
+          'no_proxy' => ''
         )
       end
     end
@@ -166,7 +168,7 @@ RSpec.describe Quke::Configuration do
       Quke::Configuration.file_location = data_path('.no_file.yml')
       # rubocop:disable Style/StringLiterals
       expect(subject.to_s).to eq(
-        "{\"features_folder\"=>\"features\", \"app_host\"=>\"\", \"driver\"=>\"phantomjs\", \"pause\"=>0, \"stop_on_error\"=>\"false\", \"browserstack\"=>{\"username\"=>\"\", \"auth_key\"=>\"\"}, \"proxy\"=>{\"host\"=>\"\", \"port\"=>0}}"
+        "{\"features_folder\"=>\"features\", \"app_host\"=>\"\", \"driver\"=>\"phantomjs\", \"pause\"=>0, \"stop_on_error\"=>\"false\", \"browserstack\"=>{\"username\"=>\"\", \"auth_key\"=>\"\"}, \"proxy\"=>{\"host\"=>\"\", \"port\"=>0, \"no_proxy\"=>\"\"}}"
       )
       # rubocop:enable Style/StringLiterals
     end

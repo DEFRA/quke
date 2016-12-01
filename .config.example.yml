@@ -33,6 +33,14 @@ stop_on_error: 1
 proxy:
   host: '10.10.2.70'
   port: 8080
+  # In some cases you may also need to tell the browser (driver) not to use the
+  # proxy for local or specific connections. For this simply provide a comma
+  # separated list of addresses.
+  #
+  # IMPORTANT NOTE! phantomjs does not currently support this option. If you
+  # have to go via a proxy server for external connections, but not local ones
+  # you will be limited to using either the Chrome or Firefox drivers.
+  no_proxy: '127.0.0.1,192.168.0.1'
 
 # If you select the browserstack driver, there are a number of options you
 # can pass through to setup your browserstack tests, username and auth_key

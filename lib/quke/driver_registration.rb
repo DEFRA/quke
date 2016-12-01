@@ -43,6 +43,9 @@ module Quke #:nodoc:
     # poltergeist, and we can even pass on options to phantomjs to configure how
     # it runs.
     def phantomjs
+      # For future reference the options we pass through to phantomjs appear to
+      # mirror those you can actually supply on the command line.
+      # http://phantomjs.org/api/command-line.html
       Capybara.register_driver :phantomjs do |app|
         # We ignore the next line (and those like it in the subsequent methods)
         # from code coverage because we never actually execute them from Quke.
@@ -65,6 +68,8 @@ module Quke #:nodoc:
       # object.
       # https://github.com/SeleniumHQ/selenium/wiki/Ruby-Bindings#firefox
       # http://www.rubydoc.info/gems/selenium-webdriver/0.0.28/Selenium/WebDriver/Firefox/Profile
+      # http://www.seleniumhq.org/docs/04_webdriver_advanced.jsp
+      # http://preferential.mozdev.org/preferences.html
       Capybara.register_driver :firefox do |app|
         # :simplecov_ignore:
         Capybara::Selenium::Driver.new(app, profile: config.firefox)
@@ -81,6 +86,7 @@ module Quke #:nodoc:
       # Capybara to Selenium-webdriver, which in turn passes it to chromium
       # https://github.com/SeleniumHQ/selenium/wiki/Ruby-Bindings#chrome
       # http://peter.sh/experiments/chromium-command-line-switches/
+      # https://www.chromium.org/developers/design-documents/network-settings
       Capybara.register_driver :chrome do |app|
         # :simplecov_ignore:
         Capybara::Selenium::Driver.new(
