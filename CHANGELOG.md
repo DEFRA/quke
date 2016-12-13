@@ -2,11 +2,28 @@
 
 ## [Unreleased](https://github.com/EnvironmentAgency/quke/tree/HEAD)
 
-[Full Changelog](https://github.com/EnvironmentAgency/quke/compare/v0.2.5...HEAD)
+[Full Changelog](https://github.com/EnvironmentAgency/quke/compare/v0.2.7...HEAD)
+
+**Merged pull requests:**
+
+- Add support 4 setting 'no proxy' arg. in drivers [\#49](https://github.com/EnvironmentAgency/quke/pull/49) ([Cruikshanks](https://github.com/Cruikshanks))
+
+## [v0.2.7](https://github.com/EnvironmentAgency/quke/tree/v0.2.7) (2016-12-13)
+[Full Changelog](https://github.com/EnvironmentAgency/quke/compare/v0.2.6...v0.2.7)
+
+## [v0.2.6](https://github.com/EnvironmentAgency/quke/tree/v0.2.6) (2016-11-29)
+[Full Changelog](https://github.com/EnvironmentAgency/quke/compare/v0.2.5...v0.2.6)
 
 **Closed issues:**
 
+- Ability to specify a proxy for each driver [\#46](https://github.com/EnvironmentAgency/quke/issues/46)
 - focus label left against rspec tests stops all tests running [\#43](https://github.com/EnvironmentAgency/quke/issues/43)
+
+**Merged pull requests:**
+
+- Update version for merge of proxy server support [\#48](https://github.com/EnvironmentAgency/quke/pull/48) ([Cruikshanks](https://github.com/Cruikshanks))
+- Add support for proxy servers [\#47](https://github.com/EnvironmentAgency/quke/pull/47) ([Cruikshanks](https://github.com/Cruikshanks))
+- \[ci skip\] Updating CHANGELOG.md [\#45](https://github.com/EnvironmentAgency/quke/pull/45) ([Cruikshanks](https://github.com/Cruikshanks))
 
 ## [v0.2.5](https://github.com/EnvironmentAgency/quke/tree/v0.2.5) (2016-11-28)
 [Full Changelog](https://github.com/EnvironmentAgency/quke/compare/v0.2.4...v0.2.5)
