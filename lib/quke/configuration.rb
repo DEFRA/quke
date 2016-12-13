@@ -169,7 +169,8 @@ module Quke #:nodoc:
       data = {} if data.nil?
       data.merge(
         'host' => (data['host'] || '').downcase.strip,
-        'port' => (data['port'] || '0').to_s.downcase.strip.to_i
+        'port' => (data['port'] || '0').to_s.downcase.strip.to_i,
+        'no_proxy' => (data['no_proxy'] || '').downcase.strip
       )
     end
 

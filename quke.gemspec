@@ -3,6 +3,9 @@ lib = File.expand_path('../lib', __FILE__)
 $LOAD_PATH.unshift(lib) unless $LOAD_PATH.include?(lib)
 require 'quke/version'
 
+# Don't believe you would want to break this particular block up hence adding
+# the exception for rubocop.
+# rubocop:disable Metrics/BlockLength
 Gem::Specification.new do |spec|
   spec.name          = 'quke'
   spec.version       = Quke::VERSION
@@ -10,7 +13,11 @@ Gem::Specification.new do |spec|
   spec.email         = ['alan.cruikshanks@environment-agency.gov.uk']
 
   spec.summary       = 'A gem to simplify creating acceptance tests using Cucumber'
+  # My attempts to break this line up to meet the 120 char limit we have set
+  # have proved fruitles so far!
+  # rubocop:disable Metrics/LineLength
   spec.description   = 'Quke tries to simplify the process of writing and running acceptance tests by setting up Cucumber for you. It handles the config to allow you to run your tests in Firefox and Chrome, or the headless browser PhantomJS. It also has out of the box setup for using Browserstack automate. This leaves you to focus on just your features and steps.'
+  # rubocop:enable Metrics/LineLength
   spec.homepage      = 'https://github.com/environmentagency/quke'
   spec.license       = 'Nonstandard'
 
@@ -91,3 +98,4 @@ Gem::Specification.new do |spec|
   spec.add_development_dependency 'simplecov', '~> 0.12'
   spec.add_development_dependency 'github_changelog_generator', '~> 1.13'
 end
+# rubocop:enable Metrics/BlockLength

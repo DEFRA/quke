@@ -118,7 +118,10 @@ module Quke #:nodoc:
     #     Capybara::Selenium::Driver.new(
     #       app,
     #       browser: :chrome,
-    #       switches: ["--proxy-server=localhost:8080"]
+    #       switches: [
+    #         "--proxy-server=localhost:8080",
+    #         "--proxy-bypass-list=127.0.0.1,192.168.0.1"
+    #       ]
     #     )
     #
     # Rather than setting the switches manually Quke::DriverConfiguration.chrome
@@ -131,13 +134,20 @@ module Quke #:nodoc:
     #       switches: my_driver_config.chrome
     #     )
     #
+    # rubocop:disable Metrics/AbcSize
     def chrome
-      if config.use_proxy?
-        ["--proxy-server=#{config.proxy['host']}:#{config.proxy['port']}"]
-      else
-        []
-      end
+      result = []
+
+      host = config.proxy['host']
+      port = config.proxy['port']
+      no_proxy = config.proxy['no_proxy'].tr(',', ';')
+
+      result.push("--proxy-server=#{host}:#{port}") if config.use_proxy?
+      result.push("--proxy-bypass-list=#{no_proxy}") unless config.proxy['no_proxy'].empty?
+
+      result
     end
+    # rubocop:enable Metrics/AbcSize
 
     # Returns an instance of Selenium::WebDriver::Remote::Capabilities to be
     # used when registering an instance of Capybara::Selenium::Driver,
@@ -169,12 +179,16 @@ module Quke #:nodoc:
     def firefox
       profile = Selenium::WebDriver::Firefox::Profile.new
 
-      if config.use_proxy?
-        profile.proxy = Selenium::WebDriver::Proxy.new(
-          http: "#{config.proxy['host']}:#{config.proxy['port']}",
-          ssl: "#{config.proxy['host']}:#{config.proxy['port']}"
-        )
-      end
+      settings = {}
+      host = config.proxy['host']
+      port = config.proxy['port']
+      no_proxy = config.proxy['no_proxy']
+
+      settings[:http] = "#{host}:#{port}" if config.use_proxy?
+      settings[:ssl] = settings[:http] if config.use_proxy?
+      settings[:no_proxy] = no_proxy unless config.proxy['no_proxy'].empty?
+
+      profile.proxy = Selenium::WebDriver::Proxy.new(settings) if config.use_proxy?
 
       profile
     end

@@ -92,10 +92,6 @@ You should be aware of some default behaviours included in Quke.
 
 Capybara includes the ability to save the source of the current page at any point. Quke has been configured so that if you are not using the headless browser and a step should fail it will save the source to file and then use a tool called [Launchy](https://github.com/copiousfreetime/launchy) to open it in your default browser.
 
-### Early fail for CI
-
-When running using the default PhantomJS headless browser, as soon as there is a failure Quke will exit. This is because it is assumed when used in headless mode the key thing to know is *are there any failures*, to ensure fast feedback from your CI build server.
-
 ### Quit on 5 failures
 
 If you are running using Chrome or Firefox after the 5th failure Quke will automatically stop. This is to prevent scores of tabs being opened in the browser when an error is found, which may just be the result of an error in the test code.
