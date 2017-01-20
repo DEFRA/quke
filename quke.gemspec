@@ -18,7 +18,7 @@ Gem::Specification.new do |spec|
   # rubocop:disable Metrics/LineLength
   spec.description   = 'Quke tries to simplify the process of writing and running acceptance tests by setting up Cucumber for you. It handles the config to allow you to run your tests in Firefox and Chrome, or the headless browser PhantomJS. It also has out of the box setup for using Browserstack automate. This leaves you to focus on just your features and steps.'
   # rubocop:enable Metrics/LineLength
-  spec.homepage      = 'https://github.com/environmentagency/quke'
+  spec.homepage      = 'https://github.com/DEFRA/quke'
   spec.license       = 'Nonstandard'
 
   # Prevent pushing this gem to RubyGems.org. To allow pushes either set the
