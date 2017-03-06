@@ -95,6 +95,29 @@ RSpec.describe Quke::Configuration do
     end
   end
 
+  describe '#max_wait_time' do
+    context 'when NOT specified in the config file' do
+      it 'defaults to whatever the Capybara default is' do
+        Quke::Configuration.file_location = data_path('.no_file.yml')
+        expect(subject.max_wait_time).to eq(Capybara.default_max_wait_time)
+      end
+    end
+
+    context 'when specified in config file' do
+      it 'matches the config file' do
+        Quke::Configuration.file_location = data_path('.simple.yml')
+        expect(subject.max_wait_time).to eq(3)
+      end
+    end
+
+    context 'when in the config file as a string' do
+      it 'matches the config file' do
+        Quke::Configuration.file_location = data_path('.as_string.yml')
+        expect(subject.max_wait_time).to eq(3)
+      end
+    end
+  end
+
   describe '#proxy' do
     context 'when NOT specified in the config file' do
       it 'defaults to a blank values' do
@@ -168,7 +191,7 @@ RSpec.describe Quke::Configuration do
       Quke::Configuration.file_location = data_path('.no_file.yml')
       # rubocop:disable Style/StringLiterals
       expect(subject.to_s).to eq(
-        "{\"features_folder\"=>\"features\", \"app_host\"=>\"\", \"driver\"=>\"phantomjs\", \"pause\"=>0, \"stop_on_error\"=>\"false\", \"browserstack\"=>{\"username\"=>\"\", \"auth_key\"=>\"\"}, \"proxy\"=>{\"host\"=>\"\", \"port\"=>0, \"no_proxy\"=>\"\"}}"
+        "{\"features_folder\"=>\"features\", \"app_host\"=>\"\", \"driver\"=>\"phantomjs\", \"pause\"=>0, \"stop_on_error\"=>\"false\", \"max_wait_time\"=>2, \"browserstack\"=>{\"username\"=>\"\", \"auth_key\"=>\"\"}, \"proxy\"=>{\"host\"=>\"\", \"port\"=>0, \"no_proxy\"=>\"\"}}"
       )
       # rubocop:enable Style/StringLiterals
     end

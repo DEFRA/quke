@@ -92,6 +92,19 @@ module Quke #:nodoc:
       YAML.load(@data['stop_on_error'])
     end
 
+    # Return the value for +max_wait_time+
+    #
+    # +max_wait_time+ is the time Capybara will spend waiting for an element
+    # to appear. It's default is normally 2 seconds but you may want to increase
+    # this is you are having to deal with a site that is not performant or prone
+    # to delays.
+    #
+    # If the value is not set in config file, it will default to whatever is the
+    # current Capybara value for default_max_wait_time.
+    def max_wait_time
+      @data['max_wait_time']
+    end
+
     # Return the hash of +browserstack+ options.
     #
     # If you select the browserstack driver, there are a number of options you
@@ -138,16 +151,19 @@ module Quke #:nodoc:
     end
 
     # rubocop:disable Metrics/AbcSize
+    # rubocop:disable Metrics/CyclomaticComplexity
     def default_data!(data)
       data.merge(
         'features_folder' => (data['features'] || 'features').downcase.strip,
         'app_host' =>        (data['app_host'] || '').downcase.strip,
         'driver' =>          (data['driver'] || 'phantomjs').downcase.strip,
         'pause' =>           (data['pause'] || '0').to_s.downcase.strip.to_i,
-        'stop_on_error' =>   (data['stop_on_error'] || 'false').to_s.downcase.strip
+        'stop_on_error' =>   (data['stop_on_error'] || 'false').to_s.downcase.strip,
+        'max_wait_time' =>   (data['max_wait_time'] || Capybara.default_max_wait_time).to_s.downcase.strip.to_i
       )
     end
     # rubocop:enable Metrics/AbcSize
+    # rubocop:enable Metrics/CyclomaticComplexity
 
     # rubocop:disable Metrics/MethodLength
     def browserstack_data(data)
