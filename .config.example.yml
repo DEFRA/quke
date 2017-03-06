@@ -31,6 +31,31 @@ stop_on_error: 1
 # elements that take some time to load you can increase this default.
 max_wait_time: 5
 
+# Anything you place under the 'custom' node in the `.config.yml` file will be
+# available within your steps and page objects by calling
+# `Quke::Quke.config.custom`. So using the example below we could access its
+# values in the following ways
+#
+# Quke::Quke.config.custom["default_org_name"] # = "Testy Ltd"
+# Quke::Quke.config.custom["accounts"]["account2"]["username"] # = "john.doe@example.gov.uk"
+# Quke::Quke.config.custom["urls"]["front_office"] # = "http://myservice.service.gov.uk"
+#
+# As long as what you add is valid YAML (check with a tool like
+# http://www.yamllint.com/) Quke will be able to pick it up and make it
+# available in your tests.
+custom:
+  default_org_name: "Testy Ltd"
+  accounts:
+    account1:
+      username: jane.doe@example.gov.uk
+      password: Av3rystr*ngone
+    account2:
+      username: john.doe@example.gov.uk
+      password: An*th3rstrongone
+  urls:
+    front_office: "http://myservice.service.gov.uk"
+    back_office: "http://admin-myservice.service.gov.uk"
+
 # If you are running Quke behind a proxy you can configure the proxy details
 # here. You'll need either the hostname or IP of the proxy server (don't include
 # the http:// bit) and the port number (typically 8080). Currently proxy
@@ -64,7 +89,7 @@ browserstack:
   project: 'Adding browserstack support'
 
   # Allows you to specify an identifier for the test run.
-  # If you intend to repeat a test this might not be that aplicable, but in the
+  # If you intend to repeat a test this might not be that applicable, but in the
   # case of one off tests it might be useful
   name: 'Testing google search'
 

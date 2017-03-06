@@ -120,7 +120,7 @@ RSpec.describe Quke::Configuration do
 
   describe '#proxy' do
     context 'when NOT specified in the config file' do
-      it 'defaults to a blank values' do
+      it 'defaults to blank values' do
         Quke::Configuration.file_location = data_path('.no_file.yml')
         expect(subject.proxy).to eq('host' => '', 'port' => 0, 'no_proxy' => '')
       end
@@ -186,12 +186,66 @@ RSpec.describe Quke::Configuration do
     end
   end
 
+  describe '#custom' do
+    context 'when NOT specified in the config file' do
+      it 'defaults to nothing' do
+        Quke::Configuration.file_location = data_path('.no_file.yml')
+        expect(subject.custom).to be(nil)
+      end
+    end
+
+    context "when 'custom' in the config file holds simple key value pairs" do
+      it 'returns the key value pair if there is just one' do
+        Quke::Configuration.file_location = data_path('.custom_key_value_pair.yml')
+        expect(subject.custom).to eq('my_key' => 'my_value')
+      end
+
+      it 'returns all key value pairs if there are multiples' do
+        Quke::Configuration.file_location = data_path('.custom_key_value_pairs.yml')
+        expect(subject.custom).to eq(
+          'my_key1' => 'my_value1',
+          'my_key2' => 'my_value2',
+          'my_key3' => 'my_value3',
+          'my_key4' => 'my_value4',
+          'my_key5' => 'my_value5'
+        )
+      end
+    end
+
+    context "when 'custom' in the config file holds a hierachical object" do
+      it 'returns a representation of the object' do
+        Quke::Configuration.file_location = data_path('.custom_complex_object.yml')
+        expect(subject.custom).to eq(
+          'my_key' => 'my_value',
+          'accounts' => {
+            'account1' => {
+              'username' => 'yoda',
+              'password' => 'greenisgood'
+            },
+            'account2' => {
+              'username' => 'vadar',
+              'password' => 'redrules'
+            },
+            'account3' => {
+              'username' => 'luke',
+              'password' => 'fatherissues'
+            }
+          },
+          'troop_numbers' => {
+            'dark_side_count' => 1_000_000,
+            'light_side_count' => 5
+          }
+        )
+      end
+    end
+  end
+
   describe '#to_s' do
     it 'return the values held by the instance and not an instance ID' do
       Quke::Configuration.file_location = data_path('.no_file.yml')
       # rubocop:disable Style/StringLiterals
       expect(subject.to_s).to eq(
-        "{\"features_folder\"=>\"features\", \"app_host\"=>\"\", \"driver\"=>\"phantomjs\", \"pause\"=>0, \"stop_on_error\"=>\"false\", \"max_wait_time\"=>2, \"browserstack\"=>{\"username\"=>\"\", \"auth_key\"=>\"\"}, \"proxy\"=>{\"host\"=>\"\", \"port\"=>0, \"no_proxy\"=>\"\"}}"
+        "{\"features_folder\"=>\"features\", \"app_host\"=>\"\", \"driver\"=>\"phantomjs\", \"pause\"=>0, \"stop_on_error\"=>\"false\", \"max_wait_time\"=>2, \"custom\"=>nil, \"browserstack\"=>{\"username\"=>\"\", \"auth_key\"=>\"\"}, \"proxy\"=>{\"host\"=>\"\", \"port\"=>0, \"no_proxy\"=>\"\"}}"
       )
       # rubocop:enable Style/StringLiterals
     end

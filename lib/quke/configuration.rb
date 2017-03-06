@@ -135,6 +135,10 @@ module Quke #:nodoc:
       proxy['host'] == '' ? false : true
     end
 
+    def custom
+      @data['custom']
+    end
+
     # Override to_s to output the contents of Config as a readable string rather
     # than the standard object output you get.
     def to_s
@@ -152,6 +156,7 @@ module Quke #:nodoc:
 
     # rubocop:disable Metrics/AbcSize
     # rubocop:disable Metrics/CyclomaticComplexity
+    # rubocop:disable Metrics/PerceivedComplexity
     def default_data!(data)
       data.merge(
         'features_folder' => (data['features'] || 'features').downcase.strip,
@@ -159,11 +164,13 @@ module Quke #:nodoc:
         'driver' =>          (data['driver'] || 'phantomjs').downcase.strip,
         'pause' =>           (data['pause'] || '0').to_s.downcase.strip.to_i,
         'stop_on_error' =>   (data['stop_on_error'] || 'false').to_s.downcase.strip,
-        'max_wait_time' =>   (data['max_wait_time'] || Capybara.default_max_wait_time).to_s.downcase.strip.to_i
+        'max_wait_time' =>   (data['max_wait_time'] || Capybara.default_max_wait_time).to_s.downcase.strip.to_i,
+        'custom' =>          (data['custom'] || nil)
       )
     end
     # rubocop:enable Metrics/AbcSize
     # rubocop:enable Metrics/CyclomaticComplexity
+    # rubocop:enable Metrics/PerceivedComplexity
 
     # rubocop:disable Metrics/MethodLength
     def browserstack_data(data)

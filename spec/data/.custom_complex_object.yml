@@ -1,0 +1,15 @@
+custom:
+  my_key: my_value
+  accounts:
+    account1:
+      username: yoda
+      password: greenisgood
+    account2:
+      username: vadar
+      password: redrules
+    account3:
+      username: luke
+      password: fatherissues
+  troop_numbers:
+    dark_side_count: 1000000
+    light_side_count: 5
