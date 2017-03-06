@@ -16,6 +16,11 @@ driver = driver_reg.register(Quke::Quke.config.driver)
 Capybara.default_driver = driver
 Capybara.javascript_driver = driver
 
+# default_max_wait_time is the maximum time Capybara will wait for an element
+# to appear. You may wish to override it if you are having to deal with a slow
+# or unresponsive web site.
+Capybara.default_max_wait_time = Quke::Quke.config.max_wait_time
+
 # By default Capybara will try to boot a rack application automatically. This
 # switches off Capybara's rack server as we are running against a remote
 # application.
