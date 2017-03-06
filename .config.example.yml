@@ -25,6 +25,12 @@ pause: 1
 # a detailed response.
 stop_on_error: 1
 
+# Capybara will attempt to find an element for a period of time, rather than
+# immediately failing because the element cannot be found. This defaults to 2
+# seconds. However if the site you are working with is slow or features
+# elements that take some time to load you can increase this default.
+max_wait_time: 5
+
 # If you are running Quke behind a proxy you can configure the proxy details
 # here. You'll need either the hostname or IP of the proxy server (don't include
 # the http:// bit) and the port number (typically 8080). Currently proxy
