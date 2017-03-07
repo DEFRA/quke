@@ -66,7 +66,13 @@ Or install it yourself as
 
 ## Configuration
 
-You can use configuration to drive Quke. You can configure Quke using `.config.yml` files. See [.config.example.yml](.config.example.yml) for details of the options to include in your `.config.yml`.
+You can configure Quke using a `.config.yml` file. What can be configured essentially falls into one of 3 groups.
+
+- **Quke configuration** - things like which driver to use, whether to pause between steps, or if Quke should stop in the event of an error
+- **Custom configuration** - add your own custom values using the `custom:` node
+- **Browserstack configuration** - specify exactly how you want your Browserstack session to run, for example which browser and OS to test against, the project name, and your credentials.
+
+See [.config.example.yml](.config.example.yml) for full details of the options you can specify in your `.config.yml`.
 
 ### Multiple configs
 
