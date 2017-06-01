@@ -31,6 +31,14 @@ stop_on_error: 1
 # elements that take some time to load you can increase this default.
 max_wait_time: 5
 
+# Tell the driver Quke is using to send a different user-agent value to the site
+# under test. Useful if you want the underlying driver to spoof what kind of
+# browser the request is coming from. For example you may want to pretend to be
+# a mobile browser so you can check what you get back versus the desktop
+# version. Or you want to pretend to be another kind of browser, because the one
+# you have is not supported by the site.
+user_agent: "Mozilla/5.0 (MSIE 10.0; Windows NT 6.1; Trident/5.0)"
+
 # Anything you place under the 'custom' node in the `.config.yml` file will be
 # available within your steps and page objects by calling
 # `Quke::Quke.config.custom`. So using the example below we could access its

@@ -74,6 +74,20 @@ RSpec.describe Quke::DriverConfiguration do
       end
     end
 
+    context 'a user agent has been set in the .config.yml' do
+      it 'is not in the array returned. Unlike the other drivers we can only override the user agent when registering the driver' do
+        Quke::Configuration.file_location = data_path('.user_agent.yml')
+        config = Quke::Configuration.new
+        expect(Quke::DriverConfiguration.new(config).phantomjs).to eq(
+          [
+            '--load-images=no',
+            '--disk-cache=false',
+            '--ignore-ssl-errors=yes'
+          ]
+        )
+      end
+    end
+
   end
 
   describe '#chrome' do
@@ -102,6 +116,18 @@ RSpec.describe Quke::DriverConfiguration do
           [
             "--proxy-server=#{config.proxy['host']}:#{config.proxy['port']}",
             '--proxy-bypass-list=127.0.0.1;192.168.0.1'
+          ]
+        )
+      end
+    end
+
+    context 'a user agent has been set in the .config.yml' do
+      it 'returns an array containing the specified user-agent' do
+        Quke::Configuration.file_location = data_path('.user_agent.yml')
+        config = Quke::Configuration.new
+        expect(Quke::DriverConfiguration.new(config).chrome).to eq(
+          [
+            "--user-agent=#{config.user_agent}"
           ]
         )
       end
@@ -154,6 +180,22 @@ RSpec.describe Quke::DriverConfiguration do
         expect(preferences).to include('user_pref("network.proxy.http", "10.10.2.70")')
         expect(preferences).to include('user_pref("network.proxy.http_port", 8080)')
         expect(preferences).to include('user_pref("network.proxy.no_proxies_on", "127.0.0.1,192.168.0.1")')
+      end
+    end
+
+    context 'a user agent has been set in the .config.yml' do
+      it 'returns an array containing the specified user-agent' do
+        Quke::Configuration.file_location = data_path('.user_agent.yml')
+        config = Quke::Configuration.new
+        profile = Quke::DriverConfiguration.new(config).firefox
+
+        # See spec/helpers.rb#read_profile_preferences for details of why we
+        # need to test the profile's properties in this way
+        preferences = read_profile_preferences(profile)
+
+        expect(preferences).to include(
+          'user_pref("general.useragent.override", "Mozilla/5.0 (MSIE 10.0; Windows NT 6.1; Trident/5.0)")'
+        )
       end
     end
 

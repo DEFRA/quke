@@ -118,6 +118,22 @@ RSpec.describe Quke::Configuration do
     end
   end
 
+  describe '#user_agent' do
+    context 'when NOT specified in the config file' do
+      it "defaults to ''" do
+        Quke::Configuration.file_location = data_path('.no_file.yml')
+        expect(subject.user_agent).to eq('')
+      end
+    end
+
+    context 'when specified in the config file' do
+      it 'matches the config file' do
+        Quke::Configuration.file_location = data_path('.user_agent.yml')
+        expect(subject.user_agent).to eq('Mozilla/5.0 (MSIE 10.0; Windows NT 6.1; Trident/5.0)')
+      end
+    end
+  end
+
   describe '#proxy' do
     context 'when NOT specified in the config file' do
       it 'defaults to blank values' do
@@ -245,7 +261,7 @@ RSpec.describe Quke::Configuration do
       Quke::Configuration.file_location = data_path('.no_file.yml')
       # rubocop:disable Style/StringLiterals
       expect(subject.to_s).to eq(
-        "{\"features_folder\"=>\"features\", \"app_host\"=>\"\", \"driver\"=>\"phantomjs\", \"pause\"=>0, \"stop_on_error\"=>\"false\", \"max_wait_time\"=>2, \"custom\"=>nil, \"browserstack\"=>{\"username\"=>\"\", \"auth_key\"=>\"\"}, \"proxy\"=>{\"host\"=>\"\", \"port\"=>0, \"no_proxy\"=>\"\"}}"
+        "{\"features_folder\"=>\"features\", \"app_host\"=>\"\", \"driver\"=>\"phantomjs\", \"pause\"=>0, \"stop_on_error\"=>\"false\", \"max_wait_time\"=>2, \"user_agent\"=>\"\", \"custom\"=>nil, \"browserstack\"=>{\"username\"=>\"\", \"auth_key\"=>\"\"}, \"proxy\"=>{\"host\"=>\"\", \"port\"=>0, \"no_proxy\"=>\"\"}}"
       )
       # rubocop:enable Style/StringLiterals
     end
