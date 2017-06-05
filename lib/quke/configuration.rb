@@ -105,6 +105,17 @@ module Quke #:nodoc:
       @data['max_wait_time']
     end
 
+    # Return the value set for +user_agent+.
+    #
+    # Useful if you want the underlying driver to spoof what kind of browser the
+    # request is coming from. For example you may want to pretend to be a mobile
+    # browser so you can check what you get back versus the desktop version. Or
+    # you want to pretend to be another kind of browser, because the one you
+    # have is not supported by the site.
+    def user_agent
+      @data['user_agent']
+    end
+
     # Return the hash of +browserstack+ options.
     #
     # If you select the browserstack driver, there are a number of options you
@@ -165,6 +176,7 @@ module Quke #:nodoc:
         'pause' =>           (data['pause'] || '0').to_s.downcase.strip.to_i,
         'stop_on_error' =>   (data['stop_on_error'] || 'false').to_s.downcase.strip,
         'max_wait_time' =>   (data['max_wait_time'] || Capybara.default_max_wait_time).to_s.downcase.strip.to_i,
+        'user_agent' =>      (data['user_agent'] || '').strip,
         'custom' =>          (data['custom'] || nil)
       )
     end

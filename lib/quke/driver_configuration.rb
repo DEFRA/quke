@@ -120,7 +120,8 @@ module Quke #:nodoc:
     #       browser: :chrome,
     #       switches: [
     #         "--proxy-server=localhost:8080",
-    #         "--proxy-bypass-list=127.0.0.1,192.168.0.1"
+    #         "--proxy-bypass-list=127.0.0.1,192.168.0.1",
+    #         "--user-agent=Mozilla/5.0 (MSIE 10.0; Windows NT 6.1; Trident/5.0)"
     #       ]
     #     )
     #
@@ -145,6 +146,8 @@ module Quke #:nodoc:
       result.push("--proxy-server=#{host}:#{port}") if config.use_proxy?
       result.push("--proxy-bypass-list=#{no_proxy}") unless config.proxy['no_proxy'].empty?
 
+      result.push("--user-agent=#{config.user_agent}") unless config.user_agent.empty?
+
       result
     end
     # rubocop:enable Metrics/AbcSize
@@ -160,6 +163,7 @@ module Quke #:nodoc:
     #       http: "10.10.2.70:8080",
     #       ssl: "10.10.2.70:8080"
     #     )
+    #     my_profile['general.useragent.override'] = "Mozilla/5.0 (MSIE 10.0; Windows NT 6.1; Trident/5.0)"
     #     Capybara::Selenium::Driver.new(
     #       app,
     #       profile: my_profile
@@ -189,6 +193,8 @@ module Quke #:nodoc:
       settings[:no_proxy] = no_proxy unless config.proxy['no_proxy'].empty?
 
       profile.proxy = Selenium::WebDriver::Proxy.new(settings) if config.use_proxy?
+
+      profile['general.useragent.override'] = config.user_agent unless config.user_agent.empty?
 
       profile
     end
