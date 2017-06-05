@@ -16,7 +16,7 @@ vendor/overcommit_bundle
 /tags
 
 *~
-.DS_Store
+*.DS_Store
 .svn
 .*.swp
 ___*

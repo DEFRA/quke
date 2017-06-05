@@ -48,6 +48,8 @@ module Quke #:nodoc:
     #     Capybara::Poltergeist::Driver.new(app, my_driver_config.poltergeist)
     #
     def poltergeist
+      # The arguments we can pass to poltergeist are documented here
+      # https://github.com/teampoltergeist/poltergeist#customization
       {
         # Javascript errors will get re-raised in our tests causing them to fail
         js_errors: true,
@@ -99,14 +101,17 @@ module Quke #:nodoc:
     #     )
     #
     def phantomjs
+      # For future reference the options we pass through to phantomjs appear to
+      # mirror those you can actually supply on the command line.
+      # http://phantomjs.org/api/command-line.html
       options = [
         '--load-images=no',
         '--disk-cache=false',
         '--ignore-ssl-errors=yes'
       ]
-      if config.use_proxy?
-        options.push("--proxy=#{config.proxy['host']}:#{config.proxy['port']}")
-      end
+
+      options.push("--proxy=#{config.proxy['host']}:#{config.proxy['port']}") if config.use_proxy?
+
       options
     end
 
@@ -184,13 +189,10 @@ module Quke #:nodoc:
       profile = Selenium::WebDriver::Firefox::Profile.new
 
       settings = {}
-      host = config.proxy['host']
-      port = config.proxy['port']
-      no_proxy = config.proxy['no_proxy']
 
-      settings[:http] = "#{host}:#{port}" if config.use_proxy?
+      settings[:http] = "#{config.proxy['host']}:#{config.proxy['port']}" if config.use_proxy?
       settings[:ssl] = settings[:http] if config.use_proxy?
-      settings[:no_proxy] = no_proxy unless config.proxy['no_proxy'].empty?
+      settings[:no_proxy] = config.proxy['no_proxy'] unless config.proxy['no_proxy'].empty?
 
       profile.proxy = Selenium::WebDriver::Proxy.new(settings) if config.use_proxy?
 

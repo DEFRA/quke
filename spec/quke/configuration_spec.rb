@@ -175,7 +175,7 @@ RSpec.describe Quke::Configuration do
 
     context 'when proxy host details are specified in the config file' do
       it 'return true' do
-        Quke::Configuration.file_location = data_path('.simple.yml')
+        Quke::Configuration.file_location = data_path('.proxy_basic.yml')
         expect(subject.use_proxy?).to eq(true)
       end
     end
