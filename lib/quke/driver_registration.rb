@@ -46,6 +46,8 @@ module Quke #:nodoc:
       # For future reference the options we pass through to phantomjs appear to
       # mirror those you can actually supply on the command line.
       # http://phantomjs.org/api/command-line.html
+      # The arguments we can pass to poltergeist are documented here
+      # https://github.com/teampoltergeist/poltergeist#customization
       Capybara.register_driver :phantomjs do |app|
         # We ignore the next line (and those like it in the subsequent methods)
         # from code coverage because we never actually execute them from Quke.

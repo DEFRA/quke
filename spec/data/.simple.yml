@@ -8,10 +8,6 @@ pause: 1
 stop_on_error: true
 max_wait_time: 3
 
-proxy:
-  host: '10.10.2.70'
-  port: 8080
-
 browserstack:
   username: jdoe
   auth_key: 123456789ABCDE

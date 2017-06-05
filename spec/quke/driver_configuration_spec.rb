@@ -24,7 +24,7 @@ RSpec.describe Quke::DriverConfiguration do
 
     context 'proxy details have been set in the .config.yml' do
       it 'returns a hash containing both default options and proxy settings' do
-        Quke::Configuration.file_location = data_path('.simple.yml')
+        Quke::Configuration.file_location = data_path('.proxy_basic.yml')
         config = Quke::Configuration.new
         expect(Quke::DriverConfiguration.new(config).poltergeist).to eq(
           js_errors: true,
@@ -61,7 +61,7 @@ RSpec.describe Quke::DriverConfiguration do
 
     context 'proxy details have been set in the .config.yml' do
       it 'returns an array containing both default options and proxy settings' do
-        Quke::Configuration.file_location = data_path('.simple.yml')
+        Quke::Configuration.file_location = data_path('.proxy_basic.yml')
         config = Quke::Configuration.new
         expect(Quke::DriverConfiguration.new(config).phantomjs).to eq(
           [
@@ -102,9 +102,13 @@ RSpec.describe Quke::DriverConfiguration do
 
     context 'basic proxy details have been set in the .config.yml' do
       it 'returns an array containing basic proxy settings' do
-        Quke::Configuration.file_location = data_path('.simple.yml')
+        Quke::Configuration.file_location = data_path('.proxy_basic.yml')
         config = Quke::Configuration.new
-        expect(Quke::DriverConfiguration.new(config).chrome).to eq(["--proxy-server=#{config.proxy['host']}:#{config.proxy['port']}"])
+        expect(Quke::DriverConfiguration.new(config).chrome).to eq(
+          [
+            "--proxy-server=#{config.proxy['host']}:#{config.proxy['port']}"
+          ]
+        )
       end
     end
 
@@ -154,7 +158,7 @@ RSpec.describe Quke::DriverConfiguration do
 
     context 'basic proxy details have been set in the .config.yml' do
       it 'returns a profile where the basic proxy details are set' do
-        Quke::Configuration.file_location = data_path('.simple.yml')
+        Quke::Configuration.file_location = data_path('.proxy_basic.yml')
         config = Quke::Configuration.new
         profile = Quke::DriverConfiguration.new(config).firefox
 
