@@ -1,11 +1,16 @@
 # Change Log
 
-## [Unreleased](https://github.com/DEFRA/quke/tree/HEAD)
+## [v0.3.2](https://github.com/DEFRA/quke/tree/v0.3.2) (2017-06-12)
+[Full Changelog](https://github.com/DEFRA/quke/compare/v0.3.1...v0.3.2)
 
-[Full Changelog](https://github.com/DEFRA/quke/compare/v0.3.1...HEAD)
+**Closed issues:**
+
+- Enable ability to override driver settings [\#58](https://github.com/DEFRA/quke/issues/58)
 
 **Merged pull requests:**
 
+- Add option to override js\_errors for phantomjs [\#65](https://github.com/DEFRA/quke/pull/65) ([Cruikshanks](https://github.com/Cruikshanks))
+- \[ci skip\] Updating CHANGELOG.md [\#63](https://github.com/DEFRA/quke/pull/63) ([Cruikshanks](https://github.com/Cruikshanks))
 - Update version number \(forgot during last change!\) [\#62](https://github.com/DEFRA/quke/pull/62) ([Cruikshanks](https://github.com/Cruikshanks))
 
 ## [v0.3.1](https://github.com/DEFRA/quke/tree/v0.3.1) (2017-06-12)
