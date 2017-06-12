@@ -39,6 +39,15 @@ max_wait_time: 5
 # you have is not supported by the site.
 user_agent: "Mozilla/5.0 (MSIE 10.0; Windows NT 6.1; Trident/5.0)"
 
+# Currently only supported when using the phantomjs driver (ignored by the
+# others). In phantomjs if a site has a javascript error we can configure it
+# to throw an error which will cause the test to fail. Quke by default sets this
+# to true, however you can override it by setting this flag to false.
+# For example you may be dealing with a legacy site and JavaScript errors
+# are out of your scope. You still want to test other aspects of the site
+# but not let these errors prevent you from using phantomjs.
+javascript_errors: false
+
 # Anything you place under the 'custom' node in the `.config.yml` file will be
 # available within your steps and page objects by calling
 # `Quke::Quke.config.custom`. So using the example below we could access its

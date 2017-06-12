@@ -134,6 +134,29 @@ RSpec.describe Quke::Configuration do
     end
   end
 
+  describe '#javascrip_errors' do
+    context 'when NOT specified in the config file' do
+      it 'defaults to true' do
+        Quke::Configuration.file_location = data_path('.no_file.yml')
+        expect(subject.javascript_errors).to eq(true)
+      end
+    end
+
+    context 'when specified in config file' do
+      it 'matches the config file' do
+        Quke::Configuration.file_location = data_path('.javascript_errors.yml')
+        expect(subject.javascript_errors).to eq(false)
+      end
+    end
+
+    context 'when in the config file as a string' do
+      it 'matches the config file' do
+        Quke::Configuration.file_location = data_path('.as_string.yml')
+        expect(subject.javascript_errors).to eq(false)
+      end
+    end
+  end
+
   describe '#proxy' do
     context 'when NOT specified in the config file' do
       it 'defaults to blank values' do
@@ -260,8 +283,9 @@ RSpec.describe Quke::Configuration do
     it 'return the values held by the instance and not an instance ID' do
       Quke::Configuration.file_location = data_path('.no_file.yml')
       # rubocop:disable Style/StringLiterals
+      puts subject.to_s
       expect(subject.to_s).to eq(
-        "{\"features_folder\"=>\"features\", \"app_host\"=>\"\", \"driver\"=>\"phantomjs\", \"pause\"=>0, \"stop_on_error\"=>\"false\", \"max_wait_time\"=>2, \"user_agent\"=>\"\", \"custom\"=>nil, \"browserstack\"=>{\"username\"=>\"\", \"auth_key\"=>\"\"}, \"proxy\"=>{\"host\"=>\"\", \"port\"=>0, \"no_proxy\"=>\"\"}}"
+        "{\"features_folder\"=>\"features\", \"app_host\"=>\"\", \"driver\"=>\"phantomjs\", \"pause\"=>0, \"stop_on_error\"=>\"false\", \"max_wait_time\"=>2, \"user_agent\"=>\"\", \"javascript_errors\"=>true, \"custom\"=>nil, \"browserstack\"=>{\"username\"=>\"\", \"auth_key\"=>\"\"}, \"proxy\"=>{\"host\"=>\"\", \"port\"=>0, \"no_proxy\"=>\"\"}}"
       )
       # rubocop:enable Style/StringLiterals
     end

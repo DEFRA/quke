@@ -41,6 +41,24 @@ RSpec.describe Quke::DriverConfiguration do
       end
     end
 
+    context 'user has set javascript_errors to false in the .config.yml' do
+      it "returns a hash where js_errors is set to 'false'" do
+        Quke::Configuration.file_location = data_path('.javascript_errors.yml')
+        config = Quke::Configuration.new
+        expect(Quke::DriverConfiguration.new(config).poltergeist).to eq(
+          js_errors: false,
+          timeout: 30,
+          debug: false,
+          phantomjs_options: [
+            '--load-images=no',
+            '--disk-cache=false',
+            '--ignore-ssl-errors=yes'
+          ],
+          inspector: true
+        )
+      end
+    end
+
   end
 
   describe '#phantomjs' do
