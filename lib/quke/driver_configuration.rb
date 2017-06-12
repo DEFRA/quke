@@ -52,7 +52,7 @@ module Quke #:nodoc:
       # https://github.com/teampoltergeist/poltergeist#customization
       {
         # Javascript errors will get re-raised in our tests causing them to fail
-        js_errors: true,
+        js_errors: config.javascript_errors,
         # How long in seconds we'll wait for response when communicating with
         # Phantomjs
         timeout: 30,
