@@ -1,5 +1,22 @@
 # Change Log
 
+## [Unreleased](https://github.com/DEFRA/quke/tree/HEAD)
+
+[Full Changelog](https://github.com/DEFRA/quke/compare/v0.3.1...HEAD)
+
+**Merged pull requests:**
+
+- Update version number \(forgot during last change!\) [\#62](https://github.com/DEFRA/quke/pull/62) ([Cruikshanks](https://github.com/Cruikshanks))
+
+## [v0.3.1](https://github.com/DEFRA/quke/tree/v0.3.1) (2017-06-12)
+[Full Changelog](https://github.com/DEFRA/quke/compare/v0.3.0...v0.3.1)
+
+**Merged pull requests:**
+
+- Refactor some proxy logic to make code simpler [\#61](https://github.com/DEFRA/quke/pull/61) ([Cruikshanks](https://github.com/Cruikshanks))
+- Add ability to set user-agent to use [\#60](https://github.com/DEFRA/quke/pull/60) ([Cruikshanks](https://github.com/Cruikshanks))
+- \[ci skip\] Updating CHANGELOG.md [\#56](https://github.com/DEFRA/quke/pull/56) ([Cruikshanks](https://github.com/Cruikshanks))
+
 ## [v0.3.0](https://github.com/DEFRA/quke/tree/v0.3.0) (2017-03-07)
 [Full Changelog](https://github.com/DEFRA/quke/compare/v0.2.8...v0.3.0)
 
