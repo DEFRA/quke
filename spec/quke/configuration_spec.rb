@@ -206,21 +206,22 @@ RSpec.describe Quke::Configuration do
 
   describe '#browserstack' do
     context 'when NOT specified in the config file' do
-      it 'defaults to a blank username and auth_key' do
+      it 'defaults to a blank username, auth_key and empty capabilities hash' do
         Quke::Configuration.file_location = data_path('.no_file.yml')
-        expect(subject.browserstack).to eq('username' => '', 'auth_key' => '')
+        expect(subject.browserstack).to eq(
+          'username' => '',
+          'auth_key' => '',
+          'capabilities' => {}
+        )
       end
     end
 
     context 'when specified in the config file' do
       it 'matches the config file' do
         Quke::Configuration.file_location = data_path('.simple.yml')
-        expect(subject.browserstack).to eq(
-          'username' => 'jdoe',
-          'auth_key' => '123456789ABCDE',
-          'build' => 'Version 1',
-          'project' => 'Adding browserstack support'
-        )
+        expected_config = YAML.load_file(data_path('.simple.yml'))['browserstack']
+
+        expect(subject.browserstack).to eq(expected_config)
       end
     end
   end
@@ -283,9 +284,8 @@ RSpec.describe Quke::Configuration do
     it 'return the values held by the instance and not an instance ID' do
       Quke::Configuration.file_location = data_path('.no_file.yml')
       # rubocop:disable Style/StringLiterals
-      puts subject.to_s
       expect(subject.to_s).to eq(
-        "{\"features_folder\"=>\"features\", \"app_host\"=>\"\", \"driver\"=>\"phantomjs\", \"pause\"=>0, \"stop_on_error\"=>\"false\", \"max_wait_time\"=>2, \"user_agent\"=>\"\", \"javascript_errors\"=>true, \"custom\"=>nil, \"browserstack\"=>{\"username\"=>\"\", \"auth_key\"=>\"\"}, \"proxy\"=>{\"host\"=>\"\", \"port\"=>0, \"no_proxy\"=>\"\"}}"
+        "{\"features_folder\"=>\"features\", \"app_host\"=>\"\", \"driver\"=>\"phantomjs\", \"pause\"=>0, \"stop_on_error\"=>\"false\", \"max_wait_time\"=>2, \"user_agent\"=>\"\", \"javascript_errors\"=>true, \"custom\"=>nil, \"browserstack\"=>{\"username\"=>\"\", \"auth_key\"=>\"\", \"capabilities\"=>{}}, \"proxy\"=>{\"host\"=>\"\", \"port\"=>0, \"no_proxy\"=>\"\"}}"
       )
       # rubocop:enable Style/StringLiterals
     end

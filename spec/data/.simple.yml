@@ -11,5 +11,6 @@ max_wait_time: 3
 browserstack:
   username: jdoe
   auth_key: 123456789ABCDE
-  build: 'Version 1'
-  project: 'Adding browserstack support'
+  capabilities:
+    build: 'Version 1'
+    project: 'Adding browserstack support'

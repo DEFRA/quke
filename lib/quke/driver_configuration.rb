@@ -268,46 +268,20 @@ module Quke #:nodoc:
     # For further reference on browserstack capabilities
     # https://www.browserstack.com/automate/capabilities
     # https://www.browserstack.com/automate/ruby#configure-capabilities
-    # rubocop:disable Metrics/MethodLength
-    # rubocop:disable Metrics/AbcSize
     def browserstack
+      # Documentation and the code for this class can be found here
+      # http://www.rubydoc.info/gems/selenium-webdriver/0.0.28/Selenium/WebDriver/Remote/Capabilities
+      # https://github.com/SeleniumHQ/selenium/blob/master/rb/lib/selenium/webdriver/remote/capabilities.rb
       capabilities = Selenium::WebDriver::Remote::Capabilities.new
 
-      capabilities['build'] = config.browserstack['build']
-      capabilities['project'] = config.browserstack['project']
-      capabilities['name'] = config.browserstack['name']
+      browserstack_capabilities = config.browserstack['capabilities']
 
-      # This and the following section are essentially diametric; you set one
-      # or the other but not both. Some examples seem to put logic in place to
-      # test the options passed in and then set the capabilities accordingly,
-      # however Browserstack handles this and has what will happen documented
-      # https://www.browserstack.com/automate/capabilities#capabilities-parameter-override
-      capabilities['platform'] = config.browserstack['platform']
-      capabilities['browserName'] = config.browserstack['browserName']
-      capabilities['version'] = config.browserstack['version']
-      capabilities['device'] = config.browserstack['device']
+      browserstack_capabilities.each do |key, value|
+        capabilities[key] = value
+      end
 
-      capabilities['os'] = config.browserstack['os']
-      capabilities['os_version'] = config.browserstack['os_version']
-      capabilities['browser'] = config.browserstack['browser']
-      capabilities['browser_version'] = config.browserstack['browser_version']
-      capabilities['resolution'] = config.browserstack['resolution']
-      # -----
-
-      # This is not listed on the general capabilities page but is here
-      # https://www.browserstack.com/automate/ruby#self-signed-certificates
-      capabilities['acceptSslCerts'] = config.browserstack['acceptSslCerts']
-
-      capabilities['browserstack.debug'] = config.browserstack['debug']
-      capabilities['browserstack.video'] = config.browserstack['video']
-
-      # At this point Quke does not support local testing so we specifically
-      # tell Browserstack we're not doing this
-      capabilities['browserstack.local'] = 'false'
       capabilities
     end
-    # rubocop:enable Metrics/AbcSize
-    # rubocop:enable Metrics/MethodLength
 
   end
 

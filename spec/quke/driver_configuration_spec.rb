@@ -248,27 +248,20 @@ RSpec.describe Quke::DriverConfiguration do
   describe '#browserstack' do
 
     context 'browserstack details have NOT been set in the .config.yml' do
-      it 'returns capabilities set to the browserstack defaults' do
+      it 'returns capabilities set to Selenium::WebDriver::Remote::Capabilities defaults' do
         Quke::Configuration.file_location = data_path('.no_file.yml')
         config = Quke::Configuration.new
         capabilities = Quke::DriverConfiguration.new(config).browserstack
 
-        expect(capabilities['build']).to eq(nil)
-        expect(capabilities['project']).to eq(nil)
-        expect(capabilities['name']).to eq(nil)
-        expect(capabilities['platform']).to eq(nil)
+        expect(capabilities.as_json.keys.count).to eq(8)
         expect(capabilities['browserName']).to eq(nil)
         expect(capabilities['version']).to eq(nil)
-        expect(capabilities['device']).to eq(nil)
-        expect(capabilities['os']).to eq(nil)
-        expect(capabilities['os_version']).to eq(nil)
-        expect(capabilities['browser']).to eq(nil)
-        expect(capabilities['browser_version']).to eq(nil)
-        expect(capabilities['resolution']).to eq(nil)
-        expect(capabilities['acceptSslCerts']).to eq(nil)
-        expect(capabilities['browserstack.debug']).to eq(nil)
-        expect(capabilities['browserstack.video']).to eq(nil)
-        expect(capabilities['browserstack.local']).to eq('false')
+        expect(capabilities['platform']).to eq(nil)
+        expect(capabilities['javascriptEnabled']).to eq(nil)
+        expect(capabilities['cssSelectorsEnabled']).to eq(nil)
+        expect(capabilities['takesScreenshot']).to eq(nil)
+        expect(capabilities['nativeEvents']).to eq(nil)
+        expect(capabilities['rotatable']).to eq(nil)
       end
     end
 
@@ -277,23 +270,27 @@ RSpec.describe Quke::DriverConfiguration do
         Quke::Configuration.file_location = data_path('.browserstack.yml')
         config = Quke::Configuration.new
         capabilities = Quke::DriverConfiguration.new(config).browserstack
+        expected_capabilities = YAML.load_file(data_path('.browserstack.yml'))['browserstack']['capabilities']
 
-        expect(capabilities['build']).to eq('Version 1')
-        expect(capabilities['project']).to eq('Adding browserstack support')
-        expect(capabilities['name']).to eq('Testing google search')
-        expect(capabilities['platform']).to eq('MAC')
-        expect(capabilities['browserName']).to eq('iPhone')
-        expect(capabilities['version']).to eq('49')
-        expect(capabilities['device']).to eq('iPhone 5')
-        expect(capabilities['os']).to eq('WINDOWS')
-        expect(capabilities['os_version']).to eq('8.1')
-        expect(capabilities['browser']).to eq('chrome')
-        expect(capabilities['browser_version']).to eq('49')
-        expect(capabilities['resolution']).to eq('1024x768')
-        expect(capabilities['acceptSslCerts']).to eq(true)
-        expect(capabilities['browserstack.debug']).to eq(true)
-        expect(capabilities['browserstack.video']).to eq(true)
-        expect(capabilities['browserstack.local']).to eq('false')
+        expect(capabilities['build']).to eq(expected_capabilities['build'])
+        expect(capabilities['project']).to eq(expected_capabilities['project'])
+        expect(capabilities['name']).to eq(expected_capabilities['name'])
+
+        expect(capabilities['acceptSslCerts']).to eq(expected_capabilities['acceptSslCerts'])
+        expect(capabilities['browserstack.debug']).to eq(expected_capabilities['browserstack.debug'])
+        expect(capabilities['browserstack.video']).to eq(expected_capabilities['browserstack.video'])
+        expect(capabilities['browserstack.local']).to eq(expected_capabilities['browserstack.local'])
+        expect(capabilities['browserstack.maskSendKeys']).to eq(expected_capabilities['browserstack.maskSendKeys'])
+
+        expect(capabilities['platform']).to eq(expected_capabilities['platform'])
+        expect(capabilities['browserName']).to eq(expected_capabilities['browserName'])
+        expect(capabilities['version']).to eq(expected_capabilities['version'])
+        expect(capabilities['device']).to eq(expected_capabilities['device'])
+        expect(capabilities['os']).to eq(expected_capabilities['os'])
+        expect(capabilities['os_version']).to eq(expected_capabilities['os_version'])
+        expect(capabilities['browser']).to eq(expected_capabilities['browser'])
+        expect(capabilities['browser_version']).to eq(expected_capabilities['browser_version'])
+        expect(capabilities['resolution']).to eq(expected_capabilities['resolution'])
       end
     end
 
