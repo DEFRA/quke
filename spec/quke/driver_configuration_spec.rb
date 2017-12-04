@@ -223,28 +223,6 @@ RSpec.describe Quke::DriverConfiguration do
 
   end
 
-  describe '#browserstack_url' do
-
-    context 'browserstack details have NOT been set in the .config.yml' do
-      it 'returns nil' do
-        Quke::Configuration.file_location = data_path('.no_file.yml')
-        config = Quke::Configuration.new
-        expect(Quke::DriverConfiguration.new(config).browserstack_url).to eq(nil)
-      end
-    end
-
-    context 'browserstack details have been set in the .config.yml' do
-      it 'returns a string for the url to browserstack including the username and password' do
-        Quke::Configuration.file_location = data_path('.simple.yml')
-        config = Quke::Configuration.new
-        expect(Quke::DriverConfiguration.new(config).browserstack_url).to eq(
-          "http://#{config.browserstack['username']}:#{config.browserstack['auth_key']}@hub.browserstack.com/wd/hub"
-        )
-      end
-    end
-
-  end
-
   describe '#browserstack' do
 
     context 'browserstack details have NOT been set in the .config.yml' do

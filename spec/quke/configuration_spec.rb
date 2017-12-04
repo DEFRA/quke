@@ -190,38 +190,16 @@ RSpec.describe Quke::Configuration do
 
   describe '#use_proxy?' do
     context 'when proxy host details are NOT specified in the config file' do
-      it 'defaults to false' do
+      it 'returns false' do
         Quke::Configuration.file_location = data_path('.no_file.yml')
         expect(subject.use_proxy?).to eq(false)
       end
     end
 
     context 'when proxy host details are specified in the config file' do
-      it 'return true' do
+      it 'returns true' do
         Quke::Configuration.file_location = data_path('.proxy_basic.yml')
         expect(subject.use_proxy?).to eq(true)
-      end
-    end
-  end
-
-  describe '#browserstack' do
-    context 'when NOT specified in the config file' do
-      it 'defaults to a blank username, auth_key and empty capabilities hash' do
-        Quke::Configuration.file_location = data_path('.no_file.yml')
-        expect(subject.browserstack).to eq(
-          'username' => '',
-          'auth_key' => '',
-          'capabilities' => {}
-        )
-      end
-    end
-
-    context 'when specified in the config file' do
-      it 'matches the config file' do
-        Quke::Configuration.file_location = data_path('.simple.yml')
-        expected_config = YAML.load_file(data_path('.simple.yml'))['browserstack']
-
-        expect(subject.browserstack).to eq(expected_config)
       end
     end
   end
@@ -277,17 +255,6 @@ RSpec.describe Quke::Configuration do
           }
         )
       end
-    end
-  end
-
-  describe '#to_s' do
-    it 'return the values held by the instance and not an instance ID' do
-      Quke::Configuration.file_location = data_path('.no_file.yml')
-      # rubocop:disable Style/StringLiterals
-      expect(subject.to_s).to eq(
-        "{\"features_folder\"=>\"features\", \"app_host\"=>\"\", \"driver\"=>\"phantomjs\", \"pause\"=>0, \"stop_on_error\"=>\"false\", \"max_wait_time\"=>2, \"user_agent\"=>\"\", \"javascript_errors\"=>true, \"custom\"=>nil, \"browserstack\"=>{\"username\"=>\"\", \"auth_key\"=>\"\", \"capabilities\"=>{}}, \"proxy\"=>{\"host\"=>\"\", \"port\"=>0, \"no_proxy\"=>\"\"}}"
-      )
-      # rubocop:enable Style/StringLiterals
     end
   end
 

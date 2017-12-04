@@ -4,13 +4,14 @@ require 'site_prism'
 require 'quke/configuration'
 require 'quke/driver_configuration'
 require 'quke/driver_registration'
+require 'browserstack/local'
 
 unless Quke::Quke.config.app_host.empty?
   Capybara.app_host = Quke::Quke.config.app_host
 end
 
 driver_config = Quke::DriverConfiguration.new(Quke::Quke.config)
-driver_reg = Quke::DriverRegistration.new(driver_config)
+driver_reg = Quke::DriverRegistration.new(driver_config, Quke::Quke.config)
 driver = driver_reg.register(Quke::Quke.config.driver)
 
 Capybara.default_driver = driver
@@ -39,4 +40,32 @@ Capybara.save_path = 'tmp/'
 # enables Capybara's implicit wait methodology to pass through
 SitePrism.configure do |config|
   config.use_implicit_waits = true
+end
+
+# There aren't specific hooks we can attach to that only get called once before
+# and after all tests have run in Cucumber. Therefore the next best thing is to
+# hook into the AfterConfiguration and at_exit blocks.
+#
+# As its name suggests, this gets called after Cucumber has been configured i.e.
+# all the steps above are complete. Fortunately this is before the tests start
+# running so its the best place for us to start up the browserstack local
+# testing binary (if it's required)
+AfterConfiguration do
+  if Quke::Quke.config.browserstack.test_locally?
+    bs_local = BrowserStack::Local.new
+
+    # starts the Local instance with the required arguments via its management
+    # API
+    bs_local.start(Quke::Quke.config.browserstack.local_testing_args)
+  end
+end
+
+# This is the very last thing Cucumber calls that we can hook onto. Typically
+# used for final cleanup, we make use of it to kill our browserstack local
+# testing binary
+at_exit do
+  if Quke::Quke.config.browserstack.test_locally?
+    # stop the local instance
+    bs_local.stop
+  end
 end

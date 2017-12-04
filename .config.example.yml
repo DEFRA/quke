@@ -103,6 +103,11 @@ browserstack:
   username: jdoe
   auth_key: 123456789ABCDE
 
+  # If you want to use local testing you must provide a key. You can find this
+  # in Browserstack once logged in under settings. Its typically the same value
+  # as the auth_key above
+  local_key: 123456789ABCDE
+
   # Anything set under capabilities will be passed directly by Quke to
   # browserstack as means of configuring the test.
   # So the config keys (e.g. build, project, name) you set should match a real
@@ -131,6 +136,13 @@ browserstack:
     # Required if you want to enable video recording during your test.
     # Browserstack default is true
     browserstack.video: true
+    # Required if you need to test a locally hosted (e.g. http://localhost:300)
+    # or private internal web site. Browserstack has a feature called local
+    # testing that Quke also supports, but to use
+    # - Browserstack must be your selected driver
+    # - You must have set local_key above
+    # - You must this value to true
+    browserstack.local: false
     # Another setting not listed, setting the following will prevent any values
     # you pass in, for example when filling in a form, from appearing in the
     # logs. General use case is to prevent passwords being exposed, but beware
