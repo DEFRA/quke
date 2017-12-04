@@ -129,7 +129,7 @@ module Quke #:nodoc:
       @data['javascript_errors']
     end
 
-    # Return the hash of +browserstack+ options.
+    # Return the hash of all +browserstack+ options.
     #
     # If you select the browserstack driver, there are a number of options you
     # can pass through to setup your browserstack tests, username and auth_key
@@ -156,7 +156,7 @@ module Quke #:nodoc:
     # It is mainly used when determining whether to apply proxy server settings
     # to the different drivers when registering them with Capybara.
     def use_proxy?
-      proxy['host'] == '' ? false : true
+      proxy['host'] != ''
     end
 
     def custom
@@ -180,6 +180,7 @@ module Quke #:nodoc:
 
     # rubocop:disable Metrics/AbcSize
     # rubocop:disable Metrics/CyclomaticComplexity
+    # rubocop:disable Metrics/MethodLength
     # rubocop:disable Metrics/PerceivedComplexity
     def default_data!(data)
       data.merge(
@@ -196,29 +197,27 @@ module Quke #:nodoc:
         # will be 'true', so we flip it back to 'false' with !.
         # Else the condition fails and we get 'false', which when flipped gives
         # us 'true', which is what we want the default value to be
+        # rubocop:disable Style/InverseMethods
         'javascript_errors' => !(data['javascript_errors'].to_s.downcase.strip == 'false'),
+        # rubocop:enable Style/InverseMethods
         'custom' =>            (data['custom'] || nil)
       )
     end
     # rubocop:enable Metrics/AbcSize
     # rubocop:enable Metrics/CyclomaticComplexity
+    # rubocop:enable Metrics/MethodLength
     # rubocop:enable Metrics/PerceivedComplexity
 
-    # rubocop:disable Metrics/MethodLength
+    # rubocop:disable Metrics/CyclomaticComplexity
     def browserstack_data(data)
       data = {} if data.nil?
       data.merge(
-        'username' => (ENV['BROWSERSTACK_USERNAME'] ||
-                       data['username'] ||
-                       ''
-                      ),
-        'auth_key' => (ENV['BROWSERSTACK_AUTH_KEY'] ||
-                       data['auth_key'] ||
-                       ''
-                      )
+        'username' => (ENV['BROWSERSTACK_USERNAME'] || data['username'] || ''),
+        'auth_key' => (ENV['BROWSERSTACK_AUTH_KEY'] || data['auth_key'] || ''),
+        'capabilities' => data['capabilities'] || {}
       )
     end
-    # rubocop:enable Metrics/MethodLength
+    # rubocop:enable Metrics/CyclomaticComplexity
 
     def proxy_data(data)
       data = {} if data.nil?

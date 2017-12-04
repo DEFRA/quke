@@ -96,63 +96,88 @@ proxy:
 # Please see https://www.browserstack.com/automate/capabilities for more details
 browserstack:
   # To run your tests with browserstack you must provide a username and auth_key
-  # as a minimum
+  # as a minimum.
+  # If you don't want to put these credentials in the config file (because you
+  # want to commit it to source control), Quke will also check for the existance
+  # of the environment variables BROWSERSTACK_USERNAME and BROWSERSTACK_AUTH_KEY
   username: jdoe
   auth_key: 123456789ABCDE
 
-  # Keep track of all your automated tests using the build and project
-  # capabilities. Group your tests into builds, and builds further into projects
-  build: 'Version 1'
-  project: 'Adding browserstack support'
+  # Anything set under capabilities will be passed directly by Quke to
+  # browserstack as means of configuring the test.
+  # So the config keys (e.g. build, project, name) you set should match a real
+  # browserstack capability, and the value exist in the range it expects. See
+  # for further reference on browserstack capabilities
+  # https://www.browserstack.com/automate/capabilities
+  # https://www.browserstack.com/automate/ruby#configure-capabilities
+  capabilities:
+    # Keep track of all your automated tests using the build and project
+    # capabilities. Group your tests into builds, and builds further into
+    # projects
+    project: 'Adding browserstack support'
+    build: 'Version 1'
+    # Allows you to specify an identifier for the test run.
+    # If you intend to repeat a test this might not be that applicable, but in
+    # the case of one off tests it might be useful
+    name: 'Testing google search'
 
-  # Allows you to specify an identifier for the test run.
-  # If you intend to repeat a test this might not be that applicable, but in the
-  # case of one off tests it might be useful
-  name: 'Testing google search'
+    # To avoid invalid certificate errors while testing set acceptSslCerts to
+    # true. This is not listed on the general capabilities page but is here
+    # https://www.browserstack.com/automate/ruby#self-signed-certificates
+    acceptSslCerts: true
+    # Required if you want to generate screenshots at various steps in your test
+    # test. Browserstack default is false
+    browserstack.debug: true
+    # Required if you want to enable video recording during your test.
+    # Browserstack default is true
+    browserstack.video: true
+    # Another setting not listed, setting the following will prevent any values
+    # you pass in, for example when filling in a form, from appearing in the
+    # logs. General use case is to prevent passwords being exposed, but beware
+    # that all input will be masked in the logs if set.
+    browserstack.maskSendKeys: true
 
-  # MOBILE testing
-  # The docs are a little confusing but essentially if you want to test against
-  # mobile devices you need to define 1 set of capabilities, and if desktop
-  # another
-  # -----
-  # OS you want to test. Accepted values are MAC, WIN8, XP, WINDOWS, ANY, ANDROID
-  # Browserstack default is ANY
-  platform: MAC
-  # Browser you want to test. Accepted values firefox, chrome, internet explorer,
-  # safari, opera, iPad, iPhone, android. Browserstack default is chrome
-  browserName: iPhone
-  # Browser version you want to test. See the docs for the full list of available
-  # versions. Browserstack default is latest stable version of browser selected
-  version: '49'
-  # Device you want to test on. See the docs for the full list of available.
-  device: 'iPhone 5'
-
-  # DESKTOP testing
-  # -----
-  # OS you want to test. Accepted values are WINDOWS, OS X. If both OS and
-  # platform are set, OS will take precedence
-  os: WINDOWS
-  # OS version you want to test. Accepted values are
-  # Windows: XP, 7, 8, 8.1 and 10
-  # OS X: Snow Leopard, Lion, Mountain Lion, Mavericks, Yosemite, El Capitan
-  os_version: '8.1'
-  # Browser you want to test. Accepted values are Firefox, Safari, IE, Chrome,
-  # Opera
-  browser: chrome
-  # Browser version you want to test. See the docs for the full list of
-  # available versions
-  browser_version: '49'
-  # Set the resolution of VM before beginning of your test.
-  # See docs https://www.browserstack.com/automate/capabilities for full list of
-  # accepted values, as it is also OS dependent
-  resolution: '1024x768'
-
-  # To avoid invalid certificate errors while testing set acceptSslCerts to true
-  acceptSslCerts: true
-
-  # Required if you want to generate screenshots at various steps in your test.
-  # Browserstack default is false
-  debug: true
-  # Required if you want to enable video recording during your test.
-  # Browserstack default is true
-  video: true
+    # MOBILE testing and DESKTOP testing are essentially diametric; you set one
+    # or the other but not both. Some examples seem to put logic in place to
+    # test the options passed in and then set the capabilities accordingly,
+    # however Browserstack handles this and has what will happen documented
+    # https://www.browserstack.com/automate/capabilities#capabilities-parameter-override
+    #
+    # MOBILE testing
+    # The docs are a little confusing but essentially if you want to test against
+    # mobile devices you need to define 1 set of capabilities, and if desktop
+    # another
+    # -----
+    # OS you want to test. Accepted values are MAC, WIN8, XP, WINDOWS, ANY,
+    # ANDROID. Browserstack default is ANY
+    platform: MAC
+    # Browser you want to test. Accepted values firefox, chrome, internet
+    # explorer,safari, opera, iPad, iPhone, android. Browserstack default is
+    # chrome
+    browserName: iPhone
+    # Browser version you want to test. See the docs for the full list of
+    # available versions. Browserstack default is latest stable version of
+    # browser selected
+    version: '49'
+    # Device you want to test on. See the docs for the full list of available.
+    device: 'iPhone 5'
+    #
+    # DESKTOP testing
+    # -----
+    # OS you want to test. Accepted values are WINDOWS, OS X. If both OS and
+    # platform are set, OS will take precedence
+    os: WINDOWS
+    # OS version you want to test. Accepted values are
+    # Windows: XP, 7, 8, 8.1 and 10
+    # OS X: Snow Leopard, Lion, Mountain Lion, Mavericks, Yosemite, El Capitan
+    os_version: '8.1'
+    # Browser you want to test. Accepted values are Firefox, Safari, IE, Chrome,
+    # Opera
+    browser: chrome
+    # Browser version you want to test. See the docs for the full list of
+    # available versions
+    browser_version: '49'
+    # Set the resolution of VM before beginning of your test.
+    # See docs https://www.browserstack.com/automate/capabilities for full list
+    # of accepted values, as it is also OS dependent
+    resolution: '1024x768'

@@ -7,24 +7,26 @@ browserstack:
   username: jdoe
   auth_key: 123456789ABCDE
 
-  build: 'Version 1'
-  project: 'Adding browserstack support'
+  capabilities:
+    build: 'Version 1'
+    project: 'Adding browserstack support'
+    name: 'Testing google search'
 
-  name: 'Testing google search'
+    acceptSslCerts: true
+    browserstack.debug: true
+    browserstack.video: true
+    browserstack.local: true
+    browserstack.maskSendKeys: true
 
-  # MOBILE testing
-  platform: MAC
-  browserName: iPhone
-  version: '49'
-  device: 'iPhone 5'
+    # MOBILE testing
+    platform: MAC
+    browserName: iPhone
+    version: '49'
+    device: 'iPhone 5'
 
-  # DESKTOP testing
-  os: WINDOWS
-  os_version: '8.1'
-  browser: chrome
-  browser_version: '49'
-  resolution: '1024x768'
-
-  acceptSslCerts: true
-  debug: true
-  video: true
+    # DESKTOP testing
+    os: WINDOWS
+    os_version: '8.1'
+    browser: chrome
+    browser_version: '49'
+    resolution: '1024x768'
