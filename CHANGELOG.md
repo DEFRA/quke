@@ -1,5 +1,13 @@
 # Change Log
 
+## [v0.4.0](https://github.com/DEFRA/quke/tree/v0.4.0) (2017-12-04)
+[Full Changelog](https://github.com/DEFRA/quke/compare/v0.3.2...v0.4.0)
+
+**Merged pull requests:**
+
+- More flexibility setting browserstack capabilities [\#67](https://github.com/DEFRA/quke/pull/67) ([Cruikshanks](https://github.com/Cruikshanks))
+- \[ci skip\] Update CHANGELOG.md [\#66](https://github.com/DEFRA/quke/pull/66) ([Cruikshanks](https://github.com/Cruikshanks))
+
 ## [v0.3.2](https://github.com/DEFRA/quke/tree/v0.3.2) (2017-06-12)
 [Full Changelog](https://github.com/DEFRA/quke/compare/v0.3.1...v0.3.2)
 
