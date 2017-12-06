@@ -13,7 +13,10 @@ module Quke #:nodoc:
 
     # To use local testing users must provide a key. They will find this in
     # Browserstack once logged in under settings. Its typically the same value
-    # as the auth_key above
+    # as the auth_key above.
+    # If you don't want to put this credential in the config file (because you
+    # want to commit it to source control), Quke will also check for the
+    # existance of the environment variable BROWSERSTACK_LOCAL_KEY
     attr_reader :local_key
 
     # Capabilities are what configure the test in browserstack, for example
@@ -40,17 +43,21 @@ module Quke #:nodoc:
     # Initialize's the instance based in the +Quke::Configuration+ instance
     # passed in.
     #
+    # rubocop:disable Metrics/AbcSize
     # rubocop:disable Metrics/CyclomaticComplexity
+    # rubocop:disable Metrics/PerceivedComplexity
     def initialize(configuration)
       @using_browserstack = configuration.data['driver'] == 'browserstack'
       data = validate_input_data(configuration.data)
       @username = ENV['BROWSERSTACK_USERNAME'] || data['username'] || ''
       @auth_key = ENV['BROWSERSTACK_AUTH_KEY'] || data['auth_key'] || ''
-      @local_key = data['local_key'] || ''
+      @local_key = ENV['BROWSERSTACK_LOCAL_KEY'] || data['local_key'] || ''
       @capabilities = data['capabilities'] || {}
       determine_local_testing_args(configuration)
     end
+    # rubocop:enable Metrics/AbcSize
     # rubocop:enable Metrics/CyclomaticComplexity
+    # rubocop:enable Metrics/PerceivedComplexity
 
     # Return true if the +browserstack.local: true+ value has been set in the
     # +.config.yml+ file and the driver is set to 'browserstack', else false.
