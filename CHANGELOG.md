@@ -1,5 +1,13 @@
 # Change Log
 
+## [v0.5.0](https://github.com/DEFRA/quke/tree/v0.5.0) (2017-12-06)
+[Full Changelog](https://github.com/DEFRA/quke/compare/v0.4.0...v0.5.0)
+
+**Merged pull requests:**
+
+- Add support for browserstack local testing [\#69](https://github.com/DEFRA/quke/pull/69) ([Cruikshanks](https://github.com/Cruikshanks))
+- Update CHANGELOG for 0.4.0 release [\#68](https://github.com/DEFRA/quke/pull/68) ([Cruikshanks](https://github.com/Cruikshanks))
+
 ## [v0.4.0](https://github.com/DEFRA/quke/tree/v0.4.0) (2017-12-04)
 [Full Changelog](https://github.com/DEFRA/quke/compare/v0.3.2...v0.4.0)
 
