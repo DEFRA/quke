@@ -10,13 +10,19 @@ module Quke #:nodoc:
 
     # Access the instance of Quke::DriverConfiguration passed to this instance
     # of Quke::DriverRegistration when it was initialized.
+    attr_reader :driver_config
+
+    # Access the instance of Quke::Configuration passed to this instance of
+    # Quke::DriverOptions when it was initialized.
     attr_reader :config
 
     # Instantiate an instance of Quke::DriverRegistration.
     #
     # It expects an instance of Quke::DriverConfiguration which will detail the
-    # driver to be used and any related options
-    def initialize(config)
+    # driver to be used and any related options, and Quke::Configuration
+    # specifically for access to the browserstack config.
+    def initialize(driver_config, config)
+      @driver_config = driver_config
       @config = config
     end
 
@@ -56,7 +62,7 @@ module Quke #:nodoc:
         # called, all we're doing here is telling it what block (code) to
         # execute at that time.
         # :simplecov_ignore:
-        Capybara::Poltergeist::Driver.new(app, config.poltergeist)
+        Capybara::Poltergeist::Driver.new(app, @driver_config.poltergeist)
         # :simplecov_ignore:
       end
       :phantomjs
@@ -74,7 +80,7 @@ module Quke #:nodoc:
       # http://preferential.mozdev.org/preferences.html
       Capybara.register_driver :firefox do |app|
         # :simplecov_ignore:
-        Capybara::Selenium::Driver.new(app, profile: config.firefox)
+        Capybara::Selenium::Driver.new(app, profile: @driver_config.firefox)
         # :simplecov_ignore:
       end
       :firefox
@@ -94,7 +100,7 @@ module Quke #:nodoc:
         Capybara::Selenium::Driver.new(
           app,
           browser: :chrome,
-          switches: config.chrome
+          switches: @driver_config.chrome
         )
         # :simplecov_ignore:
       end
@@ -111,8 +117,8 @@ module Quke #:nodoc:
         Capybara::Selenium::Driver.new(
           app,
           browser: :remote,
-          url: config.browserstack_url,
-          desired_capabilities: config.browserstack
+          url: @config.browserstack.url,
+          desired_capabilities: @driver_config.browserstack
         )
         # :simplecov_ignore:
       end

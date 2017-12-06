@@ -1,4 +1,3 @@
-# coding: utf-8
 lib = File.expand_path('../lib', __FILE__)
 $LOAD_PATH.unshift(lib) unless $LOAD_PATH.include?(lib)
 require 'quke/version'
@@ -90,12 +89,17 @@ Gem::Specification.new do |spec|
   # will instead open in the default browser instead.
   spec.add_dependency 'launchy', '~> 2.4'
 
+  # Ruby bindings for BrowserStack Local. This gem handles downloading and
+  # installing the right version of the binary for the OS Quke is running on,
+  # and provides an API for managing it.
+  spec.add_dependency 'browserstack-local'
+
   spec.add_development_dependency 'bundler', '~> 1.12'
+  spec.add_development_dependency 'codeclimate-test-reporter', '~> 0.6'
+  spec.add_development_dependency 'github_changelog_generator', '~> 1.13'
   spec.add_development_dependency 'rake', '~> 10.5'
   spec.add_development_dependency 'rdoc', '~> 4.2'
   spec.add_development_dependency 'rspec', '~> 3.5'
-  spec.add_development_dependency 'codeclimate-test-reporter', '~> 0.6'
   spec.add_development_dependency 'simplecov', '~> 0.12'
-  spec.add_development_dependency 'github_changelog_generator', '~> 1.13'
 end
 # rubocop:enable Metrics/BlockLength

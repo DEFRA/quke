@@ -30,7 +30,7 @@ module Helpers
   # this appears to be the case for most of its properties.
   # https://github.com/SeleniumHQ/selenium/blob/master/rb/lib/selenium/webdriver/firefox/profile.rb
   #
-  # However having checked how they have written there tests for this class
+  # However having checked how they have written their tests for this class
   # (https://github.com/SeleniumHQ/selenium/blob/master/rb/spec/integration/selenium/webdriver/firefox/profile_spec.rb)
   # we were able to find Selenium::WebDriver::Firefox::Profile has a method
   # called +layout_on_disk+ which writes the profile to files. The Selenium team

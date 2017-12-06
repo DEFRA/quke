@@ -21,20 +21,30 @@ AllCops:
   # investigating what the fix may be.
   DisplayStyleGuide: true
 
-# Disable this rubocop style because we want to make the arguments passed into
-# Freakin available to anywhere when the code is executed
-Style/GlobalVars:
-  Enabled: false
-
 # It is our opinion that code is easier to read if a white space is
 # permitted between the initial declaration and the first statement. Ditto the
 # last statement and the closing tag.
-Style/EmptyLinesAroundModuleBody:
+Layout/EmptyLinesAroundModuleBody:
   Enabled: false
-Style/EmptyLinesAroundClassBody:
+Layout/EmptyLinesAroundClassBody:
   Enabled: false
-Style/EmptyLinesAroundBlockBody:
+Layout/EmptyLinesAroundBlockBody:
     Enabled: false
+
+# Rubocop appears to flag `describe` blocks which are longer than 25 lines.
+# However it is our opinion that this is necessary in specs, for example when
+# describing a class, the body of the describe may well exceed 25 lines.
+# Therefore we have excluded this rule in the specs only.
+Metrics/BlockLength:
+  Exclude:
+    - spec/quke/*.rb
+
+# We wish we were good enough to remain within the rubocop limit of 10 lines
+# however we often just seem to tip over by a few lines. Hence we have chosen
+# to bump it to 15.
+Metrics/MethodLength:
+  Max: 15
+  Exclude:
 
 # It is our opinion that in the specs 80 characters is too restrictive. Do to
 # the nature of some statements that it can be both difficult, and make more
@@ -45,10 +55,7 @@ Metrics/LineLength:
   Exclude:
     - spec/quke/*.rb
 
-# Rubocop appears to flag `describe` blocks which are longer than 25 lines.
-# However it is our opinion that this is necessary in specs, for example when
-# describing a class, the body of the describe may well exceed 25 lines.
-# Therefore we have excluded this rule in the specs only.
-Metrics/BlockLength:
-  Exclude:
-    - spec/quke/*.rb
+# Disable this rubocop style because we want to make the arguments passed into
+# Freakin available to anywhere when the code is executed
+Style/GlobalVars:
+  Enabled: false

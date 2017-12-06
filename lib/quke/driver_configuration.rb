@@ -202,40 +202,6 @@ module Quke #:nodoc:
     end
     # rubocop:enable Metrics/AbcSize
 
-    # Returns a string representing the url used when running tests via
-    # Browserstack[https://www.browserstack.com/] or nil.
-    #
-    # It will contain the username and auth_key set in the +.config.yml+, else
-    # if +username+ is blank it will return nil.
-    #
-    # An example return value
-    #
-    #     "http://jdoe:123456789ABCDE@hub.browserstack.com/wd/hub"
-    #
-    # It is used when registering the driver with Capybara. So instead of this
-    #
-    #     Capybara::Selenium::Driver.new(
-    #       app,
-    #       browser: :remote,
-    #       url: 'http://jdoe:123456789ABCDE@hub.browserstack.com/wd/hub',
-    #       desired_capabilities: my_capabilites
-    #     )
-    #
-    # You can call +browserstack_url+ to get the url to use
-    #
-    #     Capybara::Selenium::Driver.new(
-    #       app,
-    #       browser: :remote,
-    #       url: my_driver_config.browserstack_url,
-    #       desired_capabilities: my_capabilites
-    #     )
-    #
-    def browserstack_url
-      username = config.browserstack['username']
-      key = config.browserstack['auth_key']
-      return "http://#{username}:#{key}@hub.browserstack.com/wd/hub" unless username == ''
-    end
-
     # Returns an instance of Selenium::WebDriver::Remote::Capabilities to be
     # used when registering an instance of Capybara::Selenium::Driver,
     # configured to run using the Browserstack[https://www.browserstack.com/]
@@ -274,9 +240,7 @@ module Quke #:nodoc:
       # https://github.com/SeleniumHQ/selenium/blob/master/rb/lib/selenium/webdriver/remote/capabilities.rb
       capabilities = Selenium::WebDriver::Remote::Capabilities.new
 
-      browserstack_capabilities = config.browserstack['capabilities']
-
-      browserstack_capabilities.each do |key, value|
+      config.browserstack.capabilities.each do |key, value|
         capabilities[key] = value
       end
 

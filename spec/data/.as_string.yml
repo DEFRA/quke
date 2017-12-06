@@ -8,3 +8,7 @@ javascript_errors: 'false'
 
 proxy:
   port: '8080'
+
+browserstack:
+  capabilities:
+    browserstack.local: 'true'

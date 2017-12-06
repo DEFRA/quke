@@ -9,8 +9,12 @@ module Quke #:nodoc:
     # Quke::Configuration.
     attr_reader :file_location
 
-    # Access the loaded config data object directly
+    # Access the loaded config data object directly.
     attr_reader :data
+
+    # Instance of +Quke::BrowserstackConfiguration+ which manages reading and
+    # returning the config for setting up Quke to use browserstack.
+    attr_reader :browserstack
 
     class << self
       # Class level setter for the location of the config file.
@@ -38,6 +42,7 @@ module Quke #:nodoc:
     # calling a private method +load_data()+.
     def initialize
       @data = load_data
+      @browserstack = ::Quke::BrowserstackConfiguration.new(self)
     end
 
     # Returns the value set for +features_folder+.
@@ -129,18 +134,6 @@ module Quke #:nodoc:
       @data['javascript_errors']
     end
 
-    # Return the hash of all +browserstack+ options.
-    #
-    # If you select the browserstack driver, there are a number of options you
-    # can pass through to setup your browserstack tests, username and auth_key
-    # being the critical ones.
-    #
-    # Please see https://www.browserstack.com/automate/capabilities for more
-    # details.
-    def browserstack
-      @data['browserstack']
-    end
-
     # Return the hash of +proxy+ server settings
     #
     # If your environment requires you to go via a proxy server you can
@@ -163,24 +156,16 @@ module Quke #:nodoc:
       @data['custom']
     end
 
-    # Override to_s to output the contents of Config as a readable string rather
-    # than the standard object output you get.
-    def to_s
-      @data.to_s
-    end
-
     private
 
     def load_data
       data = default_data!(load_yml_data)
-      data['browserstack'] = browserstack_data(data['browserstack'])
       data['proxy'] = proxy_data(data['proxy'])
       data
     end
 
     # rubocop:disable Metrics/AbcSize
     # rubocop:disable Metrics/CyclomaticComplexity
-    # rubocop:disable Metrics/MethodLength
     # rubocop:disable Metrics/PerceivedComplexity
     def default_data!(data)
       data.merge(
@@ -205,19 +190,7 @@ module Quke #:nodoc:
     end
     # rubocop:enable Metrics/AbcSize
     # rubocop:enable Metrics/CyclomaticComplexity
-    # rubocop:enable Metrics/MethodLength
     # rubocop:enable Metrics/PerceivedComplexity
-
-    # rubocop:disable Metrics/CyclomaticComplexity
-    def browserstack_data(data)
-      data = {} if data.nil?
-      data.merge(
-        'username' => (ENV['BROWSERSTACK_USERNAME'] || data['username'] || ''),
-        'auth_key' => (ENV['BROWSERSTACK_AUTH_KEY'] || data['auth_key'] || ''),
-        'capabilities' => data['capabilities'] || {}
-      )
-    end
-    # rubocop:enable Metrics/CyclomaticComplexity
 
     def proxy_data(data)
       data = {} if data.nil?
