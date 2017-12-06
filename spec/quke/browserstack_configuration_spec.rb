@@ -37,6 +37,34 @@ RSpec.describe Quke::BrowserstackConfiguration do
       end
 
     end
+
+    context 'when `.config.yml` contains a browserstack section but credentials are in env vars' do
+      let(:config) do
+        Quke::Configuration.file_location = data_path('.browserstack_no_credentials.yml')
+        Quke::Configuration.new
+      end
+      subject do
+        stub_const(
+          'ENV',
+          'BROWSERSTACK_USERNAME' => 'tstark',
+          'BROWSERSTACK_AUTH_KEY' => '123456789VWXYZ',
+          'BROWSERSTACK_LOCAL_KEY' => '123456789REDRU'
+        )
+        Quke::BrowserstackConfiguration.new(config)
+      end
+
+      it 'returns an instance with properties that match the input' do
+        expect(subject.username).to eq('tstark')
+        expect(subject.auth_key).to eq('123456789VWXYZ')
+        expect(subject.local_key).to eq('123456789REDRU')
+        expect(subject.capabilities).to eq(
+          'build' => 'Version 1',
+          'project' => 'Adding browserstack support',
+          'browserstack.local' => true
+        )
+      end
+
+    end
   end
 
   describe '#test_locally?' do

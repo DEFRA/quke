@@ -105,7 +105,10 @@ browserstack:
 
   # If you want to use local testing you must provide a key. You can find this
   # in Browserstack once logged in under settings. Its typically the same value
-  # as the auth_key above
+  # as the auth_key above.
+  # If you don't want to put this credential in the config file (because you
+  # want to commit it to source control), Quke will also check for the existance
+  # of the environment variable BROWSERSTACK_LOCAL_KEY
   local_key: 123456789ABCDE
 
   # Anything set under capabilities will be passed directly by Quke to

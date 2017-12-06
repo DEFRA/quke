@@ -86,6 +86,32 @@ QUKE_CONFIG='chrome.config.yml' bundle exec quke
 
 The use case is to allow you to have different configs setup ready to go, and enable you to switch between them. For example when testing with Chrome and Firefox you set a 1 second delay between steps so you can observe the tests as they run through, but in your default `.config.yml` you want no pauses and use **phantomjs**.
 
+### Security
+
+If you are testing a site that requires some form of login, or you are using **Browserstack** you'll need to tell Quke about the credentials. Generally we advise not committing your `.config.yml` to source control, but we understand you may well build up a suite of them that you want to store with the project and share with others.
+
+If that's the case make use of the following features.
+
+#### Browserstack environment variables
+
+[.config.example.yml](.config.example.yml) is an example of a config file which contains `username`, `auth_key`, and if local testing `local_key`. You really don't want these becoming known so if you have to commit the config file, remove them and instead set the following environment variables wherever you need to run the tests.
+
+- BROWSERSTACK_USERNAME
+- BROWSERSTACK_AUTH_KEY
+- BROWSERSTACK_LOCAL_KEY
+
+Quke looks for them when configuring the **Browserstack** driver and only if not found does it then go looking in the config file.
+
+#### Ruby's ENV classs
+
+You can access any environment variable from within your project using [ENV](https://ruby-doc.org/core-2.4.2/ENV.html).
+
+```ruby
+secret_key = ENV['SUPER_SECRET_KEY']
+```
+
+You can set them by calling `export SUPER_SECRET_KEY="password123"` in your terminal prior to running Quke. In this way for example, the passwords featured in the custom section in [.config.example.yml](.config.example.yml) could be removed, and instead your step could read the value it needs to submit from an environment variable.
+
 ## Usage
 
 TODO: Write usage instructions here
