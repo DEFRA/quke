@@ -46,9 +46,9 @@ Metrics/MethodLength:
   Max: 15
   Exclude:
 
-# It is our opinion that in the specs 80 characters is too restrictive. Do to
-# the nature of some statements that it can be both difficult, and make more
-# simple statements complex if we are forced to split them over multiple lines.
+# It is our opinion that in the specs 80 characters is too restrictive. Due to
+# the nature of some statements it can be both difficult, and make more simple
+# statements complex if we are forced to split them over multiple lines.
 # Therefore we have upped this limit to 120 chars in the specs only.
 Metrics/LineLength:
   Max: 120
@@ -56,6 +56,6 @@ Metrics/LineLength:
     - spec/quke/*.rb
 
 # Disable this rubocop style because we want to make the arguments passed into
-# Freakin available to anywhere when the code is executed
+# Quke available to anywhere when the code is executed
 Style/GlobalVars:
   Enabled: false

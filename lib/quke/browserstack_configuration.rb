@@ -42,10 +42,11 @@ module Quke #:nodoc:
 
     # Initialize's the instance based in the +Quke::Configuration+ instance
     # passed in.
-    #
+    #--
     # rubocop:disable Metrics/AbcSize
     # rubocop:disable Metrics/CyclomaticComplexity
     # rubocop:disable Metrics/PerceivedComplexity
+    #++
     def initialize(configuration)
       @using_browserstack = configuration.data['driver'] == 'browserstack'
       data = validate_input_data(configuration.data)
@@ -59,7 +60,7 @@ module Quke #:nodoc:
     # rubocop:enable Metrics/CyclomaticComplexity
     # rubocop:enable Metrics/PerceivedComplexity
 
-    # Return true if the +browserstack.local: true+ value has been set in the
+    # Return true if the +browserstack.local+ value has been set to true in the
     # +.config.yml+ file and the driver is set to 'browserstack', else false.
     #
     # It is used when determing whether to start and stop the binary
@@ -74,7 +75,7 @@ module Quke #:nodoc:
     # to use in order to correctly determine is the browserstack local testing
     # binary needs to be stopped and started for the tests.
     #
-    # However it also serves as a clean and simple way ton determine if
+    # However it also serves as a clean and simple way to determine if
     # browserstack is the selected dribver.
     def using_browserstack?
       @using_browserstack

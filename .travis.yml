@@ -27,8 +27,8 @@ env:
 # If grep returns 0 (match found), test 0 -eq 1 will return 1.
 # If grep returns 1 (no match found), test 1 -eq 1 will return 0.
 # If grep returns 2 (error), test 2 -eq 1 will return 1.
-before_script: >-
-  echo "Checking for use of 'focus' labels in specs" && grep -r --include="*_spec.rb" "focus: true" spec/; test $? -eq 1
+before_script:
+  - echo "Checking for use of 'focus' labels in specs" && grep -r --include="*_spec.rb" "focus&#58; true" spec/; test $? -eq 1
   # Setup to support the CodeClimate test coverage submission
   # As per CodeClimate's documentation, they suggest only running
   # ./cc-test-reporter commands on travis-ci push builds only. Hence we wrap all

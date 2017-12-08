@@ -152,6 +152,18 @@ module Quke #:nodoc:
       proxy['host'] != ''
     end
 
+    # Return the hash of +custom+ server settings
+    #
+    # This returns a hash of all the key/values in the custom section of your
+    # +.config.yml+ file. You can then access it in your steps/page objects with
+    #
+    #     Quke::Quke.config.custom["default_org_name"] # = "Testy Ltd"
+    #     Quke::Quke.config.custom["accounts"]["account2"]["username"] # = "john.doe@example.gov.uk"
+    #     Quke::Quke.config.custom["urls"]["front_office"] # = "http://myservice.service.gov.uk"
+    #
+    # As long as what you add is valid YAML (check with a tool like
+    # http://www.yamllint.com/) Quke will be able to pick it up and make it
+    # available in your tests.
     def custom
       @data['custom']
     end

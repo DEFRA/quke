@@ -128,6 +128,10 @@ Capybara includes the ability to save the source of the current page at any poin
 
 If you are running using Chrome or Firefox after the 5th failure Quke will automatically stop. This is to prevent scores of tabs being opened in the browser when an error is found, which may just be the result of an error in the test code.
 
+### Automatically setting Browserstack session status
+
+If you are using the Browserstack driver, Quke will automatically update the status of the session recorded in Browserstack for you. If all tests pass, it will be marked as 'passed', else it will be marked as 'failed' (it defaults to 'completed').
+
 ## Development
 
 After checking out the repo, run `bin/setup` to install dependencies. Then, run `rake spec` to run the tests. You can also run `bin/console` for an interactive prompt that will allow you to experiment.

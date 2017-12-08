@@ -1,0 +1,11 @@
+driver: browserstack
+
+browserstack:
+  username: alancruikshanks3
+  auth_key: PCTFnDxjvJpjypoyF1iu
+  local_key: PCTFnDxjvJpjypoyF1iu
+
+  capabilities:
+    build: 'Version 1'
+    project: 'Adding browserstack support'
+    name: 'Testing google search'
