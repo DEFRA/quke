@@ -1,8 +1,8 @@
 <img src="/quke.png" alt="Git flow" />
 
 [![Build Status](https://travis-ci.org/DEFRA/quke.svg?branch=master)](https://travis-ci.org/DEFRA/quke)
-[![Code Climate](https://codeclimate.com/github/DEFRA/quke/badges/gpa.svg)](https://codeclimate.com/github/DEFRA/quke)
-[![Test Coverage](https://codeclimate.com/github/DEFRA/quke/badges/coverage.svg)](https://codeclimate.com/github/DEFRA/quke/coverage)
+[![Maintainability](https://api.codeclimate.com/v1/badges/34f915556feb193d7d82/maintainability)](https://codeclimate.com/github/DEFRA/quke/maintainability)
+[![Test Coverage](https://api.codeclimate.com/v1/badges/34f915556feb193d7d82/test_coverage)](https://codeclimate.com/github/DEFRA/quke/test_coverage)
 [![security](https://hakiri.io/github/DEFRA/quke/master.svg)](https://hakiri.io/github/DEFRA/quke/master)
 [![Dependency Status](https://dependencyci.com/github/DEFRA/quke/badge)](https://dependencyci.com/github/DEFRA/quke)
 [![Gem Version](https://badge.fury.io/rb/quke.svg)](https://badge.fury.io/rb/quke)
