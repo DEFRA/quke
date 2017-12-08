@@ -1,5 +1,15 @@
 # Change Log
 
+## [v0.6.0](https://github.com/DEFRA/quke/tree/v0.6.0) (2017-12-08)
+[Full Changelog](https://github.com/DEFRA/quke/compare/v0.5.0...v0.6.0)
+
+**Merged pull requests:**
+
+- Fix and update codeclimate and travis-ci config [\#73](https://github.com/DEFRA/quke/pull/73) ([Cruikshanks](https://github.com/Cruikshanks))
+- Add ability to update browserstack session status [\#72](https://github.com/DEFRA/quke/pull/72) ([Cruikshanks](https://github.com/Cruikshanks))
+- Add missing support for local testing key env var [\#71](https://github.com/DEFRA/quke/pull/71) ([Cruikshanks](https://github.com/Cruikshanks))
+- Update CHANGELOG for 0.5.0 release [\#70](https://github.com/DEFRA/quke/pull/70) ([Cruikshanks](https://github.com/Cruikshanks))
+
 ## [v0.5.0](https://github.com/DEFRA/quke/tree/v0.5.0) (2017-12-06)
 [Full Changelog](https://github.com/DEFRA/quke/compare/v0.4.0...v0.5.0)
 
