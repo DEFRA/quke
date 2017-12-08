@@ -22,8 +22,8 @@ module Quke #:nodoc:
     #   - +-r 'lib/features'+, tells Cucumber to require our features folder.
     #       This is how we get it to use our +env.rb+ which handles all the
     #       setup on behalf of the user (the point of Quke) to do things like
-    #       use Browserstack, or switch between running against Chrom or firefox
-    #       locally
+    #       use Browserstack, or switch between running against Chrome or
+    #       firefox locally
     #   - +-r my_features_folder+, if you specify a different folder for
     #       or wish to test just specific features, you are required by Cucumber
     #       to also require the folder which contains your steps
@@ -35,7 +35,7 @@ module Quke #:nodoc:
         # will take the next argument from that position, not from where the gem
         # currently sits. This means to Cucumber 'lib/features' doesn't exist,
         # which means our env.rb never gets loaded. Instead we first have to
-        # determing where this file is running from when called, then we simply
+        # determine where this file is running from when called, then we simply
         # replace the last part of that result (which we know will be lib/quke)
         # with lib/features. We then pass this full path to Cucumber so it can
         # correctly find the folder holding our predefined env.rb file.

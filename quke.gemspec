@@ -100,5 +100,6 @@ Gem::Specification.new do |spec|
   spec.add_development_dependency 'rdoc', '~> 4.2'
   spec.add_development_dependency 'rspec', '~> 3.5'
   spec.add_development_dependency 'simplecov', '~> 0.13'
+  spec.add_development_dependency 'webmock', '~> 3.1'
 end
 # rubocop:enable Metrics/BlockLength

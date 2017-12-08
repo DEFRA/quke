@@ -1,5 +1,6 @@
 require 'quke/version'
 require 'quke/browserstack_configuration'
+require 'quke/browserstack_status_reporter'
 require 'quke/configuration'
 require 'quke/cuke_runner'
 require 'quke/driver_registration'

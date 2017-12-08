@@ -1,9 +1,13 @@
 require 'quke/configuration'
 
 After('~@nonweb') do |scenario|
-  if scenario.failed?
+  $fail_count ||= 0
 
-    $fail_count ||= 0
+  if Quke::Quke.config.browserstack.using_browserstack?
+    $session_id = page.driver.browser.session_id
+  end
+
+  if scenario.failed?
     $fail_count = $fail_count + 1
 
     # Tell Cucumber to quit after first failing scenario when stop_on_error is

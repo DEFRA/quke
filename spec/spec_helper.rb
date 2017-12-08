@@ -23,6 +23,7 @@ end
 $LOAD_PATH.unshift File.expand_path('../../lib', __FILE__)
 require 'helpers'
 require 'quke'
+require 'webmock/rspec'
 
 RSpec.configure do |config|
   # Enable the ability to run only selected tests. This means rather than
