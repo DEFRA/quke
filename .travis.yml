@@ -2,7 +2,6 @@ sudo: false
 language: ruby
 rvm:
   - 2.3.1
-before_install: gem install bundler -v 1.12.5
 
 # Travis CI clones repositories to a depth of 50 commits, which is only really
 # useful if you are performing git operations.
@@ -14,6 +13,13 @@ git:
 # https://docs.travis-ci.com/user/languages/ruby#Caching-Bundler
 cache: bundler
 
+# Needed as part of submitting test coverage statistics to CodeClimate as part
+# of the build
+# https://docs.codeclimate.com/v1.0/docs/travis-ci-test-coverage
+env:
+  global:
+    - CC_TEST_REPORTER_ID=1d329b5215a2aa892214c7705d36de6e99608a8649616c93f93464aa06776f4a
+
 # Using the ability to customise the Travis build to check for 'focus' labels
 # i.e. labels used when working on a spec but which we don't want appearing in
 # the final commit to master
@@ -23,15 +29,17 @@ cache: bundler
 # If grep returns 2 (error), test 2 -eq 1 will return 1.
 before_script: >-
   echo "Checking for use of 'focus' labels in specs" && grep -r --include="*_spec.rb" "focus: true" spec/; test $? -eq 1
+  # Setup to support the CodeClimate test coverage submission
+  # As per CodeClimate's documentation, they suggest only running
+  # ./cc-test-reporter commands on travis-ci push builds only. Hence we wrap all
+  # the codeclimate test coverage related commands in a check that tests if we
+  # are in a pull request or not.
+  - if [ "$TRAVIS_PULL_REQUEST" == "false" ]; then curl -L https://codeclimate.com/downloads/test-reporter/test-reporter-latest-linux-amd64 > ./cc-test-reporter; fi
+  - if [ "$TRAVIS_PULL_REQUEST" == "false" ]; then chmod +x ./cc-test-reporter; fi
+  - if [ "$TRAVIS_PULL_REQUEST" == "false" ]; then ./cc-test-reporter before-build; fi
 
-# This section was added as per https://docs.travis-ci.com/user/code-climate/
-# To protect our codeclimate stats rather than adding the Codeclimate API key for ea-area_lookup
-# in the open we used this guide https://docs.travis-ci.com/user/encryption-keys/ to encryt the
-# value. Essentially install travis gem, then run `travis encrypt <my_code_climate_api_key>`
-addons:
-  code_climate:
-    repo_token:
-      secure: "TULHMA2Zmp0ntRGBVbLAJqSa9XWSm6gOunAEESbEUZYXt9eTuwvCHLOk1kz/EPq+3s60JokYOpGPB5iTGY4HxS/3gAmNR1Eo1smHqXDXqHjDb0X1l+w4mPUtdTRxTzzYJCaGkDptyCRv7p55LstfnZWlseQjlO1Er1TvQzzOb0XpsM+bO1ZiFNYZQcK8lAp2IrEcZNi0AEr96djc8vFymhV8ZocK39FythTwUBsw4eHitdFRTJwHZUUToatzN4R2Tl8rRNvj+xL3SmTqF1QZQovBGluuiewR0sddzU0vfQEB9tg7v+sMOoIK5ANYJ8SmabmsMa5zjnKEpxK0tgyD/vN9VWNH8qTY8yrGVg1wkQUmabV+1XSXNeHHuvHtlGp76OOqvNVCzlqspn0XsiS0TmcFhQlnNnhfQqFXXaMkt3ToPWDZfiXdmm5EMP5tqkNMhu/OtF1r99k7LbmDA0SMm3OK4TqTDLYDiDYJpwGYyWbWh9eCBgSyOzTW0sKvu0cxjznFd7NVx845lcfWLcDYGAyLEXm1WE1uULRjJgzabi4MkTz0DPBRxFP0STfXf96+NGxkSnKI5akQgyO4I+ITLS07pU6G16lcc8LNhqXFWdMVvPXSqzzLNqcV9U6zIyWaaf1whBO7/RPks3hKWw9GMwun49pR6GJ2wLeMnbnVsAQ="
+after_script:
+  - if [ "$TRAVIS_PULL_REQUEST" == "false" ]; then ./cc-test-reporter after-build --exit-code $TRAVIS_TEST_RESULT; fi
 
 deploy:
   provider: rubygems
