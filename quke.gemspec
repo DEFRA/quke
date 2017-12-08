@@ -95,11 +95,10 @@ Gem::Specification.new do |spec|
   spec.add_dependency 'browserstack-local'
 
   spec.add_development_dependency 'bundler', '~> 1.12'
-  spec.add_development_dependency 'codeclimate-test-reporter', '~> 0.6'
   spec.add_development_dependency 'github_changelog_generator', '~> 1.13'
   spec.add_development_dependency 'rake', '~> 10.5'
   spec.add_development_dependency 'rdoc', '~> 4.2'
   spec.add_development_dependency 'rspec', '~> 3.5'
-  spec.add_development_dependency 'simplecov', '~> 0.12'
+  spec.add_development_dependency 'simplecov', '~> 0.13'
 end
 # rubocop:enable Metrics/BlockLength
