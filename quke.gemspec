@@ -45,7 +45,7 @@ Gem::Specification.new do |spec|
   # mean things like fill_in x, click_on y etc. Capybara makes it much easier to
   # do this, though if you're willing to go a level lower you can write your own
   # code to tell selenium how to interact with a web page
-  spec.add_dependency "capybara", "~> 2.9"
+  spec.add_dependency "capybara", "~> 3.14"
 
   # We bring in rspec-expectations to simplify how to actually test if a page is
   # correct. For example you can test you are on the right page in a step using
