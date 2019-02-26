@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Quke #:nodoc:
 
   # Used to update the status of a session in Browserstack to mark it as passed
@@ -30,7 +32,7 @@ module Quke #:nodoc:
     # It returns a string which can be used as a message for output confirming
     # the action.
     def passed(session_id)
-      check_before_update(session_id, status: 'passed')
+      check_before_update(session_id, status: "passed")
       "Browserstack session #{session_id} status set to \e[32mpassed\e[0m 😀"
     end
 
@@ -40,14 +42,14 @@ module Quke #:nodoc:
     # It returns a string which can be used as a message for output confirming
     # the action.
     def failed(session_id)
-      check_before_update(session_id, status: 'failed')
+      check_before_update(session_id, status: "failed")
       "Browserstack session #{session_id} status set to \e[31mfailed\e[0m 😢"
     end
 
     private
 
     def check_before_update(session_id, body)
-      raise(ArgumentError, 'Need a session ID to update browserstack status') if session_id.nil?
+      raise(ArgumentError, "Need a session ID to update browserstack status") if session_id.nil?
 
       uri = URI("https://www.browserstack.com/automate/sessions/#{session_id}.json")
       set_status(uri, body)
@@ -56,7 +58,7 @@ module Quke #:nodoc:
     def set_status(uri, body)
       request = Net::HTTP::Put.new(uri)
       request.basic_auth @username, @auth_key
-      request.content_type = 'application/json'
+      request.content_type = "application/json"
       request.body = body.to_json
 
       response = Net::HTTP.start(uri.hostname, uri.port, use_ssl: true) do |http|

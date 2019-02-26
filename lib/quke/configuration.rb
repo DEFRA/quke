@@ -1,4 +1,6 @@
-require 'yaml'
+# frozen_string_literal: true
+
+require "yaml"
 
 module Quke #:nodoc:
 
@@ -35,7 +37,7 @@ module Quke #:nodoc:
     # Return the file name for the config file, either as set by the user in
     # an environment variable called `QCONFIG` or the default of +.config.yml+.
     def self.file_name
-      ENV['QUKE_CONFIG'] || '.config.yml'
+      ENV["QUKE_CONFIG"] || ".config.yml"
     end
 
     # When an instance is initialized it will automatically populate itself by
@@ -51,7 +53,7 @@ module Quke #:nodoc:
     # tells Cucumber where the main features folder which contains the tests is
     # located. If not set in the +.config.yml+ file it defaults to 'features'.
     def features_folder
-      @data['features_folder']
+      @data["features_folder"]
     end
 
     # Returns the value set for +app_host+.
@@ -66,7 +68,7 @@ module Quke #:nodoc:
     #
     # This saves you from having to repeat the full url each time.
     def app_host
-      @data['app_host']
+      @data["app_host"]
     end
 
     # Returns the value set for +driver+.
@@ -74,7 +76,7 @@ module Quke #:nodoc:
     # Tells Quke which browser to use for testing. Choices are firefox,
     # chrome browserstack and phantomjs, with the default being phantomjs.
     def driver
-      @data['driver']
+      @data["driver"]
     end
 
     # Return the value set for +pause+.
@@ -83,7 +85,7 @@ module Quke #:nodoc:
     # browser is responding. Only useful if using a non-headless browser. The
     # default is 0.
     def pause
-      @data['pause']
+      @data["pause"]
     end
 
     # Return the value set for +stop_on_error+.
@@ -94,7 +96,9 @@ module Quke #:nodoc:
     def stop_on_error
       # This use of Yaml.load to convert a string to a boolean comes from
       # http://stackoverflow.com/a/21804027/6117745
-      YAML.load(@data['stop_on_error'])
+      # rubocop:disable Security/YAMLLoad
+      YAML.load(@data["stop_on_error"])
+      # rubocop:enable Security/YAMLLoad
     end
 
     # Return the value for +max_wait_time+
@@ -107,7 +111,7 @@ module Quke #:nodoc:
     # If the value is not set in config file, it will default to whatever is the
     # current Capybara value for default_max_wait_time.
     def max_wait_time
-      @data['max_wait_time']
+      @data["max_wait_time"]
     end
 
     # Return the value set for +user_agent+.
@@ -118,7 +122,7 @@ module Quke #:nodoc:
     # you want to pretend to be another kind of browser, because the one you
     # have is not supported by the site.
     def user_agent
-      @data['user_agent']
+      @data["user_agent"]
     end
 
     # Return the value set for +javascript_errors+.
@@ -131,7 +135,7 @@ module Quke #:nodoc:
     # are out of your scope. You still want to test other aspects of the site
     # but not let these errors prevent you from using phantomjs.
     def javascript_errors
-      @data['javascript_errors']
+      @data["javascript_errors"]
     end
 
     # Return the hash of +proxy+ server settings
@@ -140,7 +144,7 @@ module Quke #:nodoc:
     # configure Quke to use it by setting the +host+ and +port+ in your config
     # file.
     def proxy
-      @data['proxy']
+      @data["proxy"]
     end
 
     # Return true if the +proxy: host+ value has been set in the +.config.yml+
@@ -149,7 +153,7 @@ module Quke #:nodoc:
     # It is mainly used when determining whether to apply proxy server settings
     # to the different drivers when registering them with Capybara.
     def use_proxy?
-      proxy['host'] != ''
+      proxy["host"] != ""
     end
 
     # Return the hash of +custom+ server settings
@@ -165,14 +169,14 @@ module Quke #:nodoc:
     # http://www.yamllint.com/) Quke will be able to pick it up and make it
     # available in your tests.
     def custom
-      @data['custom']
+      @data["custom"]
     end
 
     private
 
     def load_data
       data = default_data!(load_yml_data)
-      data['proxy'] = proxy_data(data['proxy'])
+      data["proxy"] = proxy_data(data["proxy"])
       data
     end
 
@@ -181,13 +185,13 @@ module Quke #:nodoc:
     # rubocop:disable Metrics/PerceivedComplexity
     def default_data!(data)
       data.merge(
-        'features_folder' =>   (data['features'] || 'features').downcase.strip,
-        'app_host' =>          (data['app_host'] || '').downcase.strip,
-        'driver' =>            (data['driver'] || 'phantomjs').downcase.strip,
-        'pause' =>             (data['pause'] || '0').to_s.downcase.strip.to_i,
-        'stop_on_error' =>     (data['stop_on_error'] || 'false').to_s.downcase.strip,
-        'max_wait_time' =>     (data['max_wait_time'] || Capybara.default_max_wait_time).to_s.downcase.strip.to_i,
-        'user_agent' =>        (data['user_agent'] || '').strip,
+        "features_folder" => (data["features"] || "features").downcase.strip,
+        "app_host" => (data["app_host"] || "").downcase.strip,
+        "driver" => (data["driver"] || "phantomjs").downcase.strip,
+        "pause" => (data["pause"] || "0").to_s.downcase.strip.to_i,
+        "stop_on_error" => (data["stop_on_error"] || "false").to_s.downcase.strip,
+        "max_wait_time" => (data["max_wait_time"] || Capybara.default_max_wait_time).to_s.downcase.strip.to_i,
+        "user_agent" => (data["user_agent"] || "").strip,
         # Because we want to default to 'true', but allow users to override it
         # with 'false' it causes us to mess with the logic. Essentially if the
         # user does enter false (either as a string or as a boolean) the result
@@ -195,9 +199,9 @@ module Quke #:nodoc:
         # Else the condition fails and we get 'false', which when flipped gives
         # us 'true', which is what we want the default value to be
         # rubocop:disable Style/InverseMethods
-        'javascript_errors' => !(data['javascript_errors'].to_s.downcase.strip == 'false'),
+        "javascript_errors" => !(data["javascript_errors"].to_s.downcase.strip == "false"),
         # rubocop:enable Style/InverseMethods
-        'custom' =>            (data['custom'] || nil)
+        "custom" => (data["custom"] || nil)
       )
     end
     # rubocop:enable Metrics/AbcSize
@@ -207,9 +211,9 @@ module Quke #:nodoc:
     def proxy_data(data)
       data = {} if data.nil?
       data.merge(
-        'host' => (data['host'] || '').downcase.strip,
-        'port' => (data['port'] || '0').to_s.downcase.strip.to_i,
-        'no_proxy' => (data['no_proxy'] || '').downcase.strip
+        "host" => (data["host"] || "").downcase.strip,
+        "port" => (data["port"] || "0").to_s.downcase.strip.to_i,
+        "no_proxy" => (data["no_proxy"] || "").downcase.strip
       )
     end
 

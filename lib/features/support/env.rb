@@ -1,15 +1,15 @@
-require 'rspec/expectations'
-require 'capybara/cucumber'
-require 'site_prism'
-require 'quke/configuration'
-require 'quke/driver_configuration'
-require 'quke/driver_registration'
-require 'browserstack/local'
-require 'quke/browserstack_status_reporter'
+# frozen_string_literal: true
 
-unless Quke::Quke.config.app_host.empty?
-  Capybara.app_host = Quke::Quke.config.app_host
-end
+require "rspec/expectations"
+require "capybara/cucumber"
+require "site_prism"
+require "quke/configuration"
+require "quke/driver_configuration"
+require "quke/driver_registration"
+require "browserstack/local"
+require "quke/browserstack_status_reporter"
+
+Capybara.app_host = Quke::Quke.config.app_host unless Quke::Quke.config.app_host.empty?
 
 driver_config = Quke::DriverConfiguration.new(Quke::Quke.config)
 driver_reg = Quke::DriverRegistration.new(driver_config, Quke::Quke.config)
@@ -39,7 +39,7 @@ Capybara.run_server = false
 # automatically in the event of an error when using the selenium driver.
 # Not setting this leads to Capybara saving the file to the root of the project
 # which can mess up your project structure.
-Capybara.save_path = 'tmp/'
+Capybara.save_path = "tmp/"
 
 # By default, SitePrism element and section methods do not utilize Capybara's
 # implicit wait methodology and will return immediately if the element or
@@ -71,6 +71,10 @@ end
 # used for final cleanup, we make use of it to kill our browserstack local
 # testing binary, and update the status of the session in browserstack
 at_exit do
+  # Because of the way cucumber works everthing is made global. This also means
+  # any variables we set also need to be made global so they can be accessed
+  # across the scenarios.
+  # rubocop:disable Style/GlobalVars
   if $fail_count && Quke::Quke.config.browserstack.using_browserstack?
     reporter = Quke::BrowserstackStatusReporter.new(Quke::Quke.config.browserstack)
     begin
@@ -83,6 +87,7 @@ at_exit do
       puts err
     end
   end
+  # rubocop:enable Style/GlobalVars
   if bs_local && Quke::Quke.config.browserstack.test_locally?
     # stop the local instance
     bs_local.stop
