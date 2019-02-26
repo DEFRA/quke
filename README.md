@@ -4,8 +4,8 @@
 [![Maintainability](https://api.codeclimate.com/v1/badges/34f915556feb193d7d82/maintainability)](https://codeclimate.com/github/DEFRA/quke/maintainability)
 [![Test Coverage](https://api.codeclimate.com/v1/badges/34f915556feb193d7d82/test_coverage)](https://codeclimate.com/github/DEFRA/quke/test_coverage)
 [![security](https://hakiri.io/github/DEFRA/quke/master.svg)](https://hakiri.io/github/DEFRA/quke/master)
-[![Dependency Status](https://dependencyci.com/github/DEFRA/quke/badge)](https://dependencyci.com/github/DEFRA/quke)
 [![Gem Version](https://badge.fury.io/rb/quke.svg)](https://badge.fury.io/rb/quke)
+[![Licence](https://img.shields.io/badge/Licence-OGLv3-blue.svg)](http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3)
 
 Quke is a gem that helps you to build a suite of [Cucumber](https://cucumber.io/) acceptance tests.
 
