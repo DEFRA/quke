@@ -39,7 +39,7 @@ Gem::Specification.new do |spec|
   spec.required_ruby_version = ">= 2.4"
 
   # We need the cucumber gem to use cucumber, obviously!
-  spec.add_dependency "cucumber", "~> 2.4"
+  spec.add_dependency "cucumber", "~> 3.1"
 
   # We use capybara to drive whichever browser we are using, and by drive we
   # mean things like fill_in x, click_on y etc. Capybara makes it much easier to
