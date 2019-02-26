@@ -70,7 +70,7 @@ Gem::Specification.new do |spec|
   # as possible we have gone with using the chromedriver-helper. To quote
   # from it "Easy installation and use of chromedriver, the Chromium project's
   # selenium webdriver adapter."
-  spec.add_dependency "chromedriver-helper", "~> 1.0"
+  spec.add_dependency "chromedriver-helper", "~> 2.1"
 
   # Experience has shown that keeping tests dry helps make them more
   # maintainable over time. One practice that helps is the use of the
