@@ -16,7 +16,7 @@ module Helpers
   #     "/Users/jsmith/freakin/data"
   #
   def data_root
-    File.expand_path("data", File.dirname(__FILE__))
+    File.expand_path("spec/data", Dir.pwd)
   end
 
   # Returns a string which contains all the preferences set in an instance of

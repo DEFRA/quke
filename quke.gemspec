@@ -91,6 +91,7 @@ Gem::Specification.new do |spec|
   # and provides an API for managing it.
   spec.add_dependency "browserstack-local"
 
+  spec.add_development_dependency "byebug"
   spec.add_development_dependency "defra_ruby_style"
   spec.add_development_dependency "github_changelog_generator", "~> 1.13"
   spec.add_development_dependency "rake", "~> 10.5"
