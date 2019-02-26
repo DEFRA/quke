@@ -95,10 +95,10 @@ Gem::Specification.new do |spec|
 
   spec.add_development_dependency "byebug"
   spec.add_development_dependency "defra_ruby_style"
-  spec.add_development_dependency "github_changelog_generator", "~> 1.13"
-  spec.add_development_dependency "rake", "~> 10.5"
-  spec.add_development_dependency "rdoc", "~> 4.2"
-  spec.add_development_dependency "rspec", "~> 3.5"
-  spec.add_development_dependency "simplecov", "~> 0.13"
-  spec.add_development_dependency "webmock", "~> 3.1"
+  spec.add_development_dependency "github_changelog_generator"
+  spec.add_development_dependency "rake"
+  spec.add_development_dependency "rdoc"
+  spec.add_development_dependency "rspec", "~> 3.8"
+  spec.add_development_dependency "simplecov"
+  spec.add_development_dependency "webmock", "~> 3.5"
 end
