@@ -56,7 +56,7 @@ Gem::Specification.new do |spec|
   # to drive an actual browser. Poltergeist is used with a headless browser
   # called phantomjs, which is superfast and great for using on CI servers
   # as it has no other dependencies
-  spec.add_dependency "poltergeist", "~> 1.10"
+  spec.add_dependency "poltergeist", "~> 1.18"
 
   # selenium-webdriver is used to drive real browsers that may be installed,
   # for example Firefox, Chrome and Internet Explorer. The benefit of selenium
