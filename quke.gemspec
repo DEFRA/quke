@@ -20,6 +20,8 @@ Gem::Specification.new do |spec|
   # rubocop:enable Metrics/LineLength
 
   spec.files = Dir["{bin,exe,lib}/**/*", "LICENSE", "Rakefile", "README.md"]
+  spec.bindir = "exe"
+  spec.executables = spec.files.grep(%r{^exe/}) { |f| File.basename(f) }
   spec.test_files = Dir["spec/**/*"]
 
   spec.require_paths = ["lib"]
