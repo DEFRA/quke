@@ -1,11 +1,15 @@
-require 'quke/configuration'
+# frozen_string_literal: true
 
-After('~@nonweb') do |scenario|
+require "quke/configuration"
+
+# Because of the way cucumber works everthing is made global. This also means
+# any variables we set also need to be made global so they can be accessed
+# across the scenarios.
+# rubocop:disable Style/GlobalVars
+After("~@nonweb") do |scenario|
   $fail_count ||= 0
 
-  if Quke::Quke.config.browserstack.using_browserstack?
-    $session_id = page.driver.browser.session_id
-  end
+  $session_id = page.driver.browser.session_id if Quke::Quke.config.browserstack.using_browserstack?
 
   if scenario.failed?
     $fail_count = $fail_count + 1
@@ -31,9 +35,10 @@ After('~@nonweb') do |scenario|
         # handle e
         puts "FAILED: #{scenario.name}"
         puts "FAILED: URL of the page with the failure #{page.current_path}"
-        puts ''
+        puts ""
         puts page.html
       end
     end
   end
 end
+# rubocop:enable Style/GlobalVars

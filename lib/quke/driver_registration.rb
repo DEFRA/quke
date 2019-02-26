@@ -1,6 +1,8 @@
-require 'quke/configuration'
-require 'capybara/poltergeist'
-require 'selenium/webdriver'
+# frozen_string_literal: true
+
+require "quke/configuration"
+require "capybara/poltergeist"
+require "selenium/webdriver"
 
 module Quke #:nodoc:
 
@@ -29,11 +31,11 @@ module Quke #:nodoc:
     # When called registers with Capybara the driver specified.
     def register(driver)
       case driver
-      when 'firefox'
+      when "firefox"
         firefox
-      when 'chrome'
+      when "chrome"
         chrome
-      when 'browserstack'
+      when "browserstack"
         browserstack
       else
         phantomjs

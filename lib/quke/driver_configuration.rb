@@ -1,4 +1,6 @@
-require 'quke/configuration'
+# frozen_string_literal: true
+
+require "quke/configuration"
 
 module Quke #:nodoc:
 
@@ -105,9 +107,9 @@ module Quke #:nodoc:
       # mirror those you can actually supply on the command line.
       # http://phantomjs.org/api/command-line.html
       options = [
-        '--load-images=no',
-        '--disk-cache=false',
-        '--ignore-ssl-errors=yes'
+        "--load-images=no",
+        "--disk-cache=false",
+        "--ignore-ssl-errors=yes"
       ]
 
       options.push("--proxy=#{config.proxy['host']}:#{config.proxy['port']}") if config.use_proxy?
@@ -140,22 +142,20 @@ module Quke #:nodoc:
     #       switches: my_driver_config.chrome
     #     )
     #
-    # rubocop:disable Metrics/AbcSize
     def chrome
       result = []
 
-      host = config.proxy['host']
-      port = config.proxy['port']
-      no_proxy = config.proxy['no_proxy'].tr(',', ';')
+      host = config.proxy["host"]
+      port = config.proxy["port"]
+      no_proxy = config.proxy["no_proxy"].tr(",", ";")
 
       result.push("--proxy-server=#{host}:#{port}") if config.use_proxy?
-      result.push("--proxy-bypass-list=#{no_proxy}") unless config.proxy['no_proxy'].empty?
+      result.push("--proxy-bypass-list=#{no_proxy}") unless config.proxy["no_proxy"].empty?
 
       result.push("--user-agent=#{config.user_agent}") unless config.user_agent.empty?
 
       result
     end
-    # rubocop:enable Metrics/AbcSize
 
     # Returns an instance of Selenium::WebDriver::Remote::Capabilities to be
     # used when registering an instance of Capybara::Selenium::Driver,
@@ -184,7 +184,6 @@ module Quke #:nodoc:
     #       profile: my_driver_config.firefox
     #     )
     #
-    # rubocop:disable Metrics/AbcSize
     def firefox
       profile = Selenium::WebDriver::Firefox::Profile.new
 
@@ -192,15 +191,14 @@ module Quke #:nodoc:
 
       settings[:http] = "#{config.proxy['host']}:#{config.proxy['port']}" if config.use_proxy?
       settings[:ssl] = settings[:http] if config.use_proxy?
-      settings[:no_proxy] = config.proxy['no_proxy'] unless config.proxy['no_proxy'].empty?
+      settings[:no_proxy] = config.proxy["no_proxy"] unless config.proxy["no_proxy"].empty?
 
       profile.proxy = Selenium::WebDriver::Proxy.new(settings) if config.use_proxy?
 
-      profile['general.useragent.override'] = config.user_agent unless config.user_agent.empty?
+      profile["general.useragent.override"] = config.user_agent unless config.user_agent.empty?
 
       profile
     end
-    # rubocop:enable Metrics/AbcSize
 
     # Returns an instance of Selenium::WebDriver::Remote::Capabilities to be
     # used when registering an instance of Capybara::Selenium::Driver,

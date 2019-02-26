@@ -1,7 +1,11 @@
-#!/usr/bin/env ruby
+# frozen_string_literal: true
 
-require 'quke'
-require 'quke/configuration'
+# rubocop:disable Layout/LeadingCommentSpace
+#!/usr/bin/env ruby
+# rubocop:enable Layout/LeadingCommentSpace
+
+require "quke"
+require "quke/configuration"
 
 Quke::Quke.config = Quke::Configuration.new
 Quke::Quke.execute(ARGV)

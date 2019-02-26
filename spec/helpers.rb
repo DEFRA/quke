@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # Helpers methods for use in all rspec tests
 module Helpers
 
@@ -14,7 +16,7 @@ module Helpers
   #     "/Users/jsmith/freakin/data"
   #
   def data_root
-    File.expand_path('data', File.dirname(__FILE__))
+    File.expand_path("data", File.dirname(__FILE__))
   end
 
   # Returns a string which contains all the preferences set in an instance of
@@ -41,6 +43,6 @@ module Helpers
   # thing.
   def read_profile_preferences(profile)
     dir = profile.layout_on_disk
-    File.read(File.join(dir, 'user.js'))
+    File.read(File.join(dir, "user.js"))
   end
 end

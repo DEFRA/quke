@@ -1,11 +1,13 @@
-require 'spec_helper'
+# frozen_string_literal: true
+
+require "spec_helper"
 
 RSpec.describe Quke do
-  it 'has a version number' do
+  it "has a version number" do
     expect(Quke::VERSION).not_to be nil
   end
 
-  describe '.execute' do
+  describe ".execute" do
     %i[firefox chrome browserstack phantomjs].each do |driver|
       before(:example) do
         Quke::Configuration.file_location = data_path(".#{driver}.yml")

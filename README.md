@@ -1,4 +1,4 @@
-<img src="/quke.png" alt="Git flow" />
+<img src="/quke.png" alt="Quke logo" />
 
 [![Build Status](https://travis-ci.org/DEFRA/quke.svg?branch=master)](https://travis-ci.org/DEFRA/quke)
 [![Maintainability](https://api.codeclimate.com/v1/badges/34f915556feb193d7d82/maintainability)](https://codeclimate.com/github/DEFRA/quke/maintainability)

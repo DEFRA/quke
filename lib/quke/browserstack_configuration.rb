@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Quke #:nodoc:
 
   # Determines the configuration for browserstack, when selected as the driver
@@ -43,20 +45,18 @@ module Quke #:nodoc:
     # Initialize's the instance based in the +Quke::Configuration+ instance
     # passed in.
     #--
-    # rubocop:disable Metrics/AbcSize
     # rubocop:disable Metrics/CyclomaticComplexity
     # rubocop:disable Metrics/PerceivedComplexity
     #++
     def initialize(configuration)
-      @using_browserstack = configuration.data['driver'] == 'browserstack'
+      @using_browserstack = configuration.data["driver"] == "browserstack"
       data = validate_input_data(configuration.data)
-      @username = ENV['BROWSERSTACK_USERNAME'] || data['username'] || ''
-      @auth_key = ENV['BROWSERSTACK_AUTH_KEY'] || data['auth_key'] || ''
-      @local_key = ENV['BROWSERSTACK_LOCAL_KEY'] || data['local_key'] || ''
-      @capabilities = data['capabilities'] || {}
+      @username = ENV["BROWSERSTACK_USERNAME"] || data["username"] || ""
+      @auth_key = ENV["BROWSERSTACK_AUTH_KEY"] || data["auth_key"] || ""
+      @local_key = ENV["BROWSERSTACK_LOCAL_KEY"] || data["local_key"] || ""
+      @capabilities = data["capabilities"] || {}
       determine_local_testing_args(configuration)
     end
-    # rubocop:enable Metrics/AbcSize
     # rubocop:enable Metrics/CyclomaticComplexity
     # rubocop:enable Metrics/PerceivedComplexity
 
@@ -66,7 +66,7 @@ module Quke #:nodoc:
     # It is used when determing whether to start and stop the binary
     # Browserstack provides to support local testing.
     def test_locally?
-      @capabilities['browserstack.local'] == true && using_browserstack?
+      @capabilities["browserstack.local"] == true && using_browserstack?
     end
 
     # Returns true if the driver was set +browserstack+, else false.
@@ -110,35 +110,36 @@ module Quke #:nodoc:
     #     )
     #
     def url
-      return "http://#{@username}:#{@auth_key}@hub.browserstack.com/wd/hub" unless @username == ''
+      return "http://#{@username}:#{@auth_key}@hub.browserstack.com/wd/hub" unless @username == ""
     end
 
     private
 
     def validate_input_data(data)
       return {} if data.nil?
-      return {} unless data['browserstack']
-      data['browserstack']
+      return {} unless data["browserstack"]
+
+      data["browserstack"]
     end
 
     def determine_local_testing_args(configuration)
       @local_testing_args = {
         # Key is the only required arg. Everything else is optional
-        'key' => @local_key,
+        "key" => @local_key,
         # Always kill other running Browserstack Local instances
-        'force' => 'true',
+        "force" => "true",
         # We only want to enable local testing for automate
-        'onlyAutomate' => 'true',
+        "onlyAutomate" => "true",
         # Enable verbose logging. It's of no consequence to the tests, but it
         # could help in the event of errors
-        'v' => 'true',
+        "v" => "true",
         # Rather than
-        'logfile' => File.join(Dir.pwd, '/tmp/bowerstack_local_log.txt')
+        "logfile" => File.join(Dir.pwd, "/tmp/bowerstack_local_log.txt")
       }
       return unless configuration.use_proxy?
 
-      @local_testing_args['proxyHost'] = configuration.proxy['host']
-      @local_testing_args['proxyPort'] = configuration.proxy['port'].to_s
+      @local_testing_args["proxyHost"] = configuration.proxy["host"]
+      @local_testing_args["proxyPort"] = configuration.proxy["port"].to_s
     end
 
   end

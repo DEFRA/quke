@@ -1,4 +1,6 @@
-require 'cucumber'
+# frozen_string_literal: true
+
+require "cucumber"
 
 module Quke #:nodoc:
 
@@ -39,8 +41,8 @@ module Quke #:nodoc:
         # replace the last part of that result (which we know will be lib/quke)
         # with lib/features. We then pass this full path to Cucumber so it can
         # correctly find the folder holding our predefined env.rb file.
-        '-r', __dir__.sub!('lib/quke', 'lib/features'),
-        '-r', features_folder
+        "-r", __dir__.sub!("lib/quke", "lib/features"),
+        "-r", features_folder
       ] + args
     end
 
@@ -50,7 +52,7 @@ module Quke #:nodoc:
       Cucumber::Cli::Main.new(@args).execute!
     rescue SystemExit => e
       # Cucumber calls @kernel.exit() killing your script unless you rescue
-      raise StandardError, 'Cucumber exited in a failed state' unless e.success?
+      raise StandardError, "Cucumber exited in a failed state" unless e.success?
     end
 
   end
