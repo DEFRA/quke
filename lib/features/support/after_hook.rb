@@ -6,7 +6,7 @@ require "quke/configuration"
 # any variables we set also need to be made global so they can be accessed
 # across the scenarios.
 # rubocop:disable Style/GlobalVars
-After("~@nonweb") do |scenario|
+After("not @nonweb") do |scenario|
   $fail_count ||= 0
 
   $session_id = page.driver.browser.session_id if Quke::Quke.config.browserstack.using_browserstack?

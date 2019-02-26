@@ -80,7 +80,7 @@ Gem::Specification.new do |spec|
   # different steps. Site_Prism provides a page object framework, and we build
   # it into the gem so users of Quke don't have to add and setup this dependency
   # themselves
-  spec.add_dependency "site_prism", "~> 2.9"
+  spec.add_dependency "site_prism", "~> 3.0"
 
   # Capybara includes a method called save_and_open_page. Without Launchy it
   # will still save to file a copy of the source html of the page in question
