@@ -1,5 +1,6 @@
 # frozen_string_literal: true
 
+require "selenium/webdriver"
 require "chromedriver-helper"
 
 require "quke/version"

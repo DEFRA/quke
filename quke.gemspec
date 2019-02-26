@@ -62,7 +62,7 @@ Gem::Specification.new do |spec|
   # for example Firefox, Chrome and Internet Explorer. The benefit of selenium
   # is you can actually see the tests interacting with the browser, the downside
   # is they run slower and isn't best suited to a CI environment.
-  spec.add_dependency "selenium-webdriver", "~> 2.53"
+  spec.add_dependency "selenium-webdriver", "~> 3.14"
 
   # Needed when wishing to use Chrome for selenium tests. We could have chosen
   # to install the chromedriver separately (and it seems more recent tutorials
@@ -71,6 +71,14 @@ Gem::Specification.new do |spec|
   # from it "Easy installation and use of chromedriver, the Chromium project's
   # selenium webdriver adapter."
   spec.add_dependency "chromedriver-helper", "~> 2.1"
+
+  # Needed when wishing to use Firefox for selenium tests. We could have chosen
+  # to install the geckodriver separately. However in an effort to make using
+  # this gem as simple as possible we have gone with using the
+  # geckodriver-helper. To quote from it "Easy installation and use of
+  # geckodriver, that provides the HTTP API described by the WebDriver protocol
+  # to communicate with Gecko browsers, such as Firefox."
+  spec.add_dependency "geckodriver-helper", "~> 0.23"
 
   # Experience has shown that keeping tests dry helps make them more
   # maintainable over time. One practice that helps is the use of the
