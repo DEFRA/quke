@@ -50,7 +50,7 @@ Gem::Specification.new do |spec|
   # We bring in rspec-expectations to simplify how to actually test if a page is
   # correct. For example you can test you are on the right page in a step using
   # expect(page).to have_text 'Welcome to test nirvana!'
-  spec.add_dependency "rspec-expectations", "~> 3.4"
+  spec.add_dependency "rspec-expectations", "~> 3.8"
 
   # This is the first of our web drivers i.e. the bits that allow capybara to
   # to drive an actual browser. Poltergeist is used with a headless browser
