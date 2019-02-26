@@ -39,30 +39,30 @@ Gem::Specification.new do |spec|
   spec.required_ruby_version = ">= 2.4"
 
   # We need the cucumber gem to use cucumber, obviously!
-  spec.add_dependency "cucumber", "~> 2.4"
+  spec.add_dependency "cucumber", "~> 3.1"
 
   # We use capybara to drive whichever browser we are using, and by drive we
   # mean things like fill_in x, click_on y etc. Capybara makes it much easier to
   # do this, though if you're willing to go a level lower you can write your own
   # code to tell selenium how to interact with a web page
-  spec.add_dependency "capybara", "~> 2.9"
+  spec.add_dependency "capybara", "~> 3.14"
 
   # We bring in rspec-expectations to simplify how to actually test if a page is
   # correct. For example you can test you are on the right page in a step using
   # expect(page).to have_text 'Welcome to test nirvana!'
-  spec.add_dependency "rspec-expectations", "~> 3.4"
+  spec.add_dependency "rspec-expectations", "~> 3.8"
 
   # This is the first of our web drivers i.e. the bits that allow capybara to
   # to drive an actual browser. Poltergeist is used with a headless browser
   # called phantomjs, which is superfast and great for using on CI servers
   # as it has no other dependencies
-  spec.add_dependency "poltergeist", "~> 1.10"
+  spec.add_dependency "poltergeist", "~> 1.18"
 
   # selenium-webdriver is used to drive real browsers that may be installed,
   # for example Firefox, Chrome and Internet Explorer. The benefit of selenium
   # is you can actually see the tests interacting with the browser, the downside
   # is they run slower and isn't best suited to a CI environment.
-  spec.add_dependency "selenium-webdriver", "~> 2.53"
+  spec.add_dependency "selenium-webdriver", "~> 3.14"
 
   # Needed when wishing to use Chrome for selenium tests. We could have chosen
   # to install the chromedriver separately (and it seems more recent tutorials
@@ -70,7 +70,15 @@ Gem::Specification.new do |spec|
   # as possible we have gone with using the chromedriver-helper. To quote
   # from it "Easy installation and use of chromedriver, the Chromium project's
   # selenium webdriver adapter."
-  spec.add_dependency "chromedriver-helper", "~> 1.0"
+  spec.add_dependency "chromedriver-helper", "~> 2.1"
+
+  # Needed when wishing to use Firefox for selenium tests. We could have chosen
+  # to install the geckodriver separately. However in an effort to make using
+  # this gem as simple as possible we have gone with using the
+  # geckodriver-helper. To quote from it "Easy installation and use of
+  # geckodriver, that provides the HTTP API described by the WebDriver protocol
+  # to communicate with Gecko browsers, such as Firefox."
+  spec.add_dependency "geckodriver-helper", "~> 0.23"
 
   # Experience has shown that keeping tests dry helps make them more
   # maintainable over time. One practice that helps is the use of the
@@ -80,7 +88,7 @@ Gem::Specification.new do |spec|
   # different steps. Site_Prism provides a page object framework, and we build
   # it into the gem so users of Quke don't have to add and setup this dependency
   # themselves
-  spec.add_dependency "site_prism", "~> 2.9"
+  spec.add_dependency "site_prism", "~> 3.0"
 
   # Capybara includes a method called save_and_open_page. Without Launchy it
   # will still save to file a copy of the source html of the page in question
@@ -95,10 +103,10 @@ Gem::Specification.new do |spec|
 
   spec.add_development_dependency "byebug"
   spec.add_development_dependency "defra_ruby_style"
-  spec.add_development_dependency "github_changelog_generator", "~> 1.13"
-  spec.add_development_dependency "rake", "~> 10.5"
-  spec.add_development_dependency "rdoc", "~> 4.2"
-  spec.add_development_dependency "rspec", "~> 3.5"
-  spec.add_development_dependency "simplecov", "~> 0.13"
-  spec.add_development_dependency "webmock", "~> 3.1"
+  spec.add_development_dependency "github_changelog_generator"
+  spec.add_development_dependency "rake"
+  spec.add_development_dependency "rdoc"
+  spec.add_development_dependency "rspec", "~> 3.8"
+  spec.add_development_dependency "simplecov"
+  spec.add_development_dependency "webmock", "~> 3.5"
 end

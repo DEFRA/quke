@@ -1,5 +1,8 @@
 # frozen_string_literal: true
 
+require "selenium/webdriver"
+require "chromedriver-helper"
+
 require "quke/version"
 require "quke/browserstack_configuration"
 require "quke/browserstack_status_reporter"

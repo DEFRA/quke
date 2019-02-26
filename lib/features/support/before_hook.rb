@@ -2,7 +2,7 @@
 
 require "quke/configuration"
 
-Before("~@nonweb") do
+Before("not @nonweb") do
   # We have to make a special case for phantomjs when it comes to implementing
   # the ability to override the user agent. Unlike the selinium backed drivers
   # specifying the user agent is not part of the arguments we pass in when
