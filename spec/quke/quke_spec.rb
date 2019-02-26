@@ -3,10 +3,6 @@
 require "spec_helper"
 
 RSpec.describe Quke do
-  it "has a version number" do
-    expect(Quke::VERSION).not_to be nil
-  end
-
   describe ".execute" do
     %i[firefox chrome browserstack phantomjs].each do |driver|
       before(:example) do
