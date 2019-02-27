@@ -4,6 +4,7 @@ pause: '1'
 
 stop_on_error: 'true'
 max_wait_time: '3'
+headless: 'true'
 javascript_errors: 'false'
 
 proxy:

@@ -157,6 +157,14 @@ RSpec.describe Quke::DriverConfiguration do
       end
     end
 
+    context "headless mode has been set in the .config.yml" do
+      it "returns an instance of Chrome::Options set to run the browser in headless mode" do
+        Quke::Configuration.file_location = data_path(".headless.yml")
+        config = Quke::Configuration.new
+        expect(Quke::DriverConfiguration.new(config).chrome.args).to eq(Set["--headless"])
+      end
+    end
+
   end
 
   describe "#firefox" do
@@ -220,6 +228,14 @@ RSpec.describe Quke::DriverConfiguration do
         expect(preferences).to include(
           'user_pref("general.useragent.override", "Mozilla/5.0 (MSIE 10.0; Windows NT 6.1; Trident/5.0)")'
         )
+      end
+    end
+
+    context "headless mode has been set in the .config.yml" do
+      it "returns an instance of Firefox::Options set to run the browser in headless mode" do
+        Quke::Configuration.file_location = data_path(".headless.yml")
+        config = Quke::Configuration.new
+        expect(Quke::DriverConfiguration.new(config).chrome.args).to eq(Set["--headless"])
       end
     end
 
