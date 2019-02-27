@@ -2,6 +2,7 @@
 
 require "selenium/webdriver"
 require "chromedriver-helper"
+require "byebug"
 
 require "quke/version"
 require "quke/browserstack_configuration"
@@ -25,7 +26,7 @@ module Quke #:nodoc:
 
     # The entry point for Quke, it is the one call made by +exe/quke+.
     def self.execute(args = [])
-      cuke = CukeRunner.new(@config.features_folder, args)
+      cuke = CukeRunner.new(args)
       cuke.run
     end
 

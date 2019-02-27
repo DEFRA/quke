@@ -87,6 +87,21 @@ module Quke #:nodoc:
       @data["headless"]
     end
 
+    # Returns the value set for +parallel+.
+    #
+    # Tells Quke whether run the features in parallel. Depending on the number
+    # of cores on the host machine, it will split the features across a given
+    # number of processes and run them in parallel.
+    #
+    # This is great if you have a large test suite (the performance improvement
+    # is negligible if you only have a few). However your scenarios must be
+    # independent, and the console output will be 'number of processes' *
+    # cucumber output. This is best used if you are just after a simple
+    # pass/fail result.
+    def parallel
+      @data["parallel"]
+    end
+
     # Return the value set for +pause+.
     #
     # Add a pause (in seconds) between steps so you can visually track how the
@@ -197,6 +212,7 @@ module Quke #:nodoc:
         "app_host" => (data["app_host"] || "").downcase.strip,
         "driver" => (data["driver"] || "phantomjs").downcase.strip,
         "headless" => (data["headless"].to_s.downcase.strip == "true"),
+        "parallel" => (data["parallel"].to_s.downcase.strip == "true"),
         "pause" => (data["pause"] || "0").to_s.downcase.strip.to_i,
         "stop_on_error" => (data["stop_on_error"] || "false").to_s.downcase.strip,
         "max_wait_time" => (data["max_wait_time"] || Capybara.default_max_wait_time).to_s.downcase.strip.to_i,

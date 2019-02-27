@@ -5,7 +5,5 @@
 # rubocop:enable Layout/LeadingCommentSpace
 
 require "quke"
-require "quke/configuration"
 
-Quke::Quke.config = Quke::Configuration.new
 Quke::Quke.execute(ARGV)
