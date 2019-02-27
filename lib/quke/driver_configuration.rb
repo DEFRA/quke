@@ -117,47 +117,50 @@ module Quke #:nodoc:
       options
     end
 
-    # Returns an array to be used in conjunction with the +:switches+ argument
-    # when initialising a Capybara::Selenium::Driver set for Chrome.
+    # Returns an instance of Selenium::WebDriver::Chrome::Options to be
+    # used when registering an instance of Capybara::Selenium::Driver,
+    # configured to run using Chrome.
     #
     # For example when initialising the driver like this
     #
+    #     args = [
+    #       "--proxy-server=localhost:8080",
+    #       "--proxy-bypass-list=127.0.0.1,192.168.0.1",
+    #       "--user-agent=Mozilla/5.0 (MSIE 10.0; Windows NT 6.1; Trident/5.0)"
+    #     ]
+    #
     #     Capybara::Selenium::Driver.new(
     #       app,
     #       browser: :chrome,
-    #       switches: [
-    #         "--proxy-server=localhost:8080",
-    #         "--proxy-bypass-list=127.0.0.1,192.168.0.1",
-    #         "--user-agent=Mozilla/5.0 (MSIE 10.0; Windows NT 6.1; Trident/5.0)"
-    #       ]
+    #       options: Selenium::WebDriver::Firefox::Options.new(args: args)
     #     )
     #
-    # Rather than setting the switches manually Quke::DriverConfiguration.chrome
-    # is intended to manage what they should be based on the properties of the
-    # Quke::Configuration instance its initialised with
+    # You can instead call Quke::DriverConfiguration.chrome which will
+    # manage instantiating and setting up the
+    # Selenium::WebDriver::Chrome::Options instance based on the
+    # properties of the Quke::Configuration instance its initialised with
     #
     #     Capybara::Selenium::Driver.new(
     #       app,
     #       browser: :chrome,
-    #       switches: my_driver_config.chrome
+    #       options: my_driver_config.chrome
     #     )
     #
     def chrome
-      result = []
-
       host = config.proxy["host"]
       port = config.proxy["port"]
       no_proxy = config.proxy["no_proxy"].tr(",", ";")
 
-      result.push("--proxy-server=#{host}:#{port}") if config.use_proxy?
-      result.push("--proxy-bypass-list=#{no_proxy}") unless config.proxy["no_proxy"].empty?
+      options = Selenium::WebDriver::Chrome::Options.new
+      options.add_argument("--proxy-server=#{host}:#{port}") if config.use_proxy?
+      options.add_argument("--proxy-bypass-list=#{no_proxy}") unless config.proxy["no_proxy"].empty?
 
-      result.push("--user-agent=#{config.user_agent}") unless config.user_agent.empty?
+      options.add_argument("--user-agent=#{config.user_agent}") unless config.user_agent.empty?
 
-      result
+      options
     end
 
-    # Returns an instance of Selenium::WebDriver::Remote::Capabilities to be
+    # Returns an instance of Selenium::WebDriver::Firefox::Options to be
     # used when registering an instance of Capybara::Selenium::Driver,
     # configured to run using Firefox (the default).
     #
@@ -171,33 +174,33 @@ module Quke #:nodoc:
     #     my_profile['general.useragent.override'] = "Mozilla/5.0 (MSIE 10.0; Windows NT 6.1; Trident/5.0)"
     #     Capybara::Selenium::Driver.new(
     #       app,
-    #       profile: my_profile
+    #       browser: :firefox,
+    #       options: Selenium::WebDriver::Firefox::Options.new(profile: my_profile)
     #     )
     #
     # You can instead call Quke::DriverConfiguration.firefox which will
     # manage instantiating and setting up the
-    # Selenium::WebDriver::Firefox::Profile instance based on the
+    # Selenium::WebDriver::Firefox::Options instance based on the
     # properties of the Quke::Configuration instance its initialised with
     #
     #     Capybara::Selenium::Driver.new(
     #       app,
-    #       profile: my_driver_config.firefox
+    #       browser: :firefox,
+    #       options: my_driver_config.firefox
     #     )
     #
     def firefox
       profile = Selenium::WebDriver::Firefox::Profile.new
+      profile["general.useragent.override"] = config.user_agent unless config.user_agent.empty?
 
       settings = {}
-
       settings[:http] = "#{config.proxy['host']}:#{config.proxy['port']}" if config.use_proxy?
       settings[:ssl] = settings[:http] if config.use_proxy?
       settings[:no_proxy] = config.proxy["no_proxy"] unless config.proxy["no_proxy"].empty?
 
       profile.proxy = Selenium::WebDriver::Proxy.new(settings) if config.use_proxy?
 
-      profile["general.useragent.override"] = config.user_agent unless config.user_agent.empty?
-
-      profile
+      Selenium::WebDriver::Firefox::Options.new(profile: profile)
     end
 
     # Returns an instance of Selenium::WebDriver::Remote::Capabilities to be

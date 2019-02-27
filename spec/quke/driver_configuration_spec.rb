@@ -113,19 +113,19 @@ RSpec.describe Quke::DriverConfiguration do
   describe "#chrome" do
 
     context "proxy details have NOT been set in the .config.yml" do
-      it "returns an empty array if no proxy has been set" do
+      it "returns an instance of Chrome::Options where the proxy details are NOT set" do
         Quke::Configuration.file_location = data_path(".no_file.yml")
         config = Quke::Configuration.new
-        expect(Quke::DriverConfiguration.new(config).chrome).to eq([])
+        expect(Quke::DriverConfiguration.new(config).chrome.args).to eq(Set[])
       end
     end
 
     context "basic proxy details have been set in the .config.yml" do
-      it "returns an array containing basic proxy settings" do
+      it "returns an instance of Chrome::Options containing basic proxy settings" do
         Quke::Configuration.file_location = data_path(".proxy_basic.yml")
         config = Quke::Configuration.new
-        expect(Quke::DriverConfiguration.new(config).chrome).to eq(
-          [
+        expect(Quke::DriverConfiguration.new(config).chrome.args).to eq(
+          Set[
             "--proxy-server=#{config.proxy['host']}:#{config.proxy['port']}"
           ]
         )
@@ -133,11 +133,11 @@ RSpec.describe Quke::DriverConfiguration do
     end
 
     context "proxy details including addresses not to connect via the proxy server have been set in the .config.yml" do
-      it "returns an array containing proxy settings including no-proxy details" do
+      it "returns an instance of Chrome::Options containing proxy settings including no-proxy details" do
         Quke::Configuration.file_location = data_path(".proxy.yml")
         config = Quke::Configuration.new
-        expect(Quke::DriverConfiguration.new(config).chrome).to eq(
-          [
+        expect(Quke::DriverConfiguration.new(config).chrome.args).to eq(
+          Set[
             "--proxy-server=#{config.proxy['host']}:#{config.proxy['port']}",
             "--proxy-bypass-list=127.0.0.1;192.168.0.1"
           ]
@@ -146,11 +146,11 @@ RSpec.describe Quke::DriverConfiguration do
     end
 
     context "a user agent has been set in the .config.yml" do
-      it "returns an array containing the specified user-agent" do
+      it "returns an instance of Chrome::Options containing the specified user-agent" do
         Quke::Configuration.file_location = data_path(".user_agent.yml")
         config = Quke::Configuration.new
-        expect(Quke::DriverConfiguration.new(config).chrome).to eq(
-          [
+        expect(Quke::DriverConfiguration.new(config).chrome.args).to eq(
+          Set[
             "--user-agent=#{config.user_agent}"
           ]
         )
@@ -162,10 +162,10 @@ RSpec.describe Quke::DriverConfiguration do
   describe "#firefox" do
 
     context "proxy details have NOT been set in the .config.yml" do
-      it "returns a profile where the proxy details are NOT set" do
+      it "returns an instance of Firefox::Options where the proxy details are NOT set" do
         Quke::Configuration.file_location = data_path(".no_file.yml")
         config = Quke::Configuration.new
-        profile = Quke::DriverConfiguration.new(config).firefox
+        profile = Quke::DriverConfiguration.new(config).firefox.profile
 
         # See spec/helpers.rb#read_profile_preferences for details of why we
         # need to test the profile's properties in this way
@@ -177,10 +177,10 @@ RSpec.describe Quke::DriverConfiguration do
     end
 
     context "basic proxy details have been set in the .config.yml" do
-      it "returns a profile where the basic proxy details are set" do
+      it "returns an instance of Firefox::Options containing basic proxy settings" do
         Quke::Configuration.file_location = data_path(".proxy_basic.yml")
         config = Quke::Configuration.new
-        profile = Quke::DriverConfiguration.new(config).firefox
+        profile = Quke::DriverConfiguration.new(config).firefox.profile
 
         # See spec/helpers.rb#read_profile_preferences for details of why we
         # need to test the profile's properties in this way
@@ -192,10 +192,10 @@ RSpec.describe Quke::DriverConfiguration do
     end
 
     context "proxy details including addresses not to connect via the proxy server have been set in the .config.yml" do
-      it "returns a profile where the proxy details are set including no-proxy details" do
+      it "returns an instance of Firefox::Options containing proxy settings including no-proxy details" do
         Quke::Configuration.file_location = data_path(".proxy.yml")
         config = Quke::Configuration.new
-        profile = Quke::DriverConfiguration.new(config).firefox
+        profile = Quke::DriverConfiguration.new(config).firefox.profile
 
         # See spec/helpers.rb#read_profile_preferences for details of why we
         # need to test the profile's properties in this way
@@ -208,10 +208,10 @@ RSpec.describe Quke::DriverConfiguration do
     end
 
     context "a user agent has been set in the .config.yml" do
-      it "returns an array containing the specified user-agent" do
+      it "returns an instance of Firefox::Options containing the specified user-agent" do
         Quke::Configuration.file_location = data_path(".user_agent.yml")
         config = Quke::Configuration.new
-        profile = Quke::DriverConfiguration.new(config).firefox
+        profile = Quke::DriverConfiguration.new(config).firefox.profile
 
         # See spec/helpers.rb#read_profile_preferences for details of why we
         # need to test the profile's properties in this way
