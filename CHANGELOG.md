@@ -1,5 +1,12 @@
 # Change Log
 
+## [0.8.0](https://github.com/DEFRA/quke/tree/0.8.0) (2019-02-27)
+[Full Changelog](https://github.com/DEFRA/quke/compare/v0.7.1...0.8.0)
+
+**Implemented enhancements:**
+
+- Add support for headless chrome and firefox [\#82](https://github.com/DEFRA/quke/pull/82) ([Cruikshanks](https://github.com/Cruikshanks))
+
 ## [v0.7.1](https://github.com/DEFRA/quke/tree/v0.7.1) (2019-02-27)
 [Full Changelog](https://github.com/DEFRA/quke/compare/v0.7.0...v0.7.1)
 
