@@ -74,15 +74,19 @@ module Quke #:nodoc:
     # to work with firefox hence we refer to it as :firefox
     def firefox
       # For future reference configuring Firefox via Selenium appears to be done
-      # via the profile argument, and a Selenium::WebDriver::Firefox::Profile
+      # via the options argument, and a Selenium::WebDriver::Firefox::Options
       # object.
-      # https://github.com/SeleniumHQ/selenium/wiki/Ruby-Bindings#firefox
-      # http://www.rubydoc.info/gems/selenium-webdriver/0.0.28/Selenium/WebDriver/Firefox/Profile
+      # https://github.com/SeleniumHQ/selenium/wiki/Ruby-Bindings
+      # https://www.rubydoc.info/gems/selenium-webdriver/3.141.0/Selenium/WebDriver/Firefox/Options
       # http://www.seleniumhq.org/docs/04_webdriver_advanced.jsp
       # http://preferential.mozdev.org/preferences.html
       Capybara.register_driver :firefox do |app|
         # :simplecov_ignore:
-        Capybara::Selenium::Driver.new(app, profile: @driver_config.firefox)
+        Capybara::Selenium::Driver.new(
+          app,
+          browser: :firefox,
+          options: @driver_config.firefox
+        )
         # :simplecov_ignore:
       end
       :firefox
@@ -92,9 +96,9 @@ module Quke #:nodoc:
     # to work with chrome.
     def chrome
       # For future reference configuring Chrome via Selenium appears to be done
-      # use the switches argument, which I understand is essentially passed by
+      # use the options argument, which I understand is essentially passed by
       # Capybara to Selenium-webdriver, which in turn passes it to chromium
-      # https://github.com/SeleniumHQ/selenium/wiki/Ruby-Bindings#chrome
+      # https://github.com/SeleniumHQ/selenium/wiki/Ruby-Bindings
       # http://peter.sh/experiments/chromium-command-line-switches/
       # https://www.chromium.org/developers/design-documents/network-settings
       Capybara.register_driver :chrome do |app|
@@ -102,7 +106,7 @@ module Quke #:nodoc:
         Capybara::Selenium::Driver.new(
           app,
           browser: :chrome,
-          switches: @driver_config.chrome
+          options: @driver_config.chrome
         )
         # :simplecov_ignore:
       end
