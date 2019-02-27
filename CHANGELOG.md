@@ -1,5 +1,12 @@
 # Change Log
 
+## [v0.7.1](https://github.com/DEFRA/quke/tree/v0.7.1) (2019-02-27)
+[Full Changelog](https://github.com/DEFRA/quke/compare/v0.7.0...v0.7.1)
+
+**Fixed bugs:**
+
+- Update Selenium to use Options [\#81](https://github.com/DEFRA/quke/pull/81) ([Cruikshanks](https://github.com/Cruikshanks))
+
 ## [v0.7.0](https://github.com/DEFRA/quke/tree/v0.7.0) (2019-02-26)
 [Full Changelog](https://github.com/DEFRA/quke/compare/v0.6.0...v0.7.0)
 
