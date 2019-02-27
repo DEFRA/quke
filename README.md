@@ -122,7 +122,7 @@ You should be aware of some default behaviours included in Quke.
 
 ### Displaying web pages on fail
 
-Capybara includes the ability to save the source of the current page at any point. Quke has been configured so that if you are not using the headless browser and a step should fail it will save the source to file and then use a tool called [Launchy](https://github.com/copiousfreetime/launchy) to open it in your default browser.
+Capybara includes the ability to save the source of the current page at any point. Quke has been configured so that if you are not using a headless browser and a step fails it will save the source to file and then use a tool called [Launchy](https://github.com/copiousfreetime/launchy) to open it in your default browser.
 
 ### Quit on 5 failures
 

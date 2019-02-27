@@ -23,13 +23,13 @@ After("not @nonweb") do |scenario|
     if Quke::Quke.config.stop_on_error || $fail_count >= 5
       Cucumber.wants_to_quit = true
     else
-      # If we're not using poltergiest and the scenario has failed, we want
-      # to save a copy of the page and open it automatically using Launchy.
-      # We wrap this in a begin/rescue in case of any issues in which case
-      # it defaults to outputting the source to STDOUT.
+      # If we're not using poltergiest or running in headless mode and the
+      # scenario has failed, we want to save a copy of the page and open it
+      # automatically using Launchy. We wrap this in a begin/rescue in case of
+      # any issues in which case it defaults to outputting the source to STDOUT.
       begin
         # rubocop:disable Lint/Debugger
-        save_and_open_page
+        save_and_open_page unless Quke::Quke.config.headless
         # rubocop:enable Lint/Debugger
       rescue StandardError
         # handle e

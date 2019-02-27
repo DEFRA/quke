@@ -79,6 +79,14 @@ module Quke #:nodoc:
       @data["driver"]
     end
 
+    # Returns the value set for +headless+.
+    #
+    # Tells Quke whether to drive the browser in headless mode. Only applicable
+    # if +driver+ is set to 'chrome' or 'firefox'.
+    def headless
+      @data["headless"]
+    end
+
     # Return the value set for +pause+.
     #
     # Add a pause (in seconds) between steps so you can visually track how the
@@ -188,6 +196,7 @@ module Quke #:nodoc:
         "features_folder" => (data["features"] || "features").downcase.strip,
         "app_host" => (data["app_host"] || "").downcase.strip,
         "driver" => (data["driver"] || "phantomjs").downcase.strip,
+        "headless" => (data["headless"].to_s.downcase.strip == "true"),
         "pause" => (data["pause"] || "0").to_s.downcase.strip.to_i,
         "stop_on_error" => (data["stop_on_error"] || "false").to_s.downcase.strip,
         "max_wait_time" => (data["max_wait_time"] || Capybara.default_max_wait_time).to_s.downcase.strip.to_i,

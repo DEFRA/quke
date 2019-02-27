@@ -51,6 +51,29 @@ RSpec.describe Quke::Configuration do
     end
   end
 
+  describe "#headless" do
+    context "when NOT specified in the config file" do
+      it "defaults to false" do
+        Quke::Configuration.file_location = data_path(".no_file.yml")
+        expect(subject.headless).to eq(false)
+      end
+    end
+
+    context "when specified in the config file" do
+      it "matches the config file" do
+        Quke::Configuration.file_location = data_path(".headless.yml")
+        expect(subject.headless).to eq(true)
+      end
+    end
+
+    context "when in the config file as a string" do
+      it "matches the config file" do
+        Quke::Configuration.file_location = data_path(".as_string.yml")
+        expect(subject.headless).to eq(true)
+      end
+    end
+  end
+
   describe "#pause" do
     context "when NOT specified in the config file" do
       it "defaults to 0" do

@@ -152,6 +152,8 @@ module Quke #:nodoc:
       no_proxy = config.proxy["no_proxy"].tr(",", ";")
 
       options = Selenium::WebDriver::Chrome::Options.new
+      options.headless! if config.headless
+
       options.add_argument("--proxy-server=#{host}:#{port}") if config.use_proxy?
       options.add_argument("--proxy-bypass-list=#{no_proxy}") unless config.proxy["no_proxy"].empty?
 
@@ -190,17 +192,10 @@ module Quke #:nodoc:
     #     )
     #
     def firefox
-      profile = Selenium::WebDriver::Firefox::Profile.new
-      profile["general.useragent.override"] = config.user_agent unless config.user_agent.empty?
+      options = Selenium::WebDriver::Firefox::Options.new(profile: firefox_profile)
+      options.headless! if config.headless
 
-      settings = {}
-      settings[:http] = "#{config.proxy['host']}:#{config.proxy['port']}" if config.use_proxy?
-      settings[:ssl] = settings[:http] if config.use_proxy?
-      settings[:no_proxy] = config.proxy["no_proxy"] unless config.proxy["no_proxy"].empty?
-
-      profile.proxy = Selenium::WebDriver::Proxy.new(settings) if config.use_proxy?
-
-      Selenium::WebDriver::Firefox::Options.new(profile: profile)
+      options
     end
 
     # Returns an instance of Selenium::WebDriver::Remote::Capabilities to be
@@ -246,6 +241,22 @@ module Quke #:nodoc:
       end
 
       capabilities
+    end
+
+    private
+
+    def firefox_profile
+      profile = Selenium::WebDriver::Firefox::Profile.new
+      profile["general.useragent.override"] = config.user_agent unless config.user_agent.empty?
+
+      settings = {}
+      settings[:http] = "#{config.proxy['host']}:#{config.proxy['port']}" if config.use_proxy?
+      settings[:ssl] = settings[:http] if config.use_proxy?
+      settings[:no_proxy] = config.proxy["no_proxy"] unless config.proxy["no_proxy"].empty?
+
+      profile.proxy = Selenium::WebDriver::Proxy.new(settings) if config.use_proxy?
+
+      profile
     end
 
   end

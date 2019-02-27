@@ -15,6 +15,14 @@ app_host: 'https://en.wikipedia.org/wiki'
 # browserstack and phantomjs, with the default being phantomjs
 driver: chrome
 
+# Let Quke know you want to run the browser in headless mode. Headless mode
+# means the browser still runs but you won't see it displayed. The benefit is
+# that your tests will take less time as it's less resource intensive.
+# This option only applies when the driver is set to 'chrome' or 'firefox'.
+# Phantomjs is a headless only browser, and option is meaningless for
+# browserstack
+headless: true
+
 # Add a pause (in seconds) between steps so you can visually track how the
 # browser is responding. Only useful if using a non-headless browser. The
 # default is 0
