@@ -2,7 +2,6 @@
 
 require "selenium/webdriver"
 require "chromedriver-helper"
-require "byebug"
 
 require "quke/version"
 require "quke/browserstack_configuration"
