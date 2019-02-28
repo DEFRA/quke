@@ -1,5 +1,12 @@
 # Change Log
 
+## [v0.9.1](https://github.com/DEFRA/quke/tree/v0.9.1) (2019-02-28)
+[Full Changelog](https://github.com/DEFRA/quke/compare/v0.9.0...v0.9.1)
+
+**Fixed bugs:**
+
+- Remove require for byebug in app code [\#84](https://github.com/DEFRA/quke/pull/84) ([Cruikshanks](https://github.com/Cruikshanks))
+
 ## [v0.9.0](https://github.com/DEFRA/quke/tree/v0.9.0) (2019-02-28)
 [Full Changelog](https://github.com/DEFRA/quke/compare/0.8.0...v0.9.0)
 
