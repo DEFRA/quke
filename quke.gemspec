@@ -101,6 +101,10 @@ Gem::Specification.new do |spec|
   # and provides an API for managing it.
   spec.add_dependency "browserstack-local"
 
+  # The Parallel tests gem supports running rspec and cucumber tests in
+  # parallel, which should reduce the time it takes for a suite to run.
+  spec.add_dependency "parallel_tests", "~> 2.28"
+
   spec.add_development_dependency "byebug"
   spec.add_development_dependency "defra_ruby_style"
   spec.add_development_dependency "github_changelog_generator"

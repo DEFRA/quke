@@ -3,11 +3,14 @@
 require "rspec/expectations"
 require "capybara/cucumber"
 require "site_prism"
+require "quke"
 require "quke/configuration"
 require "quke/driver_configuration"
 require "quke/driver_registration"
 require "browserstack/local"
 require "quke/browserstack_status_reporter"
+
+Quke::Quke.config = Quke::Configuration.new
 
 Capybara.app_host = Quke::Quke.config.app_host unless Quke::Quke.config.app_host.empty?
 

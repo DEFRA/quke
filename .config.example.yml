@@ -4,6 +4,16 @@
 # The default is features
 features_folder: 'cukes'
 
+# Tell Quke you want to run tests in parallel. This will make use of the
+# available cores on your machine to run the tests in parallel, reducing the
+# time it takes them to run.
+#
+# This is great if you have a large test suite (the performance improvement is
+# egligible if you only have a few). However your scenarios must be independent,
+# and the console output will be 'number of processes' * cucumber output. So
+# this is best used if you are just after a simple pass/fail result.
+parrellel: true
+
 # Normally Capybara expects to be testing an in-process Rack application, but
 # we're using it to talk to a remote host. Users of Quke can set what this
 # will be by simply setting `app_host`. You can then use it directly using
@@ -11,7 +21,7 @@ features_folder: 'cukes'
 # the full url each time
 app_host: 'https://en.wikipedia.org/wiki'
 
-# Tells Quke which browser to use for testing. Choices are firefox, chrome
+# Tells Quke which browser to use for testing. Choices are firefox, chrome,
 # browserstack and phantomjs, with the default being phantomjs
 driver: chrome
 
