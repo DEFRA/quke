@@ -79,11 +79,21 @@ RSpec.describe Quke::ParallelConfiguration do
     end
 
     context "when the instance has been instantiated with processes set" do
-      subject { Quke::ParallelConfiguration.new("processes" => "4") }
+      subject { Quke::ParallelConfiguration.new("enable" => "true", "processes" => "4") }
 
       it "returns an array with the args '-n' and '4'" do
         args = subject.command_args(feature_folder)
         expect(args).to include("-n", "4")
+      end
+
+    end
+
+    context "when the instance has been instantiated with processes set but parallel disabled" do
+      subject { Quke::ParallelConfiguration.new("processes" => "4") }
+
+      it "returns an array without the args '-n' and '4'" do
+        args = subject.command_args(feature_folder)
+        expect(args).not_to include("-n", "4")
       end
 
     end
