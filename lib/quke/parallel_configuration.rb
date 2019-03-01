@@ -17,7 +17,7 @@ module Quke #:nodoc:
       args = standard_args(features_folder)
       args += ["--single", "--quiet"] unless @enabled
       args += ["--group-by", @group_by] unless @group_by == "default"
-      args += ["-n", @processes.to_s] if @processes.positive?
+      args += ["-n", @processes.to_s] if @enabled && @processes.positive?
       args + test_options_args(features_folder, additional_args)
     end
 
