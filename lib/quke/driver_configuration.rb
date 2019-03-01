@@ -247,12 +247,7 @@ module Quke #:nodoc:
       profile = Selenium::WebDriver::Firefox::Profile.new
       profile["general.useragent.override"] = config.user_agent unless config.user_agent.empty?
 
-      settings = {}
-      settings[:http] = "#{config.proxy.host}:#{config.proxy.port}" if config.proxy.use_proxy?
-      settings[:ssl] = settings[:http] if config.proxy.use_proxy?
-      settings[:no_proxy] = config.proxy.no_proxy unless config.proxy.no_proxy.empty?
-
-      profile.proxy = Selenium::WebDriver::Proxy.new(settings) if config.proxy.use_proxy?
+      profile.proxy = Selenium::WebDriver::Proxy.new(config.proxy.firefox_settings) if config.proxy.use_proxy?
 
       profile
     end

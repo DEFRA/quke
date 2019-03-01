@@ -5,7 +5,13 @@ module Quke #:nodoc:
   # Manages all parallel configuration for Quke.
   class ParallelConfiguration
 
-    attr_reader :enabled, :group_by, :processes
+    # Whether use of parallel tests has been enabled
+    attr_reader :enabled
+    # How to group the tests. Default is features
+    attr_reader :group_by
+    # How many processes to start. Default is 0 which means we will leave
+    # ParallelTests to determine the number.
+    attr_reader :processes
 
     def initialize(data = {})
       @enabled = (data["enable"].to_s.downcase.strip == "true")
@@ -13,6 +19,12 @@ module Quke #:nodoc:
       @processes = (data["processes"] || "0").to_s.downcase.strip.to_i
     end
 
+    # Returns an array of arguments, correctly ordered for passing to
+    # +ParallelTests::CLI.new.run()+.
+    #
+    # The arguments are based on the values set for the parallel configuration
+    # plus those passed in. It then orders them in an order that makes sense to
+    # parallel tests.
     def command_args(features_folder, additional_args = [])
       args = standard_args(features_folder)
       args += ["--single", "--quiet"] unless @enabled

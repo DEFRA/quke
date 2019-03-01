@@ -62,4 +62,40 @@ RSpec.describe Quke::ProxyConfiguration do
       end
     end
   end
+
+  describe "#firefox_settings" do
+    context "when the instance has been instantiated with no data" do
+      subject { Quke::ProxyConfiguration.new }
+
+      it "returns an empty hash" do
+        expect(subject.firefox_settings).to eq({})
+      end
+    end
+
+    context "when the instance has been instantiated with everything but 'host'" do
+      subject { Quke::ProxyConfiguration.new("port" => "8080", "no_proxy" => "127.0.0.1") }
+
+      it "returns an empty hash" do
+        expect(subject.firefox_settings).to eq({})
+      end
+    end
+
+    context "when the instance has been instantiated with data" do
+      subject do
+        Quke::ProxyConfiguration.new(
+          "host" => "10.10.2.70",
+          "port" => "8080",
+          "no_proxy" => "127.0.0.1"
+        )
+      end
+
+      it "returns a correctly populated hash" do
+        expect(subject.firefox_settings).to eq(
+          http: "10.10.2.70:8080",
+          ssl: "10.10.2.70:8080",
+          no_proxy: "127.0.0.1"
+        )
+      end
+    end
+  end
 end
