@@ -120,6 +120,59 @@ RSpec.describe Quke::Configuration do
     end
   end
 
+  describe "#display_failures" do
+    context "when NOT specified in the config file" do
+      it "defaults to true" do
+        Quke::Configuration.file_location = data_path(".no_file.yml")
+        expect(subject.display_failures).to eq(true)
+      end
+    end
+
+    context "when specified in the config file" do
+      it "matches the config file" do
+        Quke::Configuration.file_location = data_path(".display_failures.yml")
+        expect(subject.display_failures).to eq(false)
+      end
+    end
+
+    context "when in the config file as a string" do
+      it "matches the config file" do
+        Quke::Configuration.file_location = data_path(".as_string.yml")
+        expect(subject.display_failures).to eq(false)
+      end
+    end
+  end
+
+  describe "#display_failures?" do
+    context "when `headless` is false and `display_failures` is false" do
+      it "returns false" do
+        Quke::Configuration.file_location = data_path(".display_failures.yml")
+        expect(subject.display_failures?).to eq(false)
+      end
+    end
+
+    context "when `headless` is true and `display_failures` is false" do
+      it "returns false" do
+        Quke::Configuration.file_location = data_path(".as_string.yml")
+        expect(subject.display_failures?).to eq(false)
+      end
+    end
+
+    context "when `headless` is false and `display_failures` is true" do
+      it "returns false" do
+        Quke::Configuration.file_location = data_path(".no_file.yml")
+        expect(subject.display_failures?).to eq(true)
+      end
+    end
+
+    context "when `headless` is true and `display_failures` is true" do
+      it "returns false" do
+        Quke::Configuration.file_location = data_path(".should_display_failures.yml")
+        expect(subject.display_failures?).to eq(false)
+      end
+    end
+  end
+
   describe "#max_wait_time" do
     context "when NOT specified in the config file" do
       it "defaults to whatever the Capybara default is" do
