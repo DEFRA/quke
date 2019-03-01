@@ -1,4 +1,4 @@
 parallel:
-  enable: true
+  enable: false
   group_by: "scenarios"
   processes: 4

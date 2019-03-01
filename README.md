@@ -124,9 +124,11 @@ You should be aware of some default behaviours included in Quke.
 
 Capybara includes the ability to save the source of the current page at any point. Quke has been configured so that if you are not using a headless browser and a step fails it will save the source to file and then use a tool called [Launchy](https://github.com/copiousfreetime/launchy) to open it in your default browser.
 
+You can disable this behaviour using `display_failures: false` in your `.config.yml`
+
 ### Quit on 5 failures
 
-If you are running using Chrome or Firefox after the 5th failure Quke will automatically stop. This is to prevent scores of tabs being opened in the browser when an error is found, which may just be the result of an error in the test code.
+If you are running using Chrome or Firefox after the 5th failure Quke will automatically stop. This is to prevent scores of tabs being opened in the browser when an error is found and Quke is set to show failures, which may just be the result of an error in the test code.
 
 ### Automatically setting Browserstack session status
 

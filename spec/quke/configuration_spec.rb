@@ -289,6 +289,32 @@ RSpec.describe Quke::Configuration do
     end
   end
 
+  describe "#cucumber_arg" do
+    let(:default_arg) { "--format pretty -r #{File.join(Dir.pwd, 'lib', 'features')} -r features" }
+    let(:additional_args) { ["--tags", "@wip"] }
+
+    context "when there are no additional arguments" do
+      it "returns the default cucumber arg value" do
+        Quke::Configuration.file_location = data_path(".no-file.yml")
+        expect(subject.cucumber_arg([])).to eq(default_arg)
+      end
+    end
+
+    context "when `stop_on_error` is true" do
+      it "returns the default cucumber arg value including the '--fail-fast' option" do
+        Quke::Configuration.file_location = data_path(".stop_on_error.yml")
+        expect(subject.cucumber_arg([])).to eq("--fail-fast #{default_arg}")
+      end
+    end
+
+    context "when there are additional arguments" do
+      it "returns the default cucumber arg value plus the arguments" do
+        Quke::Configuration.file_location = data_path(".no-file.yml")
+        expect(subject.cucumber_arg(additional_args)).to eq("#{default_arg} #{additional_args.join(' ')}")
+      end
+    end
+  end
+
   describe ".file_name" do
     context "environment variable not set" do
       it "returns the default value '.config.yml'" do

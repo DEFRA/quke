@@ -61,7 +61,7 @@ module Quke #:nodoc:
       # Order is important. @browserstack relies on @proxy being set
       @proxy = ::Quke::ProxyConfiguration.new(@data["proxy"] || {})
       @browserstack = ::Quke::BrowserstackConfiguration.new(self)
-      @parallel = ::Quke::ParallelConfiguration.new(@data["parallel"] || {})
+      @parallel = ::Quke::ParallelConfiguration.new(self)
     end
 
     # Returns the value set for +features_folder+.
@@ -197,6 +197,33 @@ module Quke #:nodoc:
     # available in your tests.
     def custom
       @data["custom"]
+    end
+
+    # Returns a string representing the agruments that are passed to Cucumber
+    # by ParallelTests when it creates a new process and executes.
+    #
+    # Specifically its the value for ParallelTests' `--test-options` argument
+    # which will be used when generating the array of args to be passed to
+    # ParallelTests. It returns just a string rather than an array because
+    # ParallelTests needs to see this as a single argument.
+    #
+    # The additional args are whatever a user enters after the
+    # `bundle exec quke` command.
+    def cucumber_arg(additional_args)
+      # Because cucumber is called in the context of the executing project and
+      # not Quke it will take its arguments in the context of that location, and
+      # not from where the Quke currently sits. This means to Cucumber
+      # 'lib/features' doesn't exist, which means our env.rb never gets loaded.
+      # Instead we first have to determine where this file is running from when
+      # called, then we simply replace the last part of that result (which we
+      # know will be lib/quke) with lib/features. For example __dir__ returns
+      # '/Users/acruikshanks/projects/defra/quke/lib/quke' but we need Cucumber
+      # to load '/Users/acruikshanks/projects/defra/quke/lib/features'
+      # We then pass this full path to Cucumber so it can correctly find the
+      # folder holding our predefined env.rb file.
+      env_folder = __dir__.sub!("lib/quke", "lib/features")
+      fail_fast = "--fail-fast" if stop_on_error
+      "#{fail_fast} --format pretty -r #{env_folder} -r #{features_folder} #{additional_args.join(' ')}".strip
     end
 
     private

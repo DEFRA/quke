@@ -33,7 +33,7 @@ module Quke #:nodoc:
     #       parallel.
     def initialize(passed_in_args = [])
       Quke.config = Configuration.new
-      @args = Quke.config.parallel.command_args(Quke.config.features_folder, passed_in_args)
+      @args = Quke.config.parallel.command_args(passed_in_args)
     end
 
     # Executes ParallelTests, which in turn executes Cucumber passing in the

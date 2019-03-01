@@ -46,16 +46,16 @@ RSpec.describe Quke::ParallelConfiguration do
   end
 
   describe "#command_args" do
-    let(:feature_folder) { "features" }
-    let(:additional_args) { ["--tags", "@wip"] }
-
     context "when the instance has been instantiated with no data" do
-      subject { Quke::ParallelConfiguration.new }
+      subject do
+        Quke::Configuration.file_location = data_path(".no-file.yml")
+        Quke::Configuration.new.parallel
+      end
 
       it "returns an array of default args for ParallelTests" do
-        expect(subject.command_args(feature_folder)).to match_array(
+        expect(subject.command_args).to match_array(
           [
-            feature_folder,
+            "features",
             "--type",
             "cucumber",
             "--serialize-stdout",
@@ -63,7 +63,7 @@ RSpec.describe Quke::ParallelConfiguration do
             "--single",
             "--quiet",
             "--test-options",
-            "--format pretty -r #{File.join(Dir.pwd, 'lib', 'features')} -r #{feature_folder}"
+            "--format pretty -r #{File.join(Dir.pwd, 'lib', 'features')} -r features"
           ]
         )
       end
@@ -71,50 +71,66 @@ RSpec.describe Quke::ParallelConfiguration do
     end
 
     context "when the instance has been instantiated with parallel enabled" do
-      subject { Quke::ParallelConfiguration.new("enable" => "true") }
+      subject do
+        Quke::Configuration.file_location = data_path(".parallel.yml")
+        Quke::Configuration.new.parallel
+      end
 
       it "returns an array without the args '--single' and '--quiet'" do
-        args = subject.command_args(feature_folder)
+        args = subject.command_args
         expect(args).not_to include(["--single", "--quiet"])
       end
 
     end
 
     context "when the instance has been instantiated with group_by set" do
-      subject { Quke::ParallelConfiguration.new("group_by" => "scenarios") }
+      subject do
+        Quke::Configuration.file_location = data_path(".parallel.yml")
+        Quke::Configuration.new.parallel
+      end
 
       it "returns an array with the args '--group-by' and 'scenarios'" do
-        args = subject.command_args(feature_folder)
+        args = subject.command_args
         expect(args).to include("--group-by", "scenarios")
       end
 
     end
 
     context "when the instance has been instantiated with processes set" do
-      subject { Quke::ParallelConfiguration.new("enable" => "true", "processes" => "4") }
+      subject do
+        Quke::Configuration.file_location = data_path(".parallel.yml")
+        Quke::Configuration.new.parallel
+      end
 
       it "returns an array with the args '-n' and '4'" do
-        args = subject.command_args(feature_folder)
+        args = subject.command_args
         expect(args).to include("-n", "4")
       end
 
     end
 
     context "when the instance has been instantiated with processes set but parallel disabled" do
-      subject { Quke::ParallelConfiguration.new("processes" => "4") }
+      subject do
+        Quke::Configuration.file_location = data_path(".parallel_disabled.yml")
+        Quke::Configuration.new.parallel
+      end
 
       it "returns an array without the args '-n' and '4'" do
-        args = subject.command_args(feature_folder)
+        args = subject.command_args
         expect(args).not_to include("-n", "4")
       end
 
     end
 
     context "when additional arguments are passed in" do
-      subject { Quke::ParallelConfiguration.new }
+      let(:additional_args) { ["--tags", "@wip"] }
+      subject do
+        Quke::Configuration.file_location = data_path(".no-file.yml")
+        Quke::Configuration.new.parallel
+      end
 
       it "the last argument contains those values" do
-        args = subject.command_args(feature_folder, additional_args)
+        args = subject.command_args(additional_args)
         expect(args.last).to include(additional_args.join(" "))
       end
 
