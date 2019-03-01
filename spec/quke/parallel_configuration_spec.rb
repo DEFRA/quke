@@ -31,6 +31,18 @@ RSpec.describe Quke::ParallelConfiguration do
       end
 
     end
+
+    context "when `.config.yml` contains a parallel section where processes is entered as a string" do
+      subject do
+        Quke::Configuration.file_location = data_path(".as_string.yml")
+        Quke::Configuration.new.parallel
+      end
+
+      it "returns an instance processes set as a number" do
+        expect(subject.processes).to eq(4)
+      end
+
+    end
   end
 
   describe "#command_args" do

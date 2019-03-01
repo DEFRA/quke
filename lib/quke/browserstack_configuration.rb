@@ -136,10 +136,10 @@ module Quke #:nodoc:
         # Rather than
         "logfile" => File.join(Dir.pwd, "/tmp/bowerstack_local_log.txt")
       }
-      return unless configuration.use_proxy?
+      return unless configuration.proxy.use_proxy?
 
-      @local_testing_args["proxyHost"] = configuration.proxy["host"]
-      @local_testing_args["proxyPort"] = configuration.proxy["port"].to_s
+      @local_testing_args["proxyHost"] = configuration.proxy.host
+      @local_testing_args["proxyPort"] = configuration.proxy.port.to_s
     end
 
   end

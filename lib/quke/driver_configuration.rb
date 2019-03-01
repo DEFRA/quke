@@ -112,7 +112,7 @@ module Quke #:nodoc:
         "--ignore-ssl-errors=yes"
       ]
 
-      options.push("--proxy=#{config.proxy['host']}:#{config.proxy['port']}") if config.use_proxy?
+      options.push("--proxy=#{config.proxy.host}:#{config.proxy.port}") if config.proxy.use_proxy?
 
       options
     end
@@ -147,15 +147,13 @@ module Quke #:nodoc:
     #     )
     #
     def chrome
-      host = config.proxy["host"]
-      port = config.proxy["port"]
-      no_proxy = config.proxy["no_proxy"].tr(",", ";")
+      no_proxy = config.proxy.no_proxy.tr(",", ";")
 
       options = Selenium::WebDriver::Chrome::Options.new
       options.headless! if config.headless
 
-      options.add_argument("--proxy-server=#{host}:#{port}") if config.use_proxy?
-      options.add_argument("--proxy-bypass-list=#{no_proxy}") unless config.proxy["no_proxy"].empty?
+      options.add_argument("--proxy-server=#{config.proxy.host}:#{config.proxy.port}") if config.proxy.use_proxy?
+      options.add_argument("--proxy-bypass-list=#{no_proxy}") unless config.proxy.no_proxy.empty?
 
       options.add_argument("--user-agent=#{config.user_agent}") unless config.user_agent.empty?
 
@@ -250,11 +248,11 @@ module Quke #:nodoc:
       profile["general.useragent.override"] = config.user_agent unless config.user_agent.empty?
 
       settings = {}
-      settings[:http] = "#{config.proxy['host']}:#{config.proxy['port']}" if config.use_proxy?
-      settings[:ssl] = settings[:http] if config.use_proxy?
-      settings[:no_proxy] = config.proxy["no_proxy"] unless config.proxy["no_proxy"].empty?
+      settings[:http] = "#{config.proxy.host}:#{config.proxy.port}" if config.proxy.use_proxy?
+      settings[:ssl] = settings[:http] if config.proxy.use_proxy?
+      settings[:no_proxy] = config.proxy.no_proxy unless config.proxy.no_proxy.empty?
 
-      profile.proxy = Selenium::WebDriver::Proxy.new(settings) if config.use_proxy?
+      profile.proxy = Selenium::WebDriver::Proxy.new(settings) if config.proxy.use_proxy?
 
       profile
     end

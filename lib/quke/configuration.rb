@@ -28,6 +28,10 @@ module Quke #:nodoc:
     # so how to setup the runs.
     attr_reader :parallel
 
+    # Instance of +Quke::ProxyConfiguration+ which manages reading and
+    # returning the config for setting up Quke to use proxy server.
+    attr_reader :proxy
+
     class << self
       # Class level setter for the location of the config file.
       #
@@ -51,9 +55,11 @@ module Quke #:nodoc:
     end
 
     # When an instance is initialized it will automatically populate itself by
-    # calling a private method +load_data()+.
+    # calling a private method +default_data()+.
     def initialize
-      @data = load_data
+      @data = default_data!(load_yml_data)
+      # Order is important. @browserstack relies on @proxy being set
+      @proxy = ::Quke::ProxyConfiguration.new(@data["proxy"] || {})
       @browserstack = ::Quke::BrowserstackConfiguration.new(self)
       @parallel = ::Quke::ParallelConfiguration.new(@data["parallel"] || {})
     end
@@ -177,24 +183,6 @@ module Quke #:nodoc:
       @data["javascript_errors"]
     end
 
-    # Return the hash of +proxy+ server settings
-    #
-    # If your environment requires you to go via a proxy server you can
-    # configure Quke to use it by setting the +host+ and +port+ in your config
-    # file.
-    def proxy
-      @data["proxy"]
-    end
-
-    # Return true if the +proxy: host+ value has been set in the +.config.yml+
-    # file, else false.
-    #
-    # It is mainly used when determining whether to apply proxy server settings
-    # to the different drivers when registering them with Capybara.
-    def use_proxy?
-      proxy["host"] != ""
-    end
-
     # Return the hash of +custom+ server settings
     #
     # This returns a hash of all the key/values in the custom section of your
@@ -212,12 +200,6 @@ module Quke #:nodoc:
     end
 
     private
-
-    def load_data
-      data = default_data!(load_yml_data)
-      data["proxy"] = proxy_data(data["proxy"])
-      data
-    end
 
     # rubocop:disable Metrics/AbcSize
     # rubocop:disable Metrics/CyclomaticComplexity
@@ -248,15 +230,6 @@ module Quke #:nodoc:
     # rubocop:enable Metrics/AbcSize
     # rubocop:enable Metrics/CyclomaticComplexity
     # rubocop:enable Metrics/PerceivedComplexity
-
-    def proxy_data(data)
-      data = {} if data.nil?
-      data.merge(
-        "host" => (data["host"] || "").downcase.strip,
-        "port" => (data["port"] || "0").to_s.downcase.strip.to_i,
-        "no_proxy" => (data["no_proxy"] || "").downcase.strip
-      )
-    end
 
     def load_yml_data
       if File.exist? self.class.file_location

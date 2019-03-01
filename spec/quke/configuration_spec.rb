@@ -235,53 +235,6 @@ RSpec.describe Quke::Configuration do
     end
   end
 
-  describe "#proxy" do
-    context "when NOT specified in the config file" do
-      it "defaults to blank values" do
-        Quke::Configuration.file_location = data_path(".no_file.yml")
-        expect(subject.proxy).to eq("host" => "", "port" => 0, "no_proxy" => "")
-      end
-    end
-
-    context "when specified in the config file" do
-      it "matches the config file" do
-        Quke::Configuration.file_location = data_path(".proxy.yml")
-        expect(subject.proxy).to eq(
-          "host" => "10.10.2.70",
-          "port" => 8080,
-          "no_proxy" => "127.0.0.1,192.168.0.1"
-        )
-      end
-    end
-
-    context "when port is specified in the config file as a string" do
-      it "matches the config file" do
-        Quke::Configuration.file_location = data_path(".as_string.yml")
-        expect(subject.proxy).to eq(
-          "host" => "",
-          "port" => 8080,
-          "no_proxy" => ""
-        )
-      end
-    end
-  end
-
-  describe "#use_proxy?" do
-    context "when proxy host details are NOT specified in the config file" do
-      it "returns false" do
-        Quke::Configuration.file_location = data_path(".no_file.yml")
-        expect(subject.use_proxy?).to eq(false)
-      end
-    end
-
-    context "when proxy host details are specified in the config file" do
-      it "returns true" do
-        Quke::Configuration.file_location = data_path(".proxy_basic.yml")
-        expect(subject.use_proxy?).to eq(true)
-      end
-    end
-  end
-
   describe "#custom" do
     context "when NOT specified in the config file" do
       it "defaults to nothing" do
