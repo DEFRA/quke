@@ -120,6 +120,26 @@ module Quke #:nodoc:
       # rubocop:enable Security/YAMLLoad
     end
 
+    # Returns the value set for +display_failures+.
+    #
+    # Tells Quke not to display the html for the last page when a failure
+    # happens. Quke uses Capybara to save a copy of the page as html and uses
+    # launchy to display it in the default browser.
+    def display_failures
+      @data["display_failures"]
+    end
+
+    # Returns whether failures should be displayed.
+    #
+    # If the browser is headless then we never display failures, even if the
+    # setting has been set to true. Else whether we display a failure is based
+    # on the value set for display_failures.
+    def display_failures?
+      return false if headless
+
+      display_failures
+    end
+
     # Return the value for +max_wait_time+
     #
     # +max_wait_time+ is the time Capybara will spend waiting for an element
@@ -219,6 +239,7 @@ module Quke #:nodoc:
         # Else the condition fails and we get 'false', which when flipped gives
         # us 'true', which is what we want the default value to be
         # rubocop:disable Style/InverseMethods
+        "display_failures" => !(data["display_failures"].to_s.downcase.strip == "false"),
         "javascript_errors" => !(data["javascript_errors"].to_s.downcase.strip == "false"),
         # rubocop:enable Style/InverseMethods
         "custom" => (data["custom"] || nil)
