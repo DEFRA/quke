@@ -36,7 +36,7 @@ RSpec.describe Quke::DriverConfiguration do
             "--load-images=no",
             "--disk-cache=false",
             "--ignore-ssl-errors=yes",
-            "--proxy=#{config.proxy['host']}:#{config.proxy['port']}"
+            "--proxy=#{config.proxy.host}:#{config.proxy.port}"
           ],
           inspector: true
         )
@@ -88,7 +88,7 @@ RSpec.describe Quke::DriverConfiguration do
             "--load-images=no",
             "--disk-cache=false",
             "--ignore-ssl-errors=yes",
-            "--proxy=#{config.proxy['host']}:#{config.proxy['port']}"
+            "--proxy=#{config.proxy.host}:#{config.proxy.port}"
           ]
         )
       end
@@ -126,7 +126,7 @@ RSpec.describe Quke::DriverConfiguration do
         config = Quke::Configuration.new
         expect(Quke::DriverConfiguration.new(config).chrome.args).to eq(
           Set[
-            "--proxy-server=#{config.proxy['host']}:#{config.proxy['port']}"
+            "--proxy-server=#{config.proxy.host}:#{config.proxy.port}"
           ]
         )
       end
@@ -138,7 +138,7 @@ RSpec.describe Quke::DriverConfiguration do
         config = Quke::Configuration.new
         expect(Quke::DriverConfiguration.new(config).chrome.args).to eq(
           Set[
-            "--proxy-server=#{config.proxy['host']}:#{config.proxy['port']}",
+            "--proxy-server=#{config.proxy.host}:#{config.proxy.port}",
             "--proxy-bypass-list=127.0.0.1;192.168.0.1"
           ]
         )

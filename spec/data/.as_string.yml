@@ -12,6 +12,9 @@ display_failures: 'false'
 proxy:
   port: '8080'
 
+parallel:
+  processes: '4'
+
 browserstack:
   capabilities:
     browserstack.local: 'true'
