@@ -4,6 +4,67 @@
 # The default is features
 features_folder: 'cukes'
 
+# Normally Capybara expects to be testing an in-process Rack application, but
+# we're using it to talk to a remote host. Users of Quke can set what this
+# will be by simply setting `app_host`. You can then use it directly using
+# Capybara `visit('/Main_Page')` or `visit('/')` rather than having to repeat
+# the full url each time
+app_host: 'https://en.wikipedia.org/wiki'
+
+# Tells Quke which browser to use for testing. Choices are firefox, chrome,
+# browserstack and phantomjs, with the default being phantomjs
+driver: chrome
+
+# Let Quke know you want to run the browser in headless mode. Headless mode
+# means the browser still runs but you won't see it displayed. The benefit is
+# that your tests will take less time as it's less resource intensive.
+# This option only applies when the driver is set to 'chrome' or 'firefox'.
+# Phantomjs is a headless only browser, and option is meaningless for
+# browserstack
+headless: true
+
+# Add a pause (in seconds) between steps so you can visually track how the
+# browser is responding. Only useful if using a non-headless browser. The
+# default is 0
+pause: 1
+
+# Specify whether Quke should stop all tests once an error occurs. Useful in
+# Continuous Integration (CI) environments where a quick Yes/No is preferable to
+# a detailed response.
+stop_on_error: 1
+
+# By default Quke will display web pages where a failure has taken place.
+# A copy of the html is saved and Quke will display it in your default browser.
+# This can be useful to diagnose why something has failed, but there are times
+# you may not want Quke to do this.
+#
+# Please note, if the driver is phantomjs or the `headless` is true nothing will
+# be displayed even if this is set to true.
+display_failures: false
+
+# Capybara will attempt to find an element for a period of time, rather than
+# immediately failing because the element cannot be found. This defaults to 2
+# seconds. However if the site you are working with is slow or features
+# elements that take some time to load you can increase this default.
+max_wait_time: 5
+
+# Tell the driver Quke is using to send a different user-agent value to the site
+# under test. Useful if you want the underlying driver to spoof what kind of
+# browser the request is coming from. For example you may want to pretend to be
+# a mobile browser so you can check what you get back versus the desktop
+# version. Or you want to pretend to be another kind of browser, because the one
+# you have is not supported by the site.
+user_agent: "Mozilla/5.0 (MSIE 10.0; Windows NT 6.1; Trident/5.0)"
+
+# Currently only supported when using the phantomjs driver (ignored by the
+# others). In phantomjs if a site has a javascript error we can configure it
+# to throw an error which will cause the test to fail. Quke by default sets this
+# to true, however you can override it by setting this flag to false.
+# For example you may be dealing with a legacy site and JavaScript errors
+# are out of your scope. You still want to test other aspects of the site
+# but not let these errors prevent you from using phantomjs.
+javascript_errors: false
+
 # Tell Quke you want to run tests in parallel. This will make use of the
 # available cores on your machine to run the tests in parallel, reducing the
 # time it takes them to run.
@@ -37,58 +98,6 @@ parrellel:
   # to complete the tests. Note, with each increase the reduction in time will
   # decrease to a point where it might become detrimental
   processes: 4
-
-# Normally Capybara expects to be testing an in-process Rack application, but
-# we're using it to talk to a remote host. Users of Quke can set what this
-# will be by simply setting `app_host`. You can then use it directly using
-# Capybara `visit('/Main_Page')` or `visit('/')` rather than having to repeat
-# the full url each time
-app_host: 'https://en.wikipedia.org/wiki'
-
-# Tells Quke which browser to use for testing. Choices are firefox, chrome,
-# browserstack and phantomjs, with the default being phantomjs
-driver: chrome
-
-# Let Quke know you want to run the browser in headless mode. Headless mode
-# means the browser still runs but you won't see it displayed. The benefit is
-# that your tests will take less time as it's less resource intensive.
-# This option only applies when the driver is set to 'chrome' or 'firefox'.
-# Phantomjs is a headless only browser, and option is meaningless for
-# browserstack
-headless: true
-
-# Add a pause (in seconds) between steps so you can visually track how the
-# browser is responding. Only useful if using a non-headless browser. The
-# default is 0
-pause: 1
-
-# Specify whether Quke should stop all tests once an error occurs. Useful in
-# Continuous Integration (CI) environments where a quick Yes/No is preferable to
-# a detailed response.
-stop_on_error: 1
-
-# Capybara will attempt to find an element for a period of time, rather than
-# immediately failing because the element cannot be found. This defaults to 2
-# seconds. However if the site you are working with is slow or features
-# elements that take some time to load you can increase this default.
-max_wait_time: 5
-
-# Tell the driver Quke is using to send a different user-agent value to the site
-# under test. Useful if you want the underlying driver to spoof what kind of
-# browser the request is coming from. For example you may want to pretend to be
-# a mobile browser so you can check what you get back versus the desktop
-# version. Or you want to pretend to be another kind of browser, because the one
-# you have is not supported by the site.
-user_agent: "Mozilla/5.0 (MSIE 10.0; Windows NT 6.1; Trident/5.0)"
-
-# Currently only supported when using the phantomjs driver (ignored by the
-# others). In phantomjs if a site has a javascript error we can configure it
-# to throw an error which will cause the test to fail. Quke by default sets this
-# to true, however you can override it by setting this flag to false.
-# For example you may be dealing with a legacy site and JavaScript errors
-# are out of your scope. You still want to test other aspects of the site
-# but not let these errors prevent you from using phantomjs.
-javascript_errors: false
 
 # Anything you place under the 'custom' node in the `.config.yml` file will be
 # available within your steps and page objects by calling
