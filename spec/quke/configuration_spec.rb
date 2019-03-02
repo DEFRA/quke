@@ -235,6 +235,29 @@ RSpec.describe Quke::Configuration do
     end
   end
 
+  describe "#print_progress" do
+    context "when NOT specified in the config file" do
+      it "defaults to false" do
+        Quke::Configuration.file_location = data_path(".no_file.yml")
+        expect(subject.print_progress).to eq(false)
+      end
+    end
+
+    context "when specified in the config file" do
+      it "matches the config file" do
+        Quke::Configuration.file_location = data_path(".print_progress.yml")
+        expect(subject.print_progress).to eq(true)
+      end
+    end
+
+    context "when in the config file as a string" do
+      it "matches the config file" do
+        Quke::Configuration.file_location = data_path(".as_string.yml")
+        expect(subject.print_progress).to eq(true)
+      end
+    end
+  end
+
   describe "#custom" do
     context "when NOT specified in the config file" do
       it "defaults to nothing" do
@@ -304,6 +327,13 @@ RSpec.describe Quke::Configuration do
       it "returns the default cucumber arg value including the '--fail-fast' option" do
         Quke::Configuration.file_location = data_path(".stop_on_error.yml")
         expect(subject.cucumber_arg([])).to eq("--fail-fast #{default_arg}")
+      end
+    end
+
+    context "when `print_progress` is true" do
+      it "returns the default cucumber arg value including the '--format progress' option" do
+        Quke::Configuration.file_location = data_path(".print_progress.yml")
+        expect(subject.cucumber_arg([])).to include("--format progress")
       end
     end
 

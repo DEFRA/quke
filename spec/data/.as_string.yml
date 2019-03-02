@@ -8,6 +8,7 @@ headless: 'true'
 parallel: 'true'
 javascript_errors: 'false'
 display_failures: 'false'
+print_progress: 'true'
 
 proxy:
   port: '8080'

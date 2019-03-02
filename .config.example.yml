@@ -70,6 +70,15 @@ user_agent: "Mozilla/5.0 (MSIE 10.0; Windows NT 6.1; Trident/5.0)"
 # but not let these errors prevent you from using phantomjs.
 javascript_errors: false
 
+# If set Quke will tell Cucumber to output to the console using its
+# 'progress' formatter (simply displays a . for each passing scenario and F for
+# each failing one), rather than the default 'pretty' which displays each
+# scenario in detail.
+# If you don't need to see the detail on each run, this might be easier to
+# follow than the detailed output you see using the default 'pretty' print
+# format.
+print_prgress: false
+
 # Tell Quke you want to run tests in parallel. This will make use of the
 # available cores on your machine to run the tests in parallel, reducing the
 # time it takes them to run.

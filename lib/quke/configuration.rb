@@ -183,6 +183,15 @@ module Quke #:nodoc:
       @data["javascript_errors"]
     end
 
+    # Returns the value set for +print_progress+.
+    #
+    # If set Quke will tell Cucumber to output to the console using its
+    # 'progress' formatter, rather than the default 'pretty' which displays each
+    # scenario in detail.
+    def print_progress
+      @data["print_progress"]
+    end
+
     # Return the hash of +custom+ server settings
     #
     # This returns a hash of all the key/values in the custom section of your
@@ -223,7 +232,8 @@ module Quke #:nodoc:
       # folder holding our predefined env.rb file.
       env_folder = __dir__.sub!("lib/quke", "lib/features")
       fail_fast = "--fail-fast" if stop_on_error
-      "#{fail_fast} --format pretty -r #{env_folder} -r #{features_folder} #{additional_args.join(' ')}".strip
+      print_format = print_progress ? "progress" : "pretty"
+      "#{fail_fast} --format #{print_format} -r #{env_folder} -r #{features_folder} #{additional_args.join(' ')}".strip
     end
 
     private
@@ -237,6 +247,7 @@ module Quke #:nodoc:
         "app_host" => (data["app_host"] || "").downcase.strip,
         "driver" => (data["driver"] || "phantomjs").downcase.strip,
         "headless" => (data["headless"].to_s.downcase.strip == "true"),
+        "print_progress" => (data["print_progress"].to_s.downcase.strip == "true"),
         "pause" => (data["pause"] || "0").to_s.downcase.strip.to_i,
         "stop_on_error" => (data["stop_on_error"] || "false").to_s.downcase.strip,
         "max_wait_time" => (data["max_wait_time"] || Capybara.default_max_wait_time).to_s.downcase.strip.to_i,
