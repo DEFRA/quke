@@ -1,5 +1,25 @@
 # Change Log
 
+## [v0.10.0](https://github.com/DEFRA/quke/tree/v0.10.0) (2019-03-02)
+[Full Changelog](https://github.com/DEFRA/quke/compare/v0.9.1...v0.10.0)
+
+**Implemented enhancements:**
+
+- Add `no\_proxy` support for PhantomJS [\#50](https://github.com/DEFRA/quke/issues/50)
+- Add option to use cucumber progress formatter [\#91](https://github.com/DEFRA/quke/pull/91) ([Cruikshanks](https://github.com/Cruikshanks))
+- Add option to control display failures [\#86](https://github.com/DEFRA/quke/pull/86) ([Cruikshanks](https://github.com/Cruikshanks))
+- Add support for additional parallel configuration [\#85](https://github.com/DEFRA/quke/pull/85) ([Cruikshanks](https://github.com/Cruikshanks))
+
+**Fixed bugs:**
+
+- Fix error with parallel args for processes [\#87](https://github.com/DEFRA/quke/pull/87) ([Cruikshanks](https://github.com/Cruikshanks))
+
+**Merged pull requests:**
+
+- Use cucumber --fast-fail to stop on error [\#90](https://github.com/DEFRA/quke/pull/90) ([Cruikshanks](https://github.com/Cruikshanks))
+- Move proxy configuration to its own class [\#89](https://github.com/DEFRA/quke/pull/89) ([Cruikshanks](https://github.com/Cruikshanks))
+- Correct stop\_on\_error example [\#88](https://github.com/DEFRA/quke/pull/88) ([Cruikshanks](https://github.com/Cruikshanks))
+
 ## [v0.9.1](https://github.com/DEFRA/quke/tree/v0.9.1) (2019-02-28)
 [Full Changelog](https://github.com/DEFRA/quke/compare/v0.9.0...v0.9.1)
 
