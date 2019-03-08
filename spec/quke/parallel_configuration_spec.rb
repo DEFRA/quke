@@ -58,8 +58,6 @@ RSpec.describe Quke::ParallelConfiguration do
             "features",
             "--type",
             "cucumber",
-            "--serialize-stdout",
-            "--combine-stderr",
             "--single",
             "--quiet",
             "--test-options",
@@ -79,6 +77,11 @@ RSpec.describe Quke::ParallelConfiguration do
       it "returns an array without the args '--single' and '--quiet'" do
         args = subject.command_args
         expect(args).not_to include(["--single", "--quiet"])
+      end
+
+      it "returns an array with the args '--serialize-stdout' and '--combine-stderr'" do
+        args = subject.command_args
+        expect(args).not_to include(["--serialize-stdout", "--combine-stderr"])
       end
 
     end
