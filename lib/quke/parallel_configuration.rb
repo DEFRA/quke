@@ -31,9 +31,7 @@ module Quke #:nodoc:
     # parallel tests.
     def command_args(additional_args = [])
       args = standard_args(@config.features_folder)
-      args += ["--single", "--quiet"] unless @enabled
-      args += ["--serialize-stdout", "--combine-stderr"] if @enabled
-      args += ["--group-by", @group_by] unless @group_by == "default"
+      args += parallel_or_single_args
       args += ["-n", @processes.to_s] if @enabled && @processes.positive?
       args + ["--test-options", @config.cucumber_arg(additional_args)]
     end
@@ -42,6 +40,14 @@ module Quke #:nodoc:
 
     def standard_args(features_folder)
       [features_folder, "--type", "cucumber"]
+    end
+
+    def parallel_or_single_args
+      return ["--single", "--quiet"] unless @enabled
+
+      args = ["--serialize-stdout", "--combine-stderr"]
+      args += ["--group-by", @group_by] unless @group_by == "default"
+      args
     end
 
   end
