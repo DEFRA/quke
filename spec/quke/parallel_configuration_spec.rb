@@ -68,7 +68,7 @@ RSpec.describe Quke::ParallelConfiguration do
 
     end
 
-    context "when the instance has been instantiated with parallel enabled" do
+    context "when the instance has been instantiated with parallel disabled" do
       subject do
         Quke::Configuration.file_location = data_path(".parallel.yml")
         Quke::Configuration.new.parallel
@@ -82,6 +82,24 @@ RSpec.describe Quke::ParallelConfiguration do
       it "returns an array with the args '--serialize-stdout' and '--combine-stderr'" do
         args = subject.command_args
         expect(args).not_to include(["--serialize-stdout", "--combine-stderr"])
+      end
+
+    end
+
+    context "when the instance has been instantiated with parallel enabled" do
+      subject do
+        Quke::Configuration.file_location = data_path(".no_parallel.yml")
+        Quke::Configuration.new.parallel
+      end
+
+      it "returns an array with the args '--single' and '--quiet'" do
+        args = subject.command_args
+        expect(args).not_to include(["--single", "--quiet"])
+      end
+
+      it "returns an array without the args '--serialize-stdout', '--combine-stderr' and '--group-by'" do
+        args = subject.command_args
+        expect(args).not_to include(["--serialize-stdout", "--combine-stderr", "--group-by"])
       end
 
     end
