@@ -39,10 +39,20 @@ module Quke #:nodoc:
     # Executes ParallelTests, which in turn executes Cucumber passing in the
     # arguments defined when the instance of CukeRunner was initialized.
     def run
+      apply_webdrivers_proxy(Quke.config.proxy.host, Quke.config.proxy.port) if Quke.config.proxy.use_proxy?
       ParallelTests::CLI.new.run(@args)
     rescue SystemExit => e
       # Cucumber calls @kernel.exit() killing your script unless you rescue
       raise StandardError, "Cucumber exited in a failed state" unless e.success?
+    end
+
+    private
+
+    def apply_webdrivers_proxy(host, port)
+      Webdrivers.configure do |config|
+        config.proxy_addr = host
+        config.proxy_port = port
+      end
     end
 
   end
