@@ -91,7 +91,7 @@ module Quke #:nodoc:
     # Returns the value set for +driver+.
     #
     # Tells Quke which browser to use for testing. Choices are firefox,
-    # chrome browserstack and phantomjs, with the default being phantomjs.
+    # chrome, and browserstack, with the default being chrome.
     def driver
       @data["driver"]
     end
@@ -170,19 +170,6 @@ module Quke #:nodoc:
       @data["user_agent"]
     end
 
-    # Return the value set for +javascript_errors+.
-    #
-    # Currently only supported when using the phantomjs driver (ignored by the
-    # others). In phantomjs if a site has a javascript error we can configure it
-    # to throw an error which will cause the test to fail. Quke by default sets
-    # this to true, however you can override it by setting this flag to false.
-    # For example you may be dealing with a legacy site and JavaScript errors
-    # are out of your scope. You still want to test other aspects of the site
-    # but not let these errors prevent you from using phantomjs.
-    def javascript_errors
-      @data["javascript_errors"]
-    end
-
     # Returns the value set for +print_progress+.
     #
     # If set Quke will tell Cucumber to output to the console using its
@@ -208,7 +195,7 @@ module Quke #:nodoc:
       @data["custom"]
     end
 
-    # Returns a string representing the agruments that are passed to Cucumber
+    # Returns a string representing the arguments that are passed to Cucumber
     # by ParallelTests when it creates a new process and executes.
     #
     # Specifically its the value for ParallelTests' `--test-options` argument
@@ -245,7 +232,7 @@ module Quke #:nodoc:
       data.merge(
         "features_folder" => (data["features"] || "features").downcase.strip,
         "app_host" => (data["app_host"] || "").downcase.strip,
-        "driver" => (data["driver"] || "phantomjs").downcase.strip,
+        "driver" => (data["driver"] || "chrome").downcase.strip,
         "headless" => (data["headless"].to_s.downcase.strip == "true"),
         "print_progress" => (data["print_progress"].to_s.downcase.strip == "true"),
         "pause" => (data["pause"] || "0").to_s.downcase.strip.to_i,
@@ -260,7 +247,6 @@ module Quke #:nodoc:
         # us 'true', which is what we want the default value to be
         # rubocop:disable Style/InverseMethods
         "display_failures" => !(data["display_failures"].to_s.downcase.strip == "false"),
-        "javascript_errors" => !(data["javascript_errors"].to_s.downcase.strip == "false"),
         # rubocop:enable Style/InverseMethods
         "custom" => (data["custom"] || nil)
       )

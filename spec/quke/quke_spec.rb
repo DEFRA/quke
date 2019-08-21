@@ -4,7 +4,7 @@ require "spec_helper"
 
 RSpec.describe Quke do
   describe ".execute" do
-    %i[firefox chrome browserstack phantomjs].each do |driver|
+    %i[firefox chrome browserstack].each do |driver|
       before(:example) do
         Quke::Configuration.file_location = data_path(".#{driver}.yml")
         Quke::Quke.config = Quke::Configuration.new

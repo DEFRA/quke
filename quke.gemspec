@@ -16,7 +16,7 @@ Gem::Specification.new do |spec|
   # My attempts to break this line up to meet the 120 char limit we have set
   # have proved fruitles so far!
   # rubocop:disable Metrics/LineLength
-  spec.description   = "Quke tries to simplify the process of writing and running acceptance tests by setting up Cucumber for you. It handles the config to allow you to run your tests in Firefox and Chrome, or the headless browser PhantomJS. It also has out of the box setup for using Browserstack automate. This leaves you to focus on just your features and steps."
+  spec.description   = "Quke tries to simplify the process of writing and running acceptance tests by setting up Cucumber for you. It handles the config to allow you to run your tests in Firefox or Chrome. It also has out of the box setup for using Browserstack automate. This leaves you to focus on just your features and steps."
   # rubocop:enable Metrics/LineLength
 
   spec.files = Dir["{bin,exe,lib}/**/*", "LICENSE", "Rakefile", "README.md"]
@@ -52,19 +52,11 @@ Gem::Specification.new do |spec|
   # expect(page).to have_text 'Welcome to test nirvana!'
   spec.add_dependency "rspec-expectations", "~> 3.8"
 
-  # This is the first of our web drivers i.e. the bits that allow capybara to
-  # to drive an actual browser. Poltergeist is used with a headless browser
-  # called phantomjs, which is superfast and great for using on CI servers
-  # as it has no other dependencies
-  spec.add_dependency "poltergeist", "~> 1.18"
-
-  # selenium-webdriver is used to drive real browsers that may be installed,
-  # for example Firefox, Chrome and Internet Explorer. The benefit of selenium
-  # is you can actually see the tests interacting with the browser, the downside
-  # is they run slower and isn't best suited to a CI environment.
+  # selenium-webdriver is used to drive browsers like Firefox, Chrome and
+  # Internet Explorer.
   spec.add_dependency "selenium-webdriver", "~> 3.14"
 
-  # Needed when wishing to use Chrome or Firefox for selenium tests. You can opt
+  # Needed to use Chrome or Firefox for selenium tests. You can opt
   # to install each driver separately. However in an effort to make using this
   # gem as simple as possible we have gone with using webdrivers. To quote
   # from it "Run Selenium tests more easily with automatic installation and

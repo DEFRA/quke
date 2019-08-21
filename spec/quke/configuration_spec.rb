@@ -37,9 +37,9 @@ RSpec.describe Quke::Configuration do
 
   describe "#driver" do
     context "when NOT specified in the config file" do
-      it "defaults to 'phantomjs'" do
+      it "defaults to 'chrome'" do
         Quke::Configuration.file_location = data_path(".no_file.yml")
-        expect(subject.driver).to eq("phantomjs")
+        expect(subject.driver).to eq("chrome")
       end
     end
 
@@ -208,29 +208,6 @@ RSpec.describe Quke::Configuration do
       it "matches the config file" do
         Quke::Configuration.file_location = data_path(".user_agent.yml")
         expect(subject.user_agent).to eq("Mozilla/5.0 (MSIE 10.0; Windows NT 6.1; Trident/5.0)")
-      end
-    end
-  end
-
-  describe "#javascrip_errors" do
-    context "when NOT specified in the config file" do
-      it "defaults to true" do
-        Quke::Configuration.file_location = data_path(".no_file.yml")
-        expect(subject.javascript_errors).to eq(true)
-      end
-    end
-
-    context "when specified in config file" do
-      it "matches the config file" do
-        Quke::Configuration.file_location = data_path(".javascript_errors.yml")
-        expect(subject.javascript_errors).to eq(false)
-      end
-    end
-
-    context "when in the config file as a string" do
-      it "matches the config file" do
-        Quke::Configuration.file_location = data_path(".as_string.yml")
-        expect(subject.javascript_errors).to eq(false)
       end
     end
   end

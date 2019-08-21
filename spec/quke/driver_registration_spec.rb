@@ -6,7 +6,7 @@ RSpec.describe Quke::DriverRegistration do
   describe "#register" do
 
     context "A valid driver is passed to the method" do
-      %i[firefox chrome browserstack phantomjs].each do |driver|
+      %i[firefox chrome browserstack].each do |driver|
         it "returns the value :#{driver} when that driver is selected" do
           Quke::Configuration.file_location = data_path(".#{driver}.yml")
           config = Quke::Configuration.new
@@ -19,7 +19,7 @@ RSpec.describe Quke::DriverRegistration do
     end
 
     context "An unrecognised driver is passed to the method" do
-      it "returns the default value :phantomjs" do
+      it "returns the default value :chrome" do
         Quke::Configuration.file_location = data_path(".invalid.yml")
         config = Quke::Configuration.new
         driver_config = Quke::DriverConfiguration.new(config)
