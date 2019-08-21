@@ -134,6 +134,24 @@ If you are running using Chrome or Firefox after the 5th failure Quke will autom
 
 If you are using the Browserstack driver, Quke will automatically update the status of the session recorded in Browserstack for you. If all tests pass, it will be marked as 'passed', else it will be marked as 'failed' (it defaults to 'completed').
 
+## Browser drivers
+
+A very simple overview of how things work is that
+
+- [Cucumber](https://github.com/cucumber/cucumber-ruby) runs the tests
+- [Capbybara](https://github.com/teamcapybara/capybara) is used in the tests to simplify working with Selenium
+- [Selenium](https://github.com/SeleniumHQ/selenium/tree/master/rb) is used to tell the browsers what to do
+- each browser has a driver ([Chromedriver](https://chromedriver.chromium.org/), [Geckodriver](https://github.com/mozilla/geckodriver) etc) which can interpret Selenium commands into actual actions
+
+For Quke to work those browser drivers need to be installed. Quke manages this for you using a tool called [Webdrivers](https://github.com/titusfortner/webdrivers). There may be times you want to check the version of these drivers, or force an update to a specific version.
+
+If your project is using [Rake](https://github.com/ruby/rake) add the following to the `Rakefile` and you can then access a series of helper functions, for example `rake webdrivers:chromedriver:version`
+
+```ruby
+require "quke"
+load "quke/Rakefile"
+```
+
 ## Development
 
 After checking out the repo, run `bin/setup` to install dependencies. Then, run `rake spec` to run the tests. You can also run `bin/console` for an interactive prompt that will allow you to experiment.

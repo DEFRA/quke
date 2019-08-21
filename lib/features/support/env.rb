@@ -78,8 +78,8 @@ at_exit do
       else
         puts reporter.failed($session_id)
       end
-    rescue StandardError => err
-      puts err
+    rescue StandardError => e
+      puts e
     end
   end
   # rubocop:enable Style/GlobalVars
