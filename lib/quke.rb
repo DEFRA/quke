@@ -2,6 +2,7 @@
 
 require "selenium/webdriver"
 require "webdrivers"
+require "capybara"
 
 require "quke/version"
 require "quke/browserstack_configuration"

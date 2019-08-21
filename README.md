@@ -9,7 +9,7 @@
 
 Quke is a gem that helps you to build a suite of [Cucumber](https://cucumber.io/) acceptance tests.
 
-Quke tries to simplify the process of writing and running these tests by setting up **Cucumber** for you. It handles the config to allow you to run them in [Firefox](https://www.mozilla.org/en-GB/firefox/new/) (via Selenium) and [Chrome](https://www.google.co.uk/chrome/browser/desktop/) (via [Selenium](https://github.com/SeleniumHQ/selenium/tree/master/rb)), or the headless browser [PhantomJS](http://phantomjs.org/) (via [Poltergeist](https://github.com/teampoltergeist/poltergeist)). It also has out of the box support for using [Browserstack automate](https://www.browserstack.com). This leaves you to focus on just your tests.
+Quke tries to simplify the process of writing and running these tests by setting up **Cucumber** for you. It handles the config to allow you to run them in [Firefox](https://www.mozilla.org/en-GB/firefox/new/) (via Selenium) and [Chrome](https://www.google.co.uk/chrome/browser/desktop/) via [Selenium](https://github.com/SeleniumHQ/selenium/tree/master/rb). It also has out of the box support for using [Browserstack automate](https://www.browserstack.com). This leaves you to focus on just your tests.
 
 It was born out of trying to make the process for team members without a development background as simple as possible, and to get them involved in writing and building acceptance tests that they then manage.
 
@@ -21,32 +21,8 @@ You'll need [Ruby](https://www.ruby-lang.org/en/) installed (ideally the latest 
 
 The only other dependency this project has is the browsers you intend to use it with. It is currently setup to work with
 
-- [PhantomJS](http://phantomjs.org/) (via [Poltergeist](https://github.com/teampoltergeist/poltergeist))
 - [Chrome](https://www.google.co.uk/chrome/browser/desktop/) (via [Selenium](https://github.com/SeleniumHQ/selenium/tree/master/rb))
 - [Firefox](https://www.mozilla.org/en-GB/firefox/new/) (via Selenium)
-
-The one you may not have heard of is **PhantomJS**. It is a [headless browser](https://en.wikipedia.org/wiki/Headless_browser).
-
-> A headless browser is a web browser without a graphical user interface
-
-Quke uses **PhantomJS** as its default browser. Using a headless browser the tests will run much faster and means Quke can also be used as part of your [CI build](https://en.wikipedia.org/wiki/Build_automation).
-
-It is assumed you know what **Chrome** and **Firefox** are and how to install them.
-
-### Install PhantomJS
-
-#### Mac
-
-We highly recommend using [Homebrew](http://brew.sh/) if you are using a **Mac** for installing packages like PhantomJS.
-
-Once installed run `brew install phantomjs`
-
-#### Linux
-
-You'll need to
-
-- Download either the 32bit or 64bit binary from <http://phantomjs.org/download.html>
-- Extract the content and add the `bin/phantomjs` directory to your `PATH`
 
 ## Installation
 
@@ -84,7 +60,7 @@ You do this using an environment variable. The most flexible way is to set the v
 QUKE_CONFIG='chrome.config.yml' bundle exec quke
 ```
 
-The use case is to allow you to have different configs setup ready to go, and enable you to switch between them. For example when testing with Chrome and Firefox you set a 1 second delay between steps so you can observe the tests as they run through, but in your default `.config.yml` you want no pauses and use **phantomjs**.
+The use case is to allow you to have different configs setup ready to go, and enable you to switch between them. For example when testing with Chrome and Firefox you set a 1 second delay between steps so you can observe the tests as they run through, but in your default `.config.yml` you want no pauses.
 
 ### Security
 

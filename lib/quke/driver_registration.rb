@@ -1,7 +1,6 @@
 # frozen_string_literal: true
 
 require "quke/configuration"
-require "capybara/poltergeist"
 require "selenium/webdriver"
 
 module Quke #:nodoc:
@@ -38,37 +37,11 @@ module Quke #:nodoc:
       when "browserstack"
         browserstack
       else
-        phantomjs
+        chrome
       end
     end
 
     private
-
-    # Register the poltergeist driver with capybara.
-    #
-    # By default poltergeist is setup to work with phantomjs hence we refer to
-    # it as :phantomjs. There are a number of options for how to configure
-    # poltergeist, and we can even pass on options to phantomjs to configure how
-    # it runs.
-    def phantomjs
-      # For future reference the options we pass through to phantomjs appear to
-      # mirror those you can actually supply on the command line.
-      # http://phantomjs.org/api/command-line.html
-      # The arguments we can pass to poltergeist are documented here
-      # https://github.com/teampoltergeist/poltergeist#customization
-      Capybara.register_driver :phantomjs do |app|
-        # We ignore the next line (and those like it in the subsequent methods)
-        # from code coverage because we never actually execute them from Quke.
-        # Capybara.register_driver takes a name and a &block, and holds it in a
-        # hash. It executes the block from within Capybara when Cucumber is
-        # called, all we're doing here is telling it what block (code) to
-        # execute at that time.
-        # :simplecov_ignore:
-        Capybara::Poltergeist::Driver.new(app, @driver_config.poltergeist)
-        # :simplecov_ignore:
-      end
-      :phantomjs
-    end
 
     # Register the selenium driver with capybara. By default selinium is setup
     # to work with firefox hence we refer to it as :firefox

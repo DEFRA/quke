@@ -11,16 +11,13 @@ features_folder: 'cukes'
 # the full url each time
 app_host: 'https://en.wikipedia.org/wiki'
 
-# Tells Quke which browser to use for testing. Choices are firefox, chrome,
-# browserstack and phantomjs, with the default being phantomjs
+# Tells Quke which browser to use for testing. Choices are firefox, chrome, and
+# browserstack, with the default being chrome
 driver: chrome
 
 # Let Quke know you want to run the browser in headless mode. Headless mode
 # means the browser still runs but you won't see it displayed. The benefit is
 # that your tests will take less time as it's less resource intensive.
-# This option only applies when the driver is set to 'chrome' or 'firefox'.
-# Phantomjs is a headless only browser, and option is meaningless for
-# browserstack
 headless: true
 
 # Add a pause (in seconds) between steps so you can visually track how the
@@ -42,9 +39,6 @@ stop_on_error: true
 # A copy of the html is saved and Quke will display it in your default browser.
 # This can be useful to diagnose why something has failed, but there are times
 # you may not want Quke to do this.
-#
-# Please note, if the driver is phantomjs or the `headless` is true nothing will
-# be displayed even if this is set to true.
 display_failures: false
 
 # Capybara will attempt to find an element for a period of time, rather than
@@ -61,15 +55,6 @@ max_wait_time: 5
 # you have is not supported by the site.
 user_agent: "Mozilla/5.0 (MSIE 10.0; Windows NT 6.1; Trident/5.0)"
 
-# Currently only supported when using the phantomjs driver (ignored by the
-# others). In phantomjs if a site has a javascript error we can configure it
-# to throw an error which will cause the test to fail. Quke by default sets this
-# to true, however you can override it by setting this flag to false.
-# For example you may be dealing with a legacy site and JavaScript errors
-# are out of your scope. You still want to test other aspects of the site
-# but not let these errors prevent you from using phantomjs.
-javascript_errors: false
-
 # If set Quke will tell Cucumber to output to the console using its
 # 'progress' formatter (simply displays a . for each passing scenario and F for
 # each failing one), rather than the default 'pretty' which displays each
@@ -77,7 +62,7 @@ javascript_errors: false
 # If you don't need to see the detail on each run, this might be easier to
 # follow than the detailed output you see using the default 'pretty' print
 # format.
-print_prgress: false
+print_progress: false
 
 # Tell Quke you want to run tests in parallel. This will make use of the
 # available cores on your machine to run the tests in parallel, reducing the
@@ -141,18 +126,13 @@ custom:
 # If you are running Quke behind a proxy you can configure the proxy details
 # here. You'll need either the hostname or IP of the proxy server (don't include
 # the http:// bit) and the port number (typically 8080). Currently proxy
-# settings will only be applied if you are using the PhantomJS, Chrome or
-# Firefox drivers.
+# settings will only be applied if you are using the Chrome or Firefox drivers.
 proxy:
   host: '10.10.2.70'
   port: 8080
   # In some cases you may also need to tell the browser (driver) not to use the
   # proxy for local or specific connections. For this simply provide a comma
   # separated list of addresses.
-  #
-  # IMPORTANT NOTE! phantomjs does not currently support this option. If you
-  # have to go via a proxy server for external connections, but not local ones
-  # you will be limited to using either the Chrome or Firefox drivers.
   no_proxy: '127.0.0.1,192.168.0.1'
 
 # If you select the browserstack driver, there are a number of options you
