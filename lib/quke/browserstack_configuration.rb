@@ -134,7 +134,7 @@ module Quke #:nodoc:
         # could help in the event of errors
         "v" => "true",
         # Rather than
-        "logfile" => File.join(Dir.pwd, "/tmp/bowerstack_local_log.txt")
+        "logfile" => File.join(Dir.pwd, "/tmp/browserstack_local_log.txt")
       }
       return unless configuration.proxy.use_proxy?
 

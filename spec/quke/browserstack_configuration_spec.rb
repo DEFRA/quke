@@ -142,7 +142,7 @@ RSpec.describe Quke::BrowserstackConfiguration do
           "force" => "true",
           "onlyAutomate" => "true",
           "v" => "true",
-          "logfile" => File.join(Dir.pwd, "/tmp/bowerstack_local_log.txt")
+          "logfile" => File.join(Dir.pwd, "/tmp/browserstack_local_log.txt")
         )
       end
 
@@ -161,7 +161,7 @@ RSpec.describe Quke::BrowserstackConfiguration do
           "force" => "true",
           "onlyAutomate" => "true",
           "v" => "true",
-          "logfile" => File.join(Dir.pwd, "/tmp/bowerstack_local_log.txt"),
+          "logfile" => File.join(Dir.pwd, "/tmp/browserstack_local_log.txt"),
           "proxyHost" => "10.10.2.70",
           "proxyPort" => "8080"
         )
@@ -181,7 +181,7 @@ RSpec.describe Quke::BrowserstackConfiguration do
           "force" => "true",
           "onlyAutomate" => "true",
           "v" => "true",
-          "logfile" => File.join(Dir.pwd, "/tmp/bowerstack_local_log.txt"),
+          "logfile" => File.join(Dir.pwd, "/tmp/browserstack_local_log.txt"),
           "proxyHost" => "10.10.2.70",
           "proxyPort" => "8080"
         )

@@ -1,4 +1,0 @@
-parallel:
-  enable: false
-  group_by: "scenarios"
-  processes: 4

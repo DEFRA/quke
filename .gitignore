@@ -23,6 +23,7 @@ chromedriver.log
 passenger.*.lock
 passenger.*.pid
 /.byebug_history
+browserstack.err
 
 # Config files
 # Bundler
