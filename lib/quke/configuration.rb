@@ -18,16 +18,6 @@ module Quke #:nodoc:
     # returning the config for setting up Quke to use browserstack.
     attr_reader :browserstack
 
-    # Instance of +Quke::ParallelConfiguration+ which manages reading and
-    # returning the config for setting up Quke to use parallel tests.
-    #
-    # The instance will be populated based on what was set in the config.yml
-    # merged with default values.
-    #
-    # These values will then tell Quke whether to run tests in parallel, and if
-    # so how to setup the runs.
-    attr_reader :parallel
-
     # Instance of +Quke::ProxyConfiguration+ which manages reading and
     # returning the config for setting up Quke to use proxy server.
     attr_reader :proxy
@@ -61,7 +51,6 @@ module Quke #:nodoc:
       # Order is important. @browserstack relies on @proxy being set
       @proxy = ::Quke::ProxyConfiguration.new(@data["proxy"] || {})
       @browserstack = ::Quke::BrowserstackConfiguration.new(self)
-      @parallel = ::Quke::ParallelConfiguration.new(self)
     end
 
     # Returns the value set for +features_folder+.

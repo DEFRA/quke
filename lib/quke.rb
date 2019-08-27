@@ -11,7 +11,6 @@ require "quke/configuration"
 require "quke/cuke_runner"
 require "quke/driver_registration"
 require "quke/driver_configuration"
-require "quke/parallel_configuration"
 require "quke/proxy_configuration"
 
 module Quke #:nodoc:

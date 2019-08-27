@@ -64,40 +64,6 @@ user_agent: "Mozilla/5.0 (MSIE 10.0; Windows NT 6.1; Trident/5.0)"
 # format.
 print_progress: false
 
-# Tell Quke you want to run tests in parallel. This will make use of the
-# available cores on your machine to run the tests in parallel, reducing the
-# time it takes them to run.
-#
-# This is great if you have a large test suite (the performance improvement is
-# egligible if you only have a few). However your scenarios must be independent,
-# and the console output will be 'number of processes' * cucumber output. So
-# this is best used if you are just after a simple pass/fail result.
-parrellel:
-  enable: true
-  # The available options are based on those the ParallelTests gem supports
-  #
-  # - found - order of finding files
-  # - steps - number of cucumber/spinach steps
-  # - scenarios - individual cucumber scenarios
-  # - filesize - by size of the file
-  # - runtime - info from runtime log
-  # - default - runtime when runtime log is filled otherwise filesize
-  #
-  # N.B. For cucumber the default actually seems to be number of feature files.
-  #
-  # The reason this is available is to allow you to fine tune your test runs.
-  # If you have a test suite which involves features that have 1 scenario, and
-  # others that have many, you may wish to group by scenario instead of the
-  # default features in order to balance what gets assigned to what processes
-  # https://github.com/grosser/parallel_tests#setup-for-non-rails
-  group_by: scenarios
-  # By default ParallelTests determines the number of processes to create
-  # based on the number of logical cores on a machine. You can experiment
-  # though with increasing this value to see if you can reduce the time it takes
-  # to complete the tests. Note, with each increase the reduction in time will
-  # decrease to a point where it might become detrimental
-  processes: 4
-
 # Anything you place under the 'custom' node in the `.config.yml` file will be
 # available within your steps and page objects by calling
 # `Quke::Quke.config.custom`. So using the example below we could access its
