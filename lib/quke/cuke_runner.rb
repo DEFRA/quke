@@ -46,12 +46,16 @@ module Quke #:nodoc:
 
     # Executes Cucumber passing in the arguments array, which was set when the
     # instance of CukeRunner was initialized.
+    # rubocop:disable Lint/HandleExceptions
     def run
       Cucumber::Cli::Main.new(@args).execute!
-    rescue SystemExit => e
+    rescue SystemExit
       # Cucumber calls @kernel.exit() killing your script unless you rescue
-      raise StandardError, "Cucumber exited in a failed state" unless e.success?
+      # If any tests fail cucumber will exit with an error code however this
+      # is expected and normal behaviour. We capture the exit to prevent it
+      # bubbling up to our app and closing it.
     end
+    # rubocop:enable Lint/HandleExceptions
 
   end
 
