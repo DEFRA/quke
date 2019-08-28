@@ -29,10 +29,6 @@ pause: 1
 # Continuous Integration (CI) environments where a quick Yes/No is preferable to
 # a detailed response. By default Quke sets this to false if not set in the
 # config.
-#
-# If you are running in parallel mode this gets applied to each process spawned.
-# So if 4 processes are spawned and one of them errors, only the one that errors
-# will be stopped.
 stop_on_error: true
 
 # By default Quke will display web pages where a failure has taken place.

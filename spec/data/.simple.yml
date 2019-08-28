@@ -8,11 +8,6 @@ pause: 1
 stop_on_error: true
 max_wait_time: 3
 
-parallel:
-  enable: true
-  group_by: "scenarios"
-  processes: 4
-
 browserstack:
   username: jdoe
   auth_key: 123456789ABCDE

@@ -4,7 +4,7 @@ require "spec_helper"
 
 RSpec.describe Quke::ProxyConfiguration do
   describe "instantiating" do
-    context "when `.config.yml` is blank or contains no parallel section" do
+    context "when `.config.yml` is blank" do
       subject do
         Quke::Configuration.file_location = data_path(".no_file.yml")
         Quke::Configuration.new.proxy

@@ -5,16 +5,12 @@ pause: '1'
 stop_on_error: 'true'
 max_wait_time: '3'
 headless: 'true'
-parallel: 'true'
 javascript_errors: 'false'
 display_failures: 'false'
 print_progress: 'true'
 
 proxy:
   port: '8080'
-
-parallel:
-  processes: '4'
 
 browserstack:
   capabilities:
