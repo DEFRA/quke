@@ -2,7 +2,7 @@
 
 module Quke #:nodoc:
 
-  # Manages all parallel configuration for Quke.
+  # Manages all proxy configuration for Quke.
   class ProxyConfiguration
 
     # The host address for the proxy server

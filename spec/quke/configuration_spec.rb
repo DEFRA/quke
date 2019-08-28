@@ -289,35 +289,47 @@ RSpec.describe Quke::Configuration do
     end
   end
 
-  describe "#cucumber_arg" do
-    let(:default_arg) { "--format pretty -r #{File.join(Dir.pwd, 'lib', 'features')} -r features" }
+  describe "#cucumber_args" do
+    let(:feature_folder_args) { ["features", "-r", File.join(Dir.pwd, "lib", "features"), "-r", "features"] }
+    let(:format_pretty_args) { ["--format", "pretty"] }
+    let(:format_progress_args) { ["--format", "progress"] }
+    let(:fail_fast_args) { ["--fail-fast"] }
     let(:additional_args) { ["--tags", "@wip"] }
+    let(:additional_whitespace_args) { [" --tags ", " @wip "] }
 
     context "when there are no additional arguments" do
-      it "returns the default cucumber arg value" do
+      it "returns the default cucumber args value" do
         Quke::Configuration.file_location = data_path(".no-file.yml")
-        expect(subject.cucumber_arg([])).to eq(default_arg)
+        expect(subject.cucumber_args([])).to eq(format_pretty_args + feature_folder_args)
       end
     end
 
     context "when `stop_on_error` is true" do
-      it "returns the default cucumber arg value including the '--fail-fast' option" do
+      it "returns the default cucumber arg values including the '--fail-fast' option" do
         Quke::Configuration.file_location = data_path(".stop_on_error.yml")
-        expect(subject.cucumber_arg([])).to eq("--fail-fast #{default_arg}")
+
+        expect(subject.cucumber_args([])).to eq(format_pretty_args + fail_fast_args + feature_folder_args)
       end
     end
 
     context "when `print_progress` is true" do
-      it "returns the default cucumber arg value including the '--format progress' option" do
+      it "returns the default cucumber arg values including the '--format progress' option" do
         Quke::Configuration.file_location = data_path(".print_progress.yml")
-        expect(subject.cucumber_arg([])).to include("--format progress")
+        expect(subject.cucumber_args([])).to eq(format_progress_args + feature_folder_args)
       end
     end
 
     context "when there are additional arguments" do
-      it "returns the default cucumber arg value plus the arguments" do
+      it "returns the default cucumber arg values plus the arguments" do
         Quke::Configuration.file_location = data_path(".no-file.yml")
-        expect(subject.cucumber_arg(additional_args)).to eq("#{default_arg} #{additional_args.join(' ')}")
+        expect(subject.cucumber_args(additional_args)).to eq(format_pretty_args + feature_folder_args + additional_args)
+      end
+
+      context "and some arguments have whitespace around them" do
+        it "returns the default cucumber arg values plus the arguments without whitespace" do
+          Quke::Configuration.file_location = data_path(".no-file.yml")
+          expect(subject.cucumber_args(additional_whitespace_args)).to eq(format_pretty_args + feature_folder_args + additional_args)
+        end
       end
     end
   end

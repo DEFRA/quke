@@ -184,32 +184,64 @@ module Quke #:nodoc:
       @data["custom"]
     end
 
-    # Returns a string representing the arguments that are passed to Cucumber
-    # by ParallelTests when it creates a new process and executes.
+    # Returns an array containing the arguments to be passed to Cucumber.
+    # These will be a combination of arguments we need to pass in to make
+    # Cucumber recognise our +env.rb+ file, and the feature and step files from
+    # the host project.
     #
-    # Specifically its the value for ParallelTests' `--test-options` argument
-    # which will be used when generating the array of args to be passed to
-    # ParallelTests. It returns just a string rather than an array because
-    # ParallelTests needs to see this as a single argument.
+    # A typical example of how Quke will formulate the arguments is
+    #
+    #     +--format pretty --fail-fast features -r /path_to_quke/quke/lib/features -r features --tags @wip+
+    #
+    # Broken down they are
+    #
+    # [--format]
+    #   Options are +pretty+ or +progress+. Quke users control this via the
+    #   +print_progress+ setting
+    # [--fail-fast]
+    #   If passed in it will tell Cucumber to stop running after the first
+    # failure. Quke users control this via the +stop_on_error+ setting
+    # [name of features folder]
+    #   name of the users features folder (in most cases it'll just be
+    #  +features+). Quke users control this via the +features_folder+ setting
+    # [-r /path_to_quke/quke/lib/features]
+    #   Tells Cucumber to require Quke's features folder. Because Cucumber is
+    #   called in the context of the executing script it will take the next
+    #   argument from that position, not from where the Quke gem currently sits.
+    #   This means to Cucumber 'quke/lib/features' doesn't exist, which means
+    #   our +env.rb+ never gets loaded. Instead we first have to determine where
+    #   *this* file is running from when called. Then we replace the last part
+    #   of that result (which we know will be +lib/quke+) with +lib/features+.
+    #   We then pass this full path to Cucumber so it can correctly find the
+    #   folder holding our predefined +env.rb+ file and our hooks.
+    # [-r features]
+    #   When using Cucumber directly if you wish to use a different folder from
+    #   the default +features+, or wish to test specific features you are
+    #   required to also specify the path to the folder in the args you pass in.
+    #   In developing Quke we have found we always have to specify this argument
+    #   to make Cucumber's tagging feature work when run from the context of
+    #   Quke.
+    # [--tags @wip]
+    #   This is an example of the additional arguments that may be passed in by
+    #   the user. Essentially anything after the last +-r+ argument to Cucumber
+    #   are arguments pass into Quke by the user which we forward onto Cucumber.
     #
     # The additional args are whatever a user enters after the
     # `bundle exec quke` command.
-    def cucumber_arg(additional_args)
-      # Because cucumber is called in the context of the executing project and
-      # not Quke it will take its arguments in the context of that location, and
-      # not from where the Quke currently sits. This means to Cucumber
-      # 'lib/features' doesn't exist, which means our env.rb never gets loaded.
-      # Instead we first have to determine where this file is running from when
-      # called, then we simply replace the last part of that result (which we
-      # know will be lib/quke) with lib/features. For example __dir__ returns
-      # '/Users/acruikshanks/projects/defra/quke/lib/quke' but we need Cucumber
-      # to load '/Users/acruikshanks/projects/defra/quke/lib/features'
-      # We then pass this full path to Cucumber so it can correctly find the
-      # folder holding our predefined env.rb file.
-      env_folder = __dir__.sub!("lib/quke", "lib/features")
-      fail_fast = "--fail-fast" if stop_on_error
-      print_format = print_progress ? "progress" : "pretty"
-      "#{fail_fast} --format #{print_format} -r #{env_folder} -r #{features_folder} #{additional_args.join(' ')}".strip
+    def cucumber_args(additional_args)
+      args = ["--format", print_progress ? "progress" : "pretty"]
+      args += ["--fail-fast"] if stop_on_error
+      args += [
+        features_folder,
+        # __dir__ will return '/path_to_quke/quke/lib/quke' when run here. We
+        # then take that result and replace `lib/quke` with `lib/features` to
+        # get the value we need to pass to Cucumber
+        "-r", __dir__.sub!("lib/quke", "lib/features"),
+        "-r", features_folder
+      ]
+      args += additional_args.compact.map(&:strip)
+
+      args
     end
 
     private
