@@ -29,19 +29,7 @@ module Quke #:nodoc:
     #       set this to be sure to handle tagged scenarios
     def initialize(passed_in_args = [])
       Quke.config = Configuration.new
-      @args = [
-        Quke.config.features_folder,
-        # Because cucumber is called in the context of the executing script it
-        # will take the next argument from that position, not from where the gem
-        # currently sits. This means to Cucumber 'lib/features' doesn't exist,
-        # which means our env.rb never gets loaded. Instead we first have to
-        # determine where this file is running from when called, then we simply
-        # replace the last part of that result (which we know will be lib/quke)
-        # with lib/features. We then pass this full path to Cucumber so it can
-        # correctly find the folder holding our predefined env.rb file.
-        "-r", __dir__.sub!("lib/quke", "lib/features"),
-        "-r", Quke.config.features_folder
-      ] + passed_in_args
+      @args = Quke.config.cucumber_args(passed_in_args)
     end
 
     # Executes Cucumber passing in the arguments array, which was set when the
