@@ -16,4 +16,6 @@ RDoc::Task.new do |doc|
 end
 
 GitHubChangelogGenerator::RakeTask.new :changelog do |config|
+  config.user = "defra"
+  config.project = "quke"
 end
