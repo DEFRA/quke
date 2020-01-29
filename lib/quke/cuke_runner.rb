@@ -34,7 +34,7 @@ module Quke #:nodoc:
 
     # Executes Cucumber passing in the arguments array, which was set when the
     # instance of CukeRunner was initialized.
-    # rubocop:disable Lint/HandleExceptions
+    # rubocop:disable Lint/SuppressedException
     def run
       Cucumber::Cli::Main.new(@args).execute!
     rescue SystemExit
@@ -43,7 +43,7 @@ module Quke #:nodoc:
       # is expected and normal behaviour. We capture the exit to prevent it
       # bubbling up to our app and closing it.
     end
-    # rubocop:enable Lint/HandleExceptions
+    # rubocop:enable Lint/SuppressedException
 
   end
 
