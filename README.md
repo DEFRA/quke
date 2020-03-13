@@ -1,8 +1,8 @@
 <img src="/quke.png" alt="Quke logo" />
 
 [![Build Status](https://travis-ci.org/DEFRA/quke.svg?branch=master)](https://travis-ci.org/DEFRA/quke)
-[![Maintainability](https://api.codeclimate.com/v1/badges/34f915556feb193d7d82/maintainability)](https://codeclimate.com/github/DEFRA/quke/maintainability)
-[![Test Coverage](https://api.codeclimate.com/v1/badges/34f915556feb193d7d82/test_coverage)](https://codeclimate.com/github/DEFRA/quke/test_coverage)
+[![Maintainability Rating](https://sonarcloud.io/api/project_badges/measure?project=DEFRA_quke&metric=sqale_rating)](https://sonarcloud.io/dashboard?id=DEFRA_quke)
+[![Coverage](https://sonarcloud.io/api/project_badges/measure?project=DEFRA_quke&metric=coverage)](https://sonarcloud.io/dashboard?id=DEFRA_quke)
 [![security](https://hakiri.io/github/DEFRA/quke/master.svg)](https://hakiri.io/github/DEFRA/quke/master)
 [![Gem Version](https://badge.fury.io/rb/quke.svg)](https://badge.fury.io/rb/quke)
 [![Licence](https://img.shields.io/badge/Licence-OGLv3-blue.svg)](http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3)
