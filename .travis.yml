@@ -1,54 +1,24 @@
-# Needed as part of submitting test coverage statistics to CodeClimate as part
-# of the build
-# https://docs.codeclimate.com/v1.0/docs/travis-ci-test-coverage
-env:
-  global:
-    - CC_TEST_REPORTER_ID=1d329b5215a2aa892214c7705d36de6e99608a8649616c93f93464aa06776f4a
+dist: trusty
+
+addons:
+  sonarcloud:
+    organization: "defra"
 
 language: ruby
 rvm: 2.4.2
 cache: bundler
-# Travis CI clones repositories to a depth of 50 commits, which is only really
-# useful if you are performing git operations.
-# https://docs.travis-ci.com/user/customizing-the-build/#Git-Clone-Depth
+
+# Travis CI uses shallow clone to speed up build times, but a truncated SCM
+# history may cause issues when SonarCloud computes blame data. To avoid this,
+# you can access the full SCM history with `depth: false`
 git:
-  depth: 3
+  depth: false
 
 before_install:
   - export TZ=UTC
-  - gem install -v 1.17.2 bundler --no-rdoc --no-ri
+  - gem install -v 1.17.3 bundler --no-rdoc --no-ri
 
-# Using the ability to customise the Travis build to check for 'focus' labels
-# i.e. labels used when working on a spec but which we don't want appearing in
-# the final commit to master
-# Reworking of http://stackoverflow.com/a/30495279/6117745
-# If grep returns 0 (match found), test 0 -eq 1 will return 1.
-# If grep returns 1 (no match found), test 1 -eq 1 will return 0.
-# If grep returns 2 (error), test 2 -eq 1 will return 1.
-before_script:
-  - echo "Checking for use of 'focus' labels in specs" && grep -r --include="*_spec.rb" "focus&#58; true" spec/; test $? -eq 1
-  # Setup to support the CodeClimate test coverage submission
-  # As per CodeClimate's documentation, they suggest only running
-  # ./cc-test-reporter commands on travis-ci push builds only. Hence we wrap all
-  # the codeclimate test coverage related commands in a check that tests if we
-  # are in a pull request or not.
-  - if [ "$TRAVIS_PULL_REQUEST" == "false" ]; then curl -L https://codeclimate.com/downloads/test-reporter/test-reporter-latest-linux-amd64 > ./cc-test-reporter; fi
-  - if [ "$TRAVIS_PULL_REQUEST" == "false" ]; then chmod +x ./cc-test-reporter; fi
-  - if [ "$TRAVIS_PULL_REQUEST" == "false" ]; then ./cc-test-reporter before-build; fi
-  - bundle exec rubocop
-
-after_script:
-  - if [ "$TRAVIS_PULL_REQUEST" == "false" ]; then ./cc-test-reporter after-build --exit-code $TRAVIS_TEST_RESULT; fi
-
-deploy:
-  provider: rubygems
-  api_key:
-    secure: "mrNfo3ZlO4wtr7fp751jltjKZcWeFXLCxxVDHqJVnkdAKpDcbo99Phlq9+fh5Q/o8gIJ4jKQybvr/Zu5t8mrWYJKKLlsUi3UThJG5hOg64ynJKy3jqtU45uCGOc33oBhQAqHTfDI+DZxQTGs2TepoqdyxsSzki
-s9TRj+qyeE2HSO+yz5Qyjwql6o5k9xP82uBFaQI0WKqKdTtdNFv5LZ3EZaRWtyM/jGsunaNAYscDOl3cYN1sXlq+wfCTRvjMGmcppdbsaczQNQdIkXBPZEkydO7FdnSwUFuwm30BP0OBks5myB7oHWbbe0p/YRsUbjLF0dVfn
-AlSERSwhkpMOU1BpK4/vwPBoR8yzgfZG4UZAZQ6hCMtRj+2usKWcI4buryeD+iPDrkVX9FjziOC3OFSbMzo/ojYlkLjvvXuUcTAmWZr0V/VP1x7RAiHNA+Y7EqYRJFJcEE5Av7Yn+hgi8fUtLyiSDLOb4bGJ2fe9R3YeZQ1ge
-pvnarjriXfNZul3K1tP21/oVeXwCRuOjPMxwUmEsPCCjdIu/44U5CvGRbaqJXAqYJm71u+Y96RfkjytRnLmAc13nIBiFCUqUyoab4GIsy9AZ4TzE9ROGwLTC3y05gMVlYVJk4GTtVCjJwqNB2LWRXo/PseWaDdRZYmnNTr5wI
-kB5wbWRtEYUdIOb70c="
-  gem: quke
-  on:
-    tags: true
-    repo: DEFRA/quke
+script:
+  - bundle exec rubocop --format=json --out=rubocop-result.json
+  - bundle exec rspec
+  - sonar-scanner
