@@ -15,9 +15,9 @@ Gem::Specification.new do |spec|
   spec.summary       = "A gem to simplify creating acceptance tests using Cucumber"
   # My attempts to break this line up to meet the 120 char limit we have set
   # have proved fruitles so far!
-  # rubocop:disable Metrics/LineLength
+  # rubocop:disable Layout/LineLength
   spec.description   = "Quke tries to simplify the process of writing and running acceptance tests by setting up Cucumber for you. It handles the config to allow you to run your tests in Firefox or Chrome. It also has out of the box setup for using Browserstack automate. This leaves you to focus on just your features and steps."
-  # rubocop:enable Metrics/LineLength
+  # rubocop:enable Layout/LineLength
 
   spec.files = Dir["{bin,exe,lib}/**/*", "LICENSE", "Rakefile", "README.md"]
   spec.bindir = "exe"
