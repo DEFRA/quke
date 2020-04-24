@@ -19,6 +19,6 @@ before_install:
   - gem install -v 1.17.3 bundler --no-rdoc --no-ri
 
 script:
-  - bundle exec rubocop --format=json --out=rubocop-result.json
+  - bundle exec rubocop --format progress --format json --out rubocop-result.json
   - bundle exec rspec
   - sonar-scanner
