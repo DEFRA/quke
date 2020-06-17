@@ -16,7 +16,7 @@ git:
 
 before_install:
   - export TZ=UTC
-  - gem install -v 1.17.3 bundler --no-rdoc --no-ri
+  - gem install -v 1.17.3 bundler --no-document
 
 script:
   - bundle exec rubocop --format progress --format json --out rubocop-result.json
