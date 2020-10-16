@@ -46,7 +46,6 @@ module Quke #:nodoc:
     # passed in.
     #--
     # rubocop:disable Metrics/CyclomaticComplexity
-    # rubocop:disable Metrics/PerceivedComplexity
     #++
     def initialize(configuration)
       @using_browserstack = configuration.data["driver"] == "browserstack"
@@ -58,7 +57,6 @@ module Quke #:nodoc:
       determine_local_testing_args(configuration)
     end
     # rubocop:enable Metrics/CyclomaticComplexity
-    # rubocop:enable Metrics/PerceivedComplexity
 
     # Return true if the +browserstack.local+ value has been set to true in the
     # +.config.yml+ file and the driver is set to 'browserstack', else false.
