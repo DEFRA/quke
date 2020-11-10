@@ -21,10 +21,6 @@ jobs:
         with:
           bundler-cache: true # runs 'bundle install' and caches installed gems automatically
 
-      # Performs a clean installation of all dependencies in the `Gemfile.lock` file
-      - name: Install dependencies
-        run: bundle install
-
       # Run linting first. No point running the tests if there is a linting issue
       - name: Run lint check
         run: |
