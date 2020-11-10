@@ -1,6 +1,6 @@
 <img src="/quke.png" alt="Quke logo" />
 
-[![Build Status](https://travis-ci.com/DEFRA/quke.svg?branch=main)](https://travis-ci.com/DEFRA/quke)
+![Build Status](https://github.com/DEFRA/quke/workflows/CI/badge.svg?branch=main)
 [![Maintainability Rating](https://sonarcloud.io/api/project_badges/measure?project=DEFRA_quke&metric=sqale_rating)](https://sonarcloud.io/dashboard?id=DEFRA_quke)
 [![Coverage](https://sonarcloud.io/api/project_badges/measure?project=DEFRA_quke&metric=coverage)](https://sonarcloud.io/dashboard?id=DEFRA_quke)
 [![security](https://hakiri.io/github/DEFRA/quke/main.svg)](https://hakiri.io/github/DEFRA/quke/main)

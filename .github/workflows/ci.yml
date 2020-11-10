@@ -1,0 +1,47 @@
+name: CI
+
+on: push
+
+jobs:
+  build:
+    # You must use a Linux environment when using service containers or container jobs
+    runs-on: ubuntu-latest
+
+    steps:
+      # Downloads a copy of the code in your repository before running CI tests
+      - name: Checkout repository
+        uses: actions/checkout@v2
+        with:
+          fetch-depth: 0  # Shallow clones should be disabled for a better relevancy of sonarcloud analysis
+
+      # We don't have to specify the ruby version, or grab it from .ruby-verion. This action supports reading the
+      # version from .ruby-verion itself
+      - name: Install Ruby
+        uses: ruby/setup-ruby@v1
+        with:
+          bundler-cache: true # runs 'bundle install' and caches installed gems automatically
+
+      # Performs a clean installation of all dependencies in the `Gemfile.lock` file
+      - name: Install dependencies
+        run: bundle install
+
+      # Run linting first. No point running the tests if there is a linting issue
+      - name: Run lint check
+        run: |
+          bundle exec rubocop --format progress --format json --out rubocop-result.json
+
+      # This includes an extra run step. The sonarcloud analysis will be run in a docker container with the current
+      # folder mounted as `/github/workspace`. The problem is when the .resultset.json file is generated it will
+      # reference the code in the current folder. So to enable sonarcloud to matchup code coverage with the files we use
+      # sed to update the references in .resultset.json
+      # https://community.sonarsource.com/t/code-coverage-doesnt-work-with-github-action/16747/6
+      - name: Run unit tests
+        run: |
+          bundle exec rspec
+          sed -i 's/\/home\/runner\/work\/quke\/quke\//\/github\/workspace\//g' coverage/.resultset.json
+
+      - name: Analyze with SonarCloud
+        uses: sonarsource/sonarcloud-github-action@master
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} # This is provided automatically by GitHub
+          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }} # This needs to be set in your repo; settings -> secrets
