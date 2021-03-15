@@ -41,6 +41,9 @@ module Quke #:nodoc:
       # If any tests fail cucumber will exit with an error code however this
       # is expected and normal behaviour. We capture the exit to prevent it
       # bubbling up to our app and closing it.
+      # Abort sets error code to 1 otherwise status code 0 returned at end of test run
+      # hiding failing tests run in CI
+      abort "Failing tests"
     end
 
   end
