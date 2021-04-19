@@ -60,5 +60,12 @@ RSpec.describe Quke do
       end
     end
 
+    context "when one of the tests errors" do
+      before { expect(Cucumber::Cli::Main).to receive(:new).and_raise(SystemExit) }
+
+      it "holds onto the errors and raises them at the end" do
+        expect { Quke::Quke.execute }.to raise_error(Quke::QukeError, "At least one Cucumber test failed")
+      end
+    end
   end
 end

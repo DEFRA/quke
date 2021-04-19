@@ -35,12 +35,16 @@ module Quke #:nodoc:
     # Executes Cucumber passing in the arguments array, which was set when the
     # instance of CukeRunner was initialized.
     def run
+      errors = []
       Cucumber::Cli::Main.new(@args).execute!
-    rescue SystemExit
+
+      errors
+    rescue SystemExit => e
       # Cucumber calls @kernel.exit() killing your script unless you rescue
       # If any tests fail cucumber will exit with an error code however this
       # is expected and normal behaviour. We capture the exit to prevent it
       # bubbling up to our app and closing it.
+      errors << e
     end
 
   end
