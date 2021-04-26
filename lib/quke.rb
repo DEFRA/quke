@@ -15,6 +15,8 @@ require "quke/proxy_configuration"
 
 module Quke #:nodoc:
 
+  class QukeError < StandardError; end
+
   # The main Quke class. It is not intended to be instantiated and instead
   # just need to call its +execute+ method.
   class Quke
@@ -28,7 +30,10 @@ module Quke #:nodoc:
     # The entry point for Quke, it is the one call made by +exe/quke+.
     def self.execute(args = [])
       cuke = CukeRunner.new(args)
-      cuke.run
+      errors = cuke.run
+      return if errors.empty?
+
+      raise QukeError.new, "Number of failures or errors: #{errors.count}"
     end
 
   end

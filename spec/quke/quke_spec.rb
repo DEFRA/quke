@@ -60,5 +60,20 @@ RSpec.describe Quke do
       end
     end
 
+    context "when one of the tests throws a SystemError with status 1" do
+      before { expect(Cucumber::Cli::Main).to receive(:new).and_raise(SystemExit, 1) }
+
+      it "holds onto the errors and raises them at the end" do
+        expect { Quke::Quke.execute }.to raise_error(Quke::QukeError, "Number of failures or errors: 1")
+      end
+    end
+
+    context "when one of the tests throws a SystemError with status 0" do
+      before { expect(Cucumber::Cli::Main).to receive(:new).and_raise(SystemExit, 0) }
+
+      it "does not raise an error" do
+        expect { Quke::Quke.execute }.not_to raise_error
+      end
+    end
   end
 end

@@ -35,12 +35,19 @@ module Quke #:nodoc:
     # Executes Cucumber passing in the arguments array, which was set when the
     # instance of CukeRunner was initialized.
     def run
-      Cucumber::Cli::Main.new(@args).execute!
-    rescue SystemExit
-      # Cucumber calls @kernel.exit() killing your script unless you rescue
-      # If any tests fail cucumber will exit with an error code however this
-      # is expected and normal behaviour. We capture the exit to prevent it
-      # bubbling up to our app and closing it.
+      errors = []
+
+      begin
+        Cucumber::Cli::Main.new(@args).execute!
+      rescue SystemExit => e
+        # Cucumber calls @kernel.exit() whenever a test fails, or when the test
+        # suite has finished running. We prefer to run the full test suite every
+        # time, and then fail at the end. However if the SystemExit is a
+        # successful one, we don't want to log it as an error.
+        errors << e unless e.success?
+      end
+
+      errors
     end
 
   end
