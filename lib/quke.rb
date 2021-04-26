@@ -15,11 +15,7 @@ require "quke/proxy_configuration"
 
 module Quke #:nodoc:
 
-  class QukeError < StandardError
-    def message
-      "At least one Cucumber test failed"
-    end
-  end
+  class QukeError < StandardError; end
 
   # The main Quke class. It is not intended to be instantiated and instead
   # just need to call its +execute+ method.
@@ -37,7 +33,7 @@ module Quke #:nodoc:
       errors = cuke.run
 
       if errors.any?
-        raise QukeError.new
+        raise QukeError.new("Number of failures or errors: #{errors.count}")
       end
     end
 
