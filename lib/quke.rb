@@ -31,10 +31,9 @@ module Quke #:nodoc:
     def self.execute(args = [])
       cuke = CukeRunner.new(args)
       errors = cuke.run
+      return if errors.empty?
 
-      if errors.any?
-        raise QukeError.new("Number of failures or errors: #{errors.count}")
-      end
+      raise QukeError.new, "Number of failures or errors: #{errors.count}"
     end
 
   end

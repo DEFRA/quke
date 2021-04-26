@@ -38,7 +38,7 @@ module Quke #:nodoc:
       errors = []
 
       begin
-        status = Cucumber::Cli::Main.new(@args).execute!
+        Cucumber::Cli::Main.new(@args).execute!
       rescue SystemExit => e
         # Cucumber calls @kernel.exit() whenever a test fails, or when the test
         # suite has finished running. We prefer to run the full test suite every
