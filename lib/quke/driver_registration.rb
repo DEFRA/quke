@@ -3,7 +3,7 @@
 require "quke/configuration"
 require "selenium/webdriver"
 
-module Quke #:nodoc:
+module Quke # :nodoc:
 
   # Helper class that contains all methods related to registering drivers with
   # Capybara.

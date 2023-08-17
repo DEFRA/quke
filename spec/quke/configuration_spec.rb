@@ -6,14 +6,14 @@ RSpec.describe Quke::Configuration do
   describe "#features_folder" do
     context "when specified NOT specified in config file" do
       it "defaults to 'features'" do
-        Quke::Configuration.file_location = data_path(".no_file.yml")
+        described_class.file_location = data_path(".no_file.yml")
         expect(subject.features_folder).to eq("features")
       end
     end
 
     context "when specified in config file" do
       it "matches the config file" do
-        Quke::Configuration.file_location = data_path(".simple.yml")
+        described_class.file_location = data_path(".simple.yml")
         expect(subject.features_folder).to eq("spec")
       end
     end
@@ -22,14 +22,14 @@ RSpec.describe Quke::Configuration do
   describe "#app_host" do
     context "when NOT specified in the config file" do
       it "defaults to ''" do
-        Quke::Configuration.file_location = data_path(".no_file.yml")
+        described_class.file_location = data_path(".no_file.yml")
         expect(subject.app_host).to eq("")
       end
     end
 
     context "when specified in config file" do
       it "matches the config file" do
-        Quke::Configuration.file_location = data_path(".simple.yml")
+        described_class.file_location = data_path(".simple.yml")
         expect(subject.app_host).to eq("http://localhost:4567")
       end
     end
@@ -38,14 +38,14 @@ RSpec.describe Quke::Configuration do
   describe "#driver" do
     context "when NOT specified in the config file" do
       it "defaults to 'chrome'" do
-        Quke::Configuration.file_location = data_path(".no_file.yml")
+        described_class.file_location = data_path(".no_file.yml")
         expect(subject.driver).to eq("chrome")
       end
     end
 
     context "when specified in the config file" do
       it "matches the config file" do
-        Quke::Configuration.file_location = data_path(".simple.yml")
+        described_class.file_location = data_path(".simple.yml")
         expect(subject.driver).to eq("chrome")
       end
     end
@@ -54,22 +54,22 @@ RSpec.describe Quke::Configuration do
   describe "#headless" do
     context "when NOT specified in the config file" do
       it "defaults to false" do
-        Quke::Configuration.file_location = data_path(".no_file.yml")
-        expect(subject.headless).to eq(false)
+        described_class.file_location = data_path(".no_file.yml")
+        expect(subject.headless).to be(false)
       end
     end
 
     context "when specified in the config file" do
       it "matches the config file" do
-        Quke::Configuration.file_location = data_path(".headless.yml")
-        expect(subject.headless).to eq(true)
+        described_class.file_location = data_path(".headless.yml")
+        expect(subject.headless).to be(true)
       end
     end
 
     context "when in the config file as a string" do
       it "matches the config file" do
-        Quke::Configuration.file_location = data_path(".as_string.yml")
-        expect(subject.headless).to eq(true)
+        described_class.file_location = data_path(".as_string.yml")
+        expect(subject.headless).to be(true)
       end
     end
   end
@@ -77,21 +77,21 @@ RSpec.describe Quke::Configuration do
   describe "#pause" do
     context "when NOT specified in the config file" do
       it "defaults to 0" do
-        Quke::Configuration.file_location = data_path(".no_file.yml")
+        described_class.file_location = data_path(".no_file.yml")
         expect(subject.pause).to eq(0)
       end
     end
 
     context "when specified in config file" do
       it "matches the config file" do
-        Quke::Configuration.file_location = data_path(".simple.yml")
+        described_class.file_location = data_path(".simple.yml")
         expect(subject.pause).to eq(1)
       end
     end
 
     context "when in the config file as a string" do
       it "matches the config file" do
-        Quke::Configuration.file_location = data_path(".as_string.yml")
+        described_class.file_location = data_path(".as_string.yml")
         expect(subject.pause).to eq(1)
       end
     end
@@ -100,22 +100,22 @@ RSpec.describe Quke::Configuration do
   describe "#stop_on_error" do
     context "when NOT specified in the config file" do
       it "defaults to false" do
-        Quke::Configuration.file_location = data_path(".no_file.yml")
-        expect(subject.stop_on_error).to eq(false)
+        described_class.file_location = data_path(".no_file.yml")
+        expect(subject.stop_on_error).to be(false)
       end
     end
 
     context "when specified in config file" do
       it "matches the config file" do
-        Quke::Configuration.file_location = data_path(".simple.yml")
-        expect(subject.stop_on_error).to eq(true)
+        described_class.file_location = data_path(".simple.yml")
+        expect(subject.stop_on_error).to be(true)
       end
     end
 
     context "when in the config file as a string" do
       it "matches the config file" do
-        Quke::Configuration.file_location = data_path(".as_string.yml")
-        expect(subject.stop_on_error).to eq(true)
+        described_class.file_location = data_path(".as_string.yml")
+        expect(subject.stop_on_error).to be(true)
       end
     end
   end
@@ -123,22 +123,22 @@ RSpec.describe Quke::Configuration do
   describe "#display_failures" do
     context "when NOT specified in the config file" do
       it "defaults to true" do
-        Quke::Configuration.file_location = data_path(".no_file.yml")
-        expect(subject.display_failures).to eq(true)
+        described_class.file_location = data_path(".no_file.yml")
+        expect(subject.display_failures).to be(true)
       end
     end
 
     context "when specified in the config file" do
       it "matches the config file" do
-        Quke::Configuration.file_location = data_path(".display_failures.yml")
-        expect(subject.display_failures).to eq(false)
+        described_class.file_location = data_path(".display_failures.yml")
+        expect(subject.display_failures).to be(false)
       end
     end
 
     context "when in the config file as a string" do
       it "matches the config file" do
-        Quke::Configuration.file_location = data_path(".as_string.yml")
-        expect(subject.display_failures).to eq(false)
+        described_class.file_location = data_path(".as_string.yml")
+        expect(subject.display_failures).to be(false)
       end
     end
   end
@@ -146,29 +146,29 @@ RSpec.describe Quke::Configuration do
   describe "#display_failures?" do
     context "when `headless` is false and `display_failures` is false" do
       it "returns false" do
-        Quke::Configuration.file_location = data_path(".display_failures.yml")
-        expect(subject.display_failures?).to eq(false)
+        described_class.file_location = data_path(".display_failures.yml")
+        expect(subject.display_failures?).to be(false)
       end
     end
 
     context "when `headless` is true and `display_failures` is false" do
       it "returns false" do
-        Quke::Configuration.file_location = data_path(".as_string.yml")
-        expect(subject.display_failures?).to eq(false)
+        described_class.file_location = data_path(".as_string.yml")
+        expect(subject.display_failures?).to be(false)
       end
     end
 
     context "when `headless` is false and `display_failures` is true" do
       it "returns false" do
-        Quke::Configuration.file_location = data_path(".no_file.yml")
-        expect(subject.display_failures?).to eq(true)
+        described_class.file_location = data_path(".no_file.yml")
+        expect(subject.display_failures?).to be(true)
       end
     end
 
     context "when `headless` is true and `display_failures` is true" do
       it "returns false" do
-        Quke::Configuration.file_location = data_path(".should_display_failures.yml")
-        expect(subject.display_failures?).to eq(false)
+        described_class.file_location = data_path(".should_display_failures.yml")
+        expect(subject.display_failures?).to be(false)
       end
     end
   end
@@ -176,21 +176,21 @@ RSpec.describe Quke::Configuration do
   describe "#max_wait_time" do
     context "when NOT specified in the config file" do
       it "defaults to whatever the Capybara default is" do
-        Quke::Configuration.file_location = data_path(".no_file.yml")
+        described_class.file_location = data_path(".no_file.yml")
         expect(subject.max_wait_time).to eq(Capybara.default_max_wait_time)
       end
     end
 
     context "when specified in config file" do
       it "matches the config file" do
-        Quke::Configuration.file_location = data_path(".simple.yml")
+        described_class.file_location = data_path(".simple.yml")
         expect(subject.max_wait_time).to eq(3)
       end
     end
 
     context "when in the config file as a string" do
       it "matches the config file" do
-        Quke::Configuration.file_location = data_path(".as_string.yml")
+        described_class.file_location = data_path(".as_string.yml")
         expect(subject.max_wait_time).to eq(3)
       end
     end
@@ -199,14 +199,14 @@ RSpec.describe Quke::Configuration do
   describe "#user_agent" do
     context "when NOT specified in the config file" do
       it "defaults to ''" do
-        Quke::Configuration.file_location = data_path(".no_file.yml")
+        described_class.file_location = data_path(".no_file.yml")
         expect(subject.user_agent).to eq("")
       end
     end
 
     context "when specified in the config file" do
       it "matches the config file" do
-        Quke::Configuration.file_location = data_path(".user_agent.yml")
+        described_class.file_location = data_path(".user_agent.yml")
         expect(subject.user_agent).to eq("Mozilla/5.0 (MSIE 10.0; Windows NT 6.1; Trident/5.0)")
       end
     end
@@ -215,22 +215,22 @@ RSpec.describe Quke::Configuration do
   describe "#print_progress" do
     context "when NOT specified in the config file" do
       it "defaults to false" do
-        Quke::Configuration.file_location = data_path(".no_file.yml")
-        expect(subject.print_progress).to eq(false)
+        described_class.file_location = data_path(".no_file.yml")
+        expect(subject.print_progress).to be(false)
       end
     end
 
     context "when specified in the config file" do
       it "matches the config file" do
-        Quke::Configuration.file_location = data_path(".print_progress.yml")
-        expect(subject.print_progress).to eq(true)
+        described_class.file_location = data_path(".print_progress.yml")
+        expect(subject.print_progress).to be(true)
       end
     end
 
     context "when in the config file as a string" do
       it "matches the config file" do
-        Quke::Configuration.file_location = data_path(".as_string.yml")
-        expect(subject.print_progress).to eq(true)
+        described_class.file_location = data_path(".as_string.yml")
+        expect(subject.print_progress).to be(true)
       end
     end
   end
@@ -238,19 +238,19 @@ RSpec.describe Quke::Configuration do
   describe "#custom" do
     context "when NOT specified in the config file" do
       it "defaults to nothing" do
-        Quke::Configuration.file_location = data_path(".no_file.yml")
-        expect(subject.custom).to be(nil)
+        described_class.file_location = data_path(".no_file.yml")
+        expect(subject.custom).to be_nil
       end
     end
 
     context "when 'custom' in the config file holds simple key value pairs" do
       it "returns the key value pair if there is just one" do
-        Quke::Configuration.file_location = data_path(".custom_key_value_pair.yml")
+        described_class.file_location = data_path(".custom_key_value_pair.yml")
         expect(subject.custom).to eq("my_key" => "my_value")
       end
 
       it "returns all key value pairs if there are multiples" do
-        Quke::Configuration.file_location = data_path(".custom_key_value_pairs.yml")
+        described_class.file_location = data_path(".custom_key_value_pairs.yml")
         expect(subject.custom).to eq(
           "my_key1" => "my_value1",
           "my_key2" => "my_value2",
@@ -263,7 +263,7 @@ RSpec.describe Quke::Configuration do
 
     context "when 'custom' in the config file holds a hierachical object" do
       it "returns a representation of the object" do
-        Quke::Configuration.file_location = data_path(".custom_complex_object.yml")
+        described_class.file_location = data_path(".custom_complex_object.yml")
         expect(subject.custom).to eq(
           "my_key" => "my_value",
           "accounts" => {
@@ -299,14 +299,14 @@ RSpec.describe Quke::Configuration do
 
     context "when there are no additional arguments" do
       it "returns the default cucumber args value" do
-        Quke::Configuration.file_location = data_path(".no-file.yml")
+        described_class.file_location = data_path(".no-file.yml")
         expect(subject.cucumber_args([])).to eq(format_pretty_args + feature_folder_args)
       end
     end
 
     context "when `stop_on_error` is true" do
       it "returns the default cucumber arg values including the '--fail-fast' option" do
-        Quke::Configuration.file_location = data_path(".stop_on_error.yml")
+        described_class.file_location = data_path(".stop_on_error.yml")
 
         expect(subject.cucumber_args([])).to eq(format_pretty_args + fail_fast_args + feature_folder_args)
       end
@@ -314,20 +314,20 @@ RSpec.describe Quke::Configuration do
 
     context "when `print_progress` is true" do
       it "returns the default cucumber arg values including the '--format progress' option" do
-        Quke::Configuration.file_location = data_path(".print_progress.yml")
+        described_class.file_location = data_path(".print_progress.yml")
         expect(subject.cucumber_args([])).to eq(format_progress_args + feature_folder_args)
       end
     end
 
     context "when there are additional arguments" do
       it "returns the default cucumber arg values plus the arguments" do
-        Quke::Configuration.file_location = data_path(".no-file.yml")
+        described_class.file_location = data_path(".no-file.yml")
         expect(subject.cucumber_args(additional_args)).to eq(format_pretty_args + feature_folder_args + additional_args)
       end
 
       context "and some arguments have whitespace around them" do
         it "returns the default cucumber arg values plus the arguments without whitespace" do
-          Quke::Configuration.file_location = data_path(".no-file.yml")
+          described_class.file_location = data_path(".no-file.yml")
           expect(subject.cucumber_args(additional_whitespace_args)).to eq(format_pretty_args + feature_folder_args + additional_args)
         end
       end
@@ -337,7 +337,7 @@ RSpec.describe Quke::Configuration do
   describe ".file_name" do
     context "environment variable not set" do
       it "returns the default value '.config.yml'" do
-        expect(Quke::Configuration.file_name).to eq(".config.yml")
+        expect(described_class.file_name).to eq(".config.yml")
       end
     end
   end

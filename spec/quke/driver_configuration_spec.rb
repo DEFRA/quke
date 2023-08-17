@@ -10,7 +10,7 @@ RSpec.describe Quke::DriverConfiguration do
       it "returns an instance of Chrome::Options where the proxy details are NOT set" do
         Quke::Configuration.file_location = data_path(".no_file.yml")
         config = Quke::Configuration.new
-        expect(Quke::DriverConfiguration.new(config).chrome.args).to eq(Set[])
+        expect(described_class.new(config).chrome.args).to eq([])
       end
     end
 
@@ -18,8 +18,8 @@ RSpec.describe Quke::DriverConfiguration do
       it "returns an instance of Chrome::Options containing basic proxy settings" do
         Quke::Configuration.file_location = data_path(".proxy_basic.yml")
         config = Quke::Configuration.new
-        expect(Quke::DriverConfiguration.new(config).chrome.args).to eq(
-          Set[
+        expect(described_class.new(config).chrome.args).to eq(
+          [
             "--proxy-server=#{config.proxy.host}:#{config.proxy.port}"
           ]
         )
@@ -30,8 +30,8 @@ RSpec.describe Quke::DriverConfiguration do
       it "returns an instance of Chrome::Options containing proxy settings including no-proxy details" do
         Quke::Configuration.file_location = data_path(".proxy.yml")
         config = Quke::Configuration.new
-        expect(Quke::DriverConfiguration.new(config).chrome.args).to eq(
-          Set[
+        expect(described_class.new(config).chrome.args).to eq(
+          [
             "--proxy-server=#{config.proxy.host}:#{config.proxy.port}",
             "--proxy-bypass-list=127.0.0.1;192.168.0.1"
           ]
@@ -43,8 +43,8 @@ RSpec.describe Quke::DriverConfiguration do
       it "returns an instance of Chrome::Options containing the specified user-agent" do
         Quke::Configuration.file_location = data_path(".user_agent.yml")
         config = Quke::Configuration.new
-        expect(Quke::DriverConfiguration.new(config).chrome.args).to eq(
-          Set[
+        expect(described_class.new(config).chrome.args).to eq(
+          [
             "--user-agent=#{config.user_agent}"
           ]
         )
@@ -55,7 +55,7 @@ RSpec.describe Quke::DriverConfiguration do
       it "returns an instance of Chrome::Options set to run the browser in headless mode" do
         Quke::Configuration.file_location = data_path(".headless.yml")
         config = Quke::Configuration.new
-        expect(Quke::DriverConfiguration.new(config).chrome.args).to eq(Set["--headless"])
+        expect(described_class.new(config).chrome.args).to eq(["--headless=new"])
       end
     end
 
@@ -67,7 +67,7 @@ RSpec.describe Quke::DriverConfiguration do
       it "returns an instance of Firefox::Options where the proxy details are NOT set" do
         Quke::Configuration.file_location = data_path(".no_file.yml")
         config = Quke::Configuration.new
-        profile = Quke::DriverConfiguration.new(config).firefox.profile
+        profile = described_class.new(config).firefox.profile
 
         # See spec/helpers.rb#read_profile_preferences for details of why we
         # need to test the profile's properties in this way
@@ -82,7 +82,7 @@ RSpec.describe Quke::DriverConfiguration do
       it "returns an instance of Firefox::Options containing basic proxy settings" do
         Quke::Configuration.file_location = data_path(".proxy_basic.yml")
         config = Quke::Configuration.new
-        profile = Quke::DriverConfiguration.new(config).firefox.profile
+        profile = described_class.new(config).firefox.profile
 
         # See spec/helpers.rb#read_profile_preferences for details of why we
         # need to test the profile's properties in this way
@@ -97,7 +97,7 @@ RSpec.describe Quke::DriverConfiguration do
       it "returns an instance of Firefox::Options containing proxy settings including no-proxy details" do
         Quke::Configuration.file_location = data_path(".proxy.yml")
         config = Quke::Configuration.new
-        profile = Quke::DriverConfiguration.new(config).firefox.profile
+        profile = described_class.new(config).firefox.profile
 
         # See spec/helpers.rb#read_profile_preferences for details of why we
         # need to test the profile's properties in this way
@@ -113,7 +113,7 @@ RSpec.describe Quke::DriverConfiguration do
       it "returns an instance of Firefox::Options containing the specified user-agent" do
         Quke::Configuration.file_location = data_path(".user_agent.yml")
         config = Quke::Configuration.new
-        profile = Quke::DriverConfiguration.new(config).firefox.profile
+        profile = described_class.new(config).firefox.profile
 
         # See spec/helpers.rb#read_profile_preferences for details of why we
         # need to test the profile's properties in this way
@@ -129,7 +129,7 @@ RSpec.describe Quke::DriverConfiguration do
       it "returns an instance of Firefox::Options set to run the browser in headless mode" do
         Quke::Configuration.file_location = data_path(".headless.yml")
         config = Quke::Configuration.new
-        expect(Quke::DriverConfiguration.new(config).chrome.args).to eq(Set["--headless"])
+        expect(described_class.new(config).chrome.args).to eq(["--headless=new"])
       end
     end
 
@@ -138,20 +138,12 @@ RSpec.describe Quke::DriverConfiguration do
   describe "#browserstack" do
 
     context "browserstack details have NOT been set in the .config.yml" do
-      it "returns capabilities set to Selenium::WebDriver::Remote::Capabilities defaults" do
+      it "returns an empty set of capabilities" do
         Quke::Configuration.file_location = data_path(".no_file.yml")
         config = Quke::Configuration.new
-        capabilities = Quke::DriverConfiguration.new(config).browserstack
+        capabilities = described_class.new(config).browserstack
 
-        expect(capabilities.as_json.keys.count).to eq(8)
-        expect(capabilities["browserName"]).to eq(nil)
-        expect(capabilities["version"]).to eq(nil)
-        expect(capabilities["platform"]).to eq(nil)
-        expect(capabilities["javascriptEnabled"]).to eq(nil)
-        expect(capabilities["cssSelectorsEnabled"]).to eq(nil)
-        expect(capabilities["takesScreenshot"]).to eq(nil)
-        expect(capabilities["nativeEvents"]).to eq(nil)
-        expect(capabilities["rotatable"]).to eq(nil)
+        expect(capabilities.as_json.keys.count).to eq(0)
       end
     end
 
@@ -159,7 +151,7 @@ RSpec.describe Quke::DriverConfiguration do
       it "returns capabilities that match those set" do
         Quke::Configuration.file_location = data_path(".browserstack.yml")
         config = Quke::Configuration.new
-        capabilities = Quke::DriverConfiguration.new(config).browserstack
+        capabilities = described_class.new(config).browserstack
         expected_capabilities = YAML.load_file(data_path(".browserstack.yml"))["browserstack"]["capabilities"]
 
         expect(capabilities["build"]).to eq(expected_capabilities["build"])

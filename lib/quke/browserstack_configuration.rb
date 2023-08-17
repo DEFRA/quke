@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-module Quke #:nodoc:
+module Quke # :nodoc:
 
   # Determines the configuration for browserstack, when selected as the driver
   class BrowserstackConfiguration
@@ -108,7 +108,7 @@ module Quke #:nodoc:
     #     )
     #
     def url
-      return "http://#{@username}:#{@auth_key}@hub.browserstack.com/wd/hub" unless @username == ""
+      "http://#{@username}:#{@auth_key}@hub.browserstack.com/wd/hub" unless @username == ""
     end
 
     private

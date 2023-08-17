@@ -6,7 +6,7 @@ RSpec.describe Quke::BrowserstackStatusReporter do
   subject do
     Quke::Configuration.file_location = data_path(".no_file.yml")
     config = Quke::BrowserstackConfiguration.new(Quke::Configuration.new)
-    Quke::BrowserstackStatusReporter.new(config)
+    described_class.new(config)
   end
 
   describe "#passed" do
@@ -17,7 +17,7 @@ RSpec.describe Quke::BrowserstackStatusReporter do
     end
 
     context "when the session_id is valid" do
-      before(:each) do
+      before do
         stub_request(:put, /browserstack/)
           .with(
             body: /passed/,
@@ -44,7 +44,7 @@ RSpec.describe Quke::BrowserstackStatusReporter do
     end
 
     context "when the request fails" do
-      before(:each) do
+      before do
         stub_request(:put, /browserstack/)
           .with(
             body: /passed/,
@@ -75,7 +75,7 @@ RSpec.describe Quke::BrowserstackStatusReporter do
     end
 
     context "when the session_id is valid" do
-      before(:each) do
+      before do
         stub_request(:put, /browserstack/)
           .with(
             body: /failed/,
@@ -103,7 +103,7 @@ RSpec.describe Quke::BrowserstackStatusReporter do
     end
 
     context "when the request fails" do
-      before(:each) do
+      before do
         stub_request(:put, /browserstack/)
           .with(
             body: /passed/,

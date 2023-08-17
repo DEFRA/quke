@@ -2,7 +2,7 @@
 
 require "yaml"
 
-module Quke #:nodoc:
+module Quke # :nodoc:
 
   # Manages all configuration for Quke.
   class Configuration
@@ -110,9 +110,7 @@ module Quke #:nodoc:
     def stop_on_error
       # This use of Yaml.load to convert a string to a boolean comes from
       # http://stackoverflow.com/a/21804027/6117745
-      # rubocop:disable Security/YAMLLoad
       YAML.load(@data["stop_on_error"])
-      # rubocop:enable Security/YAMLLoad
     end
 
     # Returns the value set for +display_failures+.

@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-module Quke #:nodoc:
+module Quke # :nodoc:
 
   # Manages all proxy configuration for Quke.
   class ProxyConfiguration

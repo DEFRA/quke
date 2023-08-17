@@ -2,7 +2,7 @@
 
 require "quke/configuration"
 
-module Quke #:nodoc:
+module Quke # :nodoc:
 
   # Helper class that manages the options, switches and capabilities for each of
   # the different drivers.
@@ -54,8 +54,9 @@ module Quke #:nodoc:
     def chrome
       no_proxy = config.proxy.no_proxy.tr(",", ";")
 
-      options = Selenium::WebDriver::Chrome::Options.new
-      options.headless! if config.headless
+      args = config.headless ? ["--headless=new"] : []
+
+      options = Selenium::WebDriver::Options.chrome(args: args)
 
       options.add_argument("--proxy-server=#{config.proxy.host}:#{config.proxy.port}") if config.proxy.use_proxy?
       options.add_argument("--proxy-bypass-list=#{no_proxy}") unless config.proxy.no_proxy.empty?
