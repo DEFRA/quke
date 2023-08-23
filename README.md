@@ -3,7 +3,6 @@
 ![Build Status](https://github.com/DEFRA/quke/workflows/CI/badge.svg?branch=main)
 [![Maintainability Rating](https://sonarcloud.io/api/project_badges/measure?project=DEFRA_quke&metric=sqale_rating)](https://sonarcloud.io/dashboard?id=DEFRA_quke)
 [![Coverage](https://sonarcloud.io/api/project_badges/measure?project=DEFRA_quke&metric=coverage)](https://sonarcloud.io/dashboard?id=DEFRA_quke)
-[![security](https://hakiri.io/github/DEFRA/quke/main.svg)](https://hakiri.io/github/DEFRA/quke/main)
 [![Gem Version](https://badge.fury.io/rb/quke.svg)](https://badge.fury.io/rb/quke)
 [![Licence](https://img.shields.io/badge/Licence-OGLv3-blue.svg)](http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3)
 

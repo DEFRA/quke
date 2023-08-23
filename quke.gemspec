@@ -76,15 +76,5 @@ Gem::Specification.new do |spec|
   # and provides an API for managing it.
   spec.add_dependency "browserstack-local"
 
-  spec.add_development_dependency "defra_ruby_style"
-  spec.add_development_dependency "github_changelog_generator"
-  # Adds step-by-step debugging and stack navigation capabilities to pry using
-  # byebug
-  spec.add_development_dependency "pry-byebug"
-  spec.add_development_dependency "rake"
-  spec.add_development_dependency "rdoc"
-  spec.add_development_dependency "rspec", "~> 3.8"
-  spec.add_development_dependency "simplecov", "~> 0.17.1"
-  spec.add_development_dependency "webmock", "~> 3.5"
   spec.metadata["rubygems_mfa_required"] = "true"
 end

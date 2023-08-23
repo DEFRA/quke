@@ -1,5 +1,6 @@
 # frozen_string_literal: true
 
+require "./spec/support/simplecov"
 require "bundler/setup"
 
 # Requires supporting ruby files with custom matchers and macros, etc, in
