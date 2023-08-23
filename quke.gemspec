@@ -22,7 +22,6 @@ Gem::Specification.new do |spec|
   spec.files = Dir["{bin,exe,lib}/**/*", "LICENSE", "Rakefile", "README.md"]
   spec.bindir = "exe"
   spec.executables = spec.files.grep(%r{^exe/}) { |f| File.basename(f) }
-  spec.test_files = Dir["spec/**/*"]
 
   spec.require_paths = ["lib"]
 
@@ -33,7 +32,7 @@ Gem::Specification.new do |spec|
     spec.metadata["allowed_push_host"] = "https://rubygems.org"
   else
     raise "RubyGems 2.0 or newer is required to protect against " \
-      "public gem pushes."
+          "public gem pushes."
   end
 
   spec.required_ruby_version = ">= 2.4"
@@ -54,14 +53,7 @@ Gem::Specification.new do |spec|
 
   # selenium-webdriver is used to drive browsers like Firefox, Chrome and
   # Internet Explorer.
-  spec.add_dependency "selenium-webdriver", "~> 3.14"
-
-  # Needed to use Chrome or Firefox for selenium tests. You can opt
-  # to install each driver separately. However in an effort to make using this
-  # gem as simple as possible we have gone with using webdrivers. To quote
-  # from it "Run Selenium tests more easily with automatic installation and
-  # updates for all supported webdrivers."
-  spec.add_dependency "webdrivers", "~> 4.0"
+  spec.add_dependency "selenium-webdriver", "~> 4.1"
 
   # Experience has shown that keeping tests dry helps make them more
   # maintainable over time. One practice that helps is the use of the
@@ -84,14 +76,5 @@ Gem::Specification.new do |spec|
   # and provides an API for managing it.
   spec.add_dependency "browserstack-local"
 
-  spec.add_development_dependency "defra_ruby_style"
-  spec.add_development_dependency "github_changelog_generator"
-  # Adds step-by-step debugging and stack navigation capabilities to pry using
-  # byebug
-  spec.add_development_dependency "pry-byebug"
-  spec.add_development_dependency "rake"
-  spec.add_development_dependency "rdoc"
-  spec.add_development_dependency "rspec", "~> 3.8"
-  spec.add_development_dependency "simplecov", "~> 0.17.1"
-  spec.add_development_dependency "webmock", "~> 3.5"
+  spec.metadata["rubygems_mfa_required"] = "true"
 end

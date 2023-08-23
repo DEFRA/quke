@@ -47,25 +47,25 @@ RSpec.describe Quke::ProxyConfiguration do
 
   describe "#use_proxy?" do
     context "when the instance has been instantiated with no data" do
-      subject { Quke::ProxyConfiguration.new }
+      subject { described_class.new }
 
       it "returns false" do
-        expect(subject.use_proxy?).to eq(false)
+        expect(subject.use_proxy?).to be(false)
       end
     end
 
     context "when the instance has been instantiated with 'host' set" do
-      subject { Quke::ProxyConfiguration.new("host" => "10.10.2.70") }
+      subject { described_class.new("host" => "10.10.2.70") }
 
       it "returns true" do
-        expect(subject.use_proxy?).to eq(true)
+        expect(subject.use_proxy?).to be(true)
       end
     end
   end
 
   describe "#firefox_settings" do
     context "when the instance has been instantiated with no data" do
-      subject { Quke::ProxyConfiguration.new }
+      subject { described_class.new }
 
       it "returns an empty hash" do
         expect(subject.firefox_settings).to eq({})
@@ -73,7 +73,7 @@ RSpec.describe Quke::ProxyConfiguration do
     end
 
     context "when the instance has been instantiated with everything but 'host'" do
-      subject { Quke::ProxyConfiguration.new("port" => "8080", "no_proxy" => "127.0.0.1") }
+      subject { described_class.new("port" => "8080", "no_proxy" => "127.0.0.1") }
 
       it "returns an empty hash" do
         expect(subject.firefox_settings).to eq({})
@@ -82,7 +82,7 @@ RSpec.describe Quke::ProxyConfiguration do
 
     context "when the instance has been instantiated with data" do
       subject do
-        Quke::ProxyConfiguration.new(
+        described_class.new(
           "host" => "10.10.2.70",
           "port" => "8080",
           "no_proxy" => "127.0.0.1"

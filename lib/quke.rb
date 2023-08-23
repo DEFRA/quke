@@ -1,7 +1,6 @@
 # frozen_string_literal: true
 
 require "selenium/webdriver"
-require "webdrivers"
 require "capybara"
 
 require "quke/version"
@@ -13,7 +12,7 @@ require "quke/driver_registration"
 require "quke/driver_configuration"
 require "quke/proxy_configuration"
 
-module Quke #:nodoc:
+module Quke # :nodoc:
 
   class QukeError < StandardError; end
 

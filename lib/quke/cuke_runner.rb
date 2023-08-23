@@ -2,7 +2,7 @@
 
 require "cucumber"
 
-module Quke #:nodoc:
+module Quke # :nodoc:
 
   # Handles executing Cucumber, including sorting the arguments we pass to it
   class CukeRunner

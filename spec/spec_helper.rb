@@ -1,10 +1,7 @@
 # frozen_string_literal: true
 
-require "bundler/setup"
-
-# Require and run our simplecov initializer as the very first thing we do.
-# This is as per its docs https://github.com/colszowka/simplecov#getting-started
 require "./spec/support/simplecov"
+require "bundler/setup"
 
 # Requires supporting ruby files with custom matchers and macros, etc, in
 # spec/support/ and its subdirectories. Files matching `spec/**/*_spec.rb` are

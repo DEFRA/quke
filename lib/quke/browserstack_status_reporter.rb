@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-module Quke #:nodoc:
+module Quke # :nodoc:
 
   # Used to update the status of a session in Browserstack to mark it as passed
   # or failed. It does this by making a PUT request to Browserstack's REST API

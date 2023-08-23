@@ -5,7 +5,7 @@ require "spec_helper"
 RSpec.describe Quke do
   describe ".execute" do
     context "when the configured driver is 'chrome'" do
-      before(:example) do
+      before do
         Quke::Configuration.file_location = data_path(".chrome.yml")
         Quke::Quke.config = Quke::Configuration.new
       end
@@ -16,7 +16,7 @@ RSpec.describe Quke do
     end
 
     context "when the configured driver is 'firefox'" do
-      before(:example) do
+      before do
         Quke::Configuration.file_location = data_path(".firefox.yml")
         Quke::Quke.config = Quke::Configuration.new
       end
@@ -47,7 +47,7 @@ RSpec.describe Quke do
     # project. So at this time we have decided to mark this test as pending
     # until we can devote more time to identifying a solution.
     context "when the configured driver is 'browserstack'", skip: "failing in test suite" do
-      before(:example) do
+      before do
         Quke::Configuration.file_location = data_path(".browserstack.yml")
         Quke::Quke.config = Quke::Configuration.new
 

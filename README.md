@@ -3,7 +3,6 @@
 ![Build Status](https://github.com/DEFRA/quke/workflows/CI/badge.svg?branch=main)
 [![Maintainability Rating](https://sonarcloud.io/api/project_badges/measure?project=DEFRA_quke&metric=sqale_rating)](https://sonarcloud.io/dashboard?id=DEFRA_quke)
 [![Coverage](https://sonarcloud.io/api/project_badges/measure?project=DEFRA_quke&metric=coverage)](https://sonarcloud.io/dashboard?id=DEFRA_quke)
-[![security](https://hakiri.io/github/DEFRA/quke/main.svg)](https://hakiri.io/github/DEFRA/quke/main)
 [![Gem Version](https://badge.fury.io/rb/quke.svg)](https://badge.fury.io/rb/quke)
 [![Licence](https://img.shields.io/badge/Licence-OGLv3-blue.svg)](http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3)
 
@@ -119,14 +118,6 @@ A very simple overview of how things work is that
 - [Selenium](https://github.com/SeleniumHQ/selenium/tree/master/rb) is used to tell the browsers what to do
 - each browser has a driver ([Chromedriver](https://chromedriver.chromium.org/), [Geckodriver](https://github.com/mozilla/geckodriver) etc) which can interpret Selenium commands into actual actions
 
-For Quke to work those browser drivers need to be installed. Quke manages this for you using a tool called [Webdrivers](https://github.com/titusfortner/webdrivers). There may be times you want to check the version of these drivers, or force an update to a specific version.
-
-If your project is using [Rake](https://github.com/ruby/rake) add the following to the `Rakefile` and you can then access a series of helper functions, for example `rake webdrivers:chromedriver:version`
-
-```ruby
-require "quke"
-load "quke/Rakefile"
-```
 
 ## Development
 
