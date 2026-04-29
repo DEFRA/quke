@@ -97,7 +97,7 @@ module Quke # :nodoc:
           app,
           browser: :remote,
           url: @config.browserstack.url,
-          desired_capabilities: @driver_config.browserstack
+          capabilities: [@driver_config.browserstack]
         )
         # :simplecov_ignore:
       end

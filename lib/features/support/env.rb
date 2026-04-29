@@ -15,10 +15,6 @@ driver_config = Quke::DriverConfiguration.new(Quke::Quke.config)
 driver_reg = Quke::DriverRegistration.new(driver_config, Quke::Quke.config)
 driver = driver_reg.register(Quke::Quke.config.driver)
 
-# We need bs_local to be declared outside of the AfterConfiguration block below
-# so that it's available in the at_exit block.
-# Did try simply calling it @bs_local inside the AfterConfiguration but that
-# just kept causing Quke to crash immediately (shrug!)
 bs_local = nil
 
 Capybara.default_driver = driver
@@ -41,27 +37,21 @@ Capybara.run_server = false
 # which can mess up your project structure.
 Capybara.save_path = "tmp/"
 
-# There aren't specific hooks we can attach to that only get called once before
-# and after all tests have run in Cucumber. Therefore the next best thing is to
-# hook into the AfterConfiguration and at_exit blocks.
-#
-# As its name suggests, this gets called after Cucumber has been configured i.e.
-# all the steps above are complete. Fortunately this is before the tests start
-# running so its the best place for us to start up the browserstack local
-# testing binary (if it's required)
-AfterConfiguration do
+# BeforeAll / AfterAll run exactly once around the entire test run (Cucumber 8+).
+# We use BeforeAll to start the BrowserStack Local binary when local testing is
+# enabled, and AfterAll to stop it cleanly inside Cucumber's lifecycle.
+BeforeAll do
   if Quke::Quke.config.browserstack.test_locally?
     bs_local = BrowserStack::Local.new
-
-    # starts the Local instance with the required arguments via its management
-    # API
     bs_local.start(Quke::Quke.config.browserstack.local_testing_args)
   end
 end
 
-# This is the very last thing Cucumber calls that we can hook onto. Typically
-# used for final cleanup, we make use of it to kill our browserstack local
-# testing binary, and update the status of the session in browserstack
+AfterAll do
+  bs_local&.stop
+end
+
+# Update the BrowserStack session status (pass/fail) after all tests complete.
 at_exit do
   # Because of the way cucumber works everthing is made global. This also means
   # any variables we set also need to be made global so they can be accessed
@@ -80,8 +70,4 @@ at_exit do
     end
   end
   # rubocop:enable Style/GlobalVars
-  if bs_local && Quke::Quke.config.browserstack.test_locally?
-    # stop the local instance
-    bs_local.stop
-  end
 end

@@ -97,7 +97,7 @@ module Quke # :nodoc:
     #
     def firefox
       options = Selenium::WebDriver::Firefox::Options.new(profile: firefox_profile)
-      options.headless! if config.headless
+      options.add_argument("--headless") if config.headless
 
       options
     end
