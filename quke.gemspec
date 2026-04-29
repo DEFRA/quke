@@ -35,25 +35,25 @@ Gem::Specification.new do |spec|
           "public gem pushes."
   end
 
-  spec.required_ruby_version = ">= 2.4"
+  spec.required_ruby_version = ">= 3.4"
 
   # We need the cucumber gem to use cucumber, obviously!
-  spec.add_dependency "cucumber", "~> 3.1"
+  spec.add_dependency "cucumber", "~> 11.0"
 
   # We use capybara to drive whichever browser we are using, and by drive we
   # mean things like fill_in x, click_on y etc. Capybara makes it much easier to
   # do this, though if you're willing to go a level lower you can write your own
   # code to tell selenium how to interact with a web page
-  spec.add_dependency "capybara", "~> 3.14"
+  spec.add_dependency "capybara", "~> 3.40"
 
   # We bring in rspec-expectations to simplify how to actually test if a page is
   # correct. For example you can test you are on the right page in a step using
   # expect(page).to have_text 'Welcome to test nirvana!'
-  spec.add_dependency "rspec-expectations", "~> 3.8"
+  spec.add_dependency "rspec-expectations", "~> 3.13"
 
   # selenium-webdriver is used to drive browsers like Firefox, Chrome and
   # Internet Explorer.
-  spec.add_dependency "selenium-webdriver", "~> 4.1"
+  spec.add_dependency "selenium-webdriver", "~> 4.43"
 
   # Experience has shown that keeping tests dry helps make them more
   # maintainable over time. One practice that helps is the use of the
@@ -63,13 +63,13 @@ Gem::Specification.new do |spec|
   # different steps. Site_Prism provides a page object framework, and we build
   # it into the gem so users of Quke don't have to add and setup this dependency
   # themselves
-  spec.add_dependency "site_prism", "~> 3.0"
+  spec.add_dependency "site_prism", "~> 6.0"
 
   # Capybara includes a method called save_and_open_page. Without Launchy it
   # will still save to file a copy of the source html of the page in question
   # at that time. However simply adding this line into the gemfile means it
   # will instead open in the default browser instead.
-  spec.add_dependency "launchy", "~> 2.4"
+  spec.add_dependency "launchy", "~> 3.1"
 
   # Ruby bindings for BrowserStack Local. This gem handles downloading and
   # installing the right version of the binary for the OS Quke is running on,
