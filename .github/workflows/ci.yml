@@ -10,7 +10,7 @@ jobs:
     steps:
       # Downloads a copy of the code in your repository before running CI tests
       - name: Checkout repository
-        uses: actions/checkout@v2
+        uses: actions/checkout@v4
         with:
           fetch-depth: 0  # Shallow clones should be disabled for a better relevancy of sonarcloud analysis
 
@@ -37,7 +37,7 @@ jobs:
           sed -i 's/\/home\/runner\/work\/quke\/quke\//\/github\/workspace\//g' coverage/.resultset.json
 
       - name: Analyze with SonarCloud
-        uses: sonarsource/sonarcloud-github-action@master
+        uses: sonarsource/sonarqube-scan-action@master
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} # This is provided automatically by GitHub
-          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }} # This needs to be set in your repo; settings -> secrets
+          SONAR_TOKEN: ${{ secrets.RUBY_SONAR_TOKEN }} # This needs to be set in your repo; settings -> secrets
