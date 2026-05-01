@@ -58,6 +58,9 @@ module Quke # :nodoc:
 
       options = Selenium::WebDriver::Options.chrome(args: args)
 
+      options.add_argument("--window-size=1920,1080")
+      options.add_argument("--disable-back-forward-cache")
+      options.add_argument("--disable-features=BackForwardCache,BuiltInJsonViewer")
       options.add_argument("--proxy-server=#{config.proxy.host}:#{config.proxy.port}") if config.proxy.use_proxy?
       options.add_argument("--proxy-bypass-list=#{no_proxy}") unless config.proxy.no_proxy.empty?
 

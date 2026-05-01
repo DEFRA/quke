@@ -20,6 +20,20 @@ bs_local = nil
 Capybara.default_driver = driver
 Capybara.javascript_driver = driver
 
+# Chrome 147+ raises UnknownError with "Node with given id does not belong to
+# the document" instead of StaleElementReferenceError when a cached DOM node
+# reference becomes invalid after navigation. Adding UnknownError to Capybara's
+# retriable errors makes Chrome behave like Firefox, which retries internally.
+if Quke::Quke.config.driver == "chrome"
+  module QukeChromeStaleNodeFix
+    def invalid_element_errors
+      @invalid_element_errors ||=
+        super + [::Selenium::WebDriver::Error::UnknownError]
+    end
+  end
+  Capybara::Selenium::Driver.prepend(QukeChromeStaleNodeFix)
+end
+
 # default_max_wait_time is the maximum time Capybara will wait for an element
 # to appear. You may wish to override it if you are having to deal with a slow
 # or unresponsive web site.
