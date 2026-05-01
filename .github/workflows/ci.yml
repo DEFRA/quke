@@ -34,4 +34,4 @@ jobs:
         uses: sonarsource/sonarqube-scan-action@v7
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} # This is provided automatically by GitHub
-          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }} # This needs to be set in your repo; settings -> secrets
+          SONAR_TOKEN: ${{ secrets.RUBY_SONAR_TOKEN }} # This needs to be set in your repo; settings -> secrets
