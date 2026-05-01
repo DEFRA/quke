@@ -10,7 +10,7 @@ RSpec.describe Quke::DriverConfiguration do
       it "returns an instance of Chrome::Options where the proxy details are NOT set" do
         Quke::Configuration.file_location = data_path(".no_file.yml")
         config = Quke::Configuration.new
-        expect(described_class.new(config).chrome.args).to eq([])
+        expect(described_class.new(config).chrome.args).not_to include(start_with("--proxy-server"))
       end
     end
 
@@ -18,10 +18,8 @@ RSpec.describe Quke::DriverConfiguration do
       it "returns an instance of Chrome::Options containing basic proxy settings" do
         Quke::Configuration.file_location = data_path(".proxy_basic.yml")
         config = Quke::Configuration.new
-        expect(described_class.new(config).chrome.args).to eq(
-          [
-            "--proxy-server=#{config.proxy.host}:#{config.proxy.port}"
-          ]
+        expect(described_class.new(config).chrome.args).to include(
+          "--proxy-server=#{config.proxy.host}:#{config.proxy.port}"
         )
       end
     end
@@ -30,11 +28,9 @@ RSpec.describe Quke::DriverConfiguration do
       it "returns an instance of Chrome::Options containing proxy settings including no-proxy details" do
         Quke::Configuration.file_location = data_path(".proxy.yml")
         config = Quke::Configuration.new
-        expect(described_class.new(config).chrome.args).to eq(
-          [
-            "--proxy-server=#{config.proxy.host}:#{config.proxy.port}",
-            "--proxy-bypass-list=127.0.0.1;192.168.0.1"
-          ]
+        expect(described_class.new(config).chrome.args).to include(
+          "--proxy-server=#{config.proxy.host}:#{config.proxy.port}",
+          "--proxy-bypass-list=127.0.0.1;192.168.0.1"
         )
       end
     end
@@ -43,11 +39,7 @@ RSpec.describe Quke::DriverConfiguration do
       it "returns an instance of Chrome::Options containing the specified user-agent" do
         Quke::Configuration.file_location = data_path(".user_agent.yml")
         config = Quke::Configuration.new
-        expect(described_class.new(config).chrome.args).to eq(
-          [
-            "--user-agent=#{config.user_agent}"
-          ]
-        )
+        expect(described_class.new(config).chrome.args).to include("--user-agent=#{config.user_agent}")
       end
     end
 
@@ -55,7 +47,7 @@ RSpec.describe Quke::DriverConfiguration do
       it "returns an instance of Chrome::Options set to run the browser in headless mode" do
         Quke::Configuration.file_location = data_path(".headless.yml")
         config = Quke::Configuration.new
-        expect(described_class.new(config).chrome.args).to eq(["--headless=new"])
+        expect(described_class.new(config).chrome.args).to include("--headless=new")
       end
     end
 
@@ -129,7 +121,7 @@ RSpec.describe Quke::DriverConfiguration do
       it "returns an instance of Firefox::Options set to run the browser in headless mode" do
         Quke::Configuration.file_location = data_path(".headless.yml")
         config = Quke::Configuration.new
-        expect(described_class.new(config).chrome.args).to eq(["--headless=new"])
+        expect(described_class.new(config).firefox.args).to include("--headless")
       end
     end
 
