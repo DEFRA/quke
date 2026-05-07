@@ -13,9 +13,9 @@ group :development, :test do
   gem "rdoc"
   gem "rspec"
   gem "rubocop"
+  gem "rubocop-factory_bot"
   gem "rubocop-rake"
   gem "rubocop-rspec"
-  gem "simplecov", "~> 0.17.1"
-  gem "simplecov-json", require: false
+  gem "simplecov", "~> 0.22", require: false
   gem "webmock"
 end

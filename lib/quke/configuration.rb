@@ -110,7 +110,7 @@ module Quke # :nodoc:
     def stop_on_error
       # This use of Yaml.load to convert a string to a boolean comes from
       # http://stackoverflow.com/a/21804027/6117745
-      YAML.load(@data["stop_on_error"])
+      YAML.safe_load(@data["stop_on_error"])
     end
 
     # Returns the value set for +display_failures+.
@@ -267,7 +267,7 @@ module Quke # :nodoc:
         # rubocop:disable Style/InverseMethods
         "display_failures" => !(data["display_failures"].to_s.downcase.strip == "false"),
         # rubocop:enable Style/InverseMethods
-        "custom" => (data["custom"] || nil)
+        "custom" => data["custom"] || nil
       )
     end
     # rubocop:enable Metrics/AbcSize
@@ -278,7 +278,7 @@ module Quke # :nodoc:
       if File.exist? self.class.file_location
         # YAML.load_file returns false if the file exists but is empty. So
         # added the || {} to ensure we always return a hash from this method
-        YAML.load_file(self.class.file_location) || {}
+        YAML.safe_load_file(self.class.file_location) || {}
       else
         {}
       end

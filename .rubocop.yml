@@ -4,6 +4,9 @@ inherit_gem:
   defra_ruby_style:
     - default.yml
 
-require:
+plugins:
   - rubocop-rake
   - rubocop-rspec
+
+AllCops:
+  TargetRubyVersion: 3.4
