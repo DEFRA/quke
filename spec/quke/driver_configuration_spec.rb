@@ -14,6 +14,18 @@ RSpec.describe Quke::DriverConfiguration do
       end
     end
 
+    context "default Chrome options are always set" do
+      it "includes window size, back-forward cache, and feature flags" do
+        Quke::Configuration.file_location = data_path(".no_file.yml")
+        config = Quke::Configuration.new
+        expect(described_class.new(config).chrome.args).to include(
+          "--window-size=1920,1080",
+          "--disable-back-forward-cache",
+          "--disable-features=BackForwardCache,BuiltInJsonViewer"
+        )
+      end
+    end
+
     context "basic proxy details have been set in the .config.yml" do
       it "returns an instance of Chrome::Options containing basic proxy settings" do
         Quke::Configuration.file_location = data_path(".proxy_basic.yml")
